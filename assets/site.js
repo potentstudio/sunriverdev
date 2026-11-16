@@ -209,7 +209,7 @@
   // scroll or pinch to zoom, drag to move, double-click to zoom in, + and - buttons, Escape or the X to close.
   function openLightbox(src, alt, zoomable) {
     var box = document.createElement('div');
-    box.className = 'lightbox' + (zoomable ? ' is-zoom' : '');
+    box.className = 'lightbox' + (zoomable ? ' is-zoom' : '') + (document.querySelector('.hd') ? ' lb-light' : '');
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
     box.setAttribute('aria-label', alt || 'Enlarged image');

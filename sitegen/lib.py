@@ -240,7 +240,7 @@ SOCIAL = '''<div class="social">
 
 FOOTER_COLS = [
     ("Company", [("Why SunRiver?", "/why-sunriver"), ("About", "/about"), ("Southern Utah", "/southern-utah"), ("FAQ", "/faq"), ("History", "/history")]),
-    ("Find a Home", [("Homes for Sale", "/homes-for-sale"), ("Mortgage Options", "/no-mortgage-payments-for-life"), ("Energy Efficient Homes", "/energy")]),
+    ("Find a Home", [("Homes for Sale", "/homes-for-sale"), ("Mortgage Options", "/no-mortgage-payments-for-life"), ("Energy Efficient Homes", "/energy"), ("Design Center", "/design")]),
     # Clark, Nov 2026: St. George and Villas are shown by name only (no link, no page); SunRiver Firelight is the one to explore
     ("Communities", [("SunRiver St. George", None), ("SunRiver Firelight", "/sunriver-firelight"), ("SunRiver Villas", None)]),
     ("Get in Touch", [("Contact Us", "/contact-us"), ("Bucketlistliving Blog", "/bucketlistliving"), ("SunRiverToday.com", "https://www.sunrivertoday.com/"),

@@ -250,7 +250,7 @@ def build_plan(p, i, plans):
         <p class="pd-story">%s</p>
         %s
         %s
-        <div class="hd-actions"><a class="hd-btn solid" href="/contact-us">Schedule a Tour</a><a class="hd-btn" href="/contact-us#team">Request Info</a></div>
+        <div class="hd-actions"><a class="hd-btn solid" href="/contact-us">Schedule a Tour</a><a class="hd-btn hd-info" href="/contact-us#team">Request Info</a><a class="hd-btn hd-call" href="tel:+14356881000">Call Us</a></div>
       </div>
     </div>
     %s
@@ -435,7 +435,7 @@ def gallery(pics, alt, variant):
     main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px")
     thumbs = "".join('<button type="button" class="thumb%s" data-src="%s" aria-label="Show photo %d of %d">%s</button>' % (
         " is-active" if k == 0 else "", S(r, 1600), k + 1, len(pics), img(S(r, 320), "%s photo %d" % (alt, k + 1))) for k, r in enumerate(pics))
-    return '''<div class="hd-media viewer gal gal-%s" data-gal>
+    return '''<div class="hd-media viewer gal gal-%s%s" data-gal>
         <div class="viewer-main">%s
           <button type="button" class="gal-arrow gal-prev" aria-label="Previous photo">%s</button>
           <button type="button" class="gal-arrow gal-next" aria-label="Next photo">%s</button>
@@ -446,7 +446,7 @@ def gallery(pics, alt, variant):
           <div class="gal-track">%s</div>
           <button type="button" class="gal-sarrow gal-snext" aria-label="More photos">%s</button>
         </div>
-      </div>''' % (variant, main, L, R, len(pics), L, thumbs, R)
+      </div>''' % (variant, " gal-single" if len(pics) == 1 else "", main, L, R, len(pics), L, thumbs, R)
 
 
 def build_listing(l, path=None, gal="a"):
@@ -482,7 +482,7 @@ def build_listing(l, path=None, gal="a"):
     head, story = listing_story(l)
     comm = COMMUNITY_LABEL.get(l.get("community"), l.get("community", ""))
     mls = ""
-    media = gallery(pics, alt, gal) if gal and len(pics) > 1 else '<div class="hd-media viewer"><div class="viewer-main">%s</div>%s</div>' % (main, thumbs)
+    media = gallery(pics, alt, gal) if gal and pics else '<div class="hd-media viewer"><div class="viewer-main">%s</div>%s</div>' % (main, thumbs)
     add(path or "/homes-for-sale/%s" % l["slug"], "%s, %s" % (title, addr),
         "%s at %s: %s sq ft, %s bed, %s bath. %s." % (title, l.get("address") or "", "{:,}".format(l.get("squareFootage") or 0), num(l.get("beds")), num(l.get("baths")), l.get("status", "")), "homes", '''
 <section class="hd">
@@ -499,7 +499,7 @@ def build_listing(l, path=None, gal="a"):
         %s
         <p class="hd-status">%s</p>
         %s%s
-        <div class="hd-actions"><a class="hd-btn solid" href="/contact-us">Schedule a Tour</a><a class="hd-btn" href="/contact-us#team">Request Info</a></div>
+        <div class="hd-actions"><a class="hd-btn solid" href="/contact-us">Schedule a Tour</a><a class="hd-btn hd-info" href="/contact-us#team">Request Info</a><a class="hd-btn hd-call" href="tel:+14356881000">Call Us</a></div>
         %s
       </div>
     </div>

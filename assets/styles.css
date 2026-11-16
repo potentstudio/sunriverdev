@@ -2522,7 +2522,7 @@ img.dv-logo { display: block; width: 300px; max-width: 100%; height: auto; margi
 .gal-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 30px) / 4); gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
 .gal-track::-webkit-scrollbar { display: none; }
 .gal-track .thumb { width: auto; aspect-ratio: 159 / 83; border: 0; border-radius: 10px; outline-offset: -3px; scroll-snap-align: start; }
-.gal-track .thumb.is-active { outline: 3px solid var(--sun-yellow); }
+.gal-track .thumb.is-active { outline: 3px solid #FFFFFF; }
 .gal-sarrow[disabled] { opacity: 0; pointer-events: none; }
 
 /* A: soft white arrows sitting on the photos */
@@ -2603,3 +2603,18 @@ button.filters-title { display: flex; align-items: center; justify-content: spac
   .filters.is-open .filters-body { display: grid; }
   .filters.is-open .filters-chev { transform: rotate(180deg); }
 }
+
+/* Listing detail: one photo still gets its thumbnail row (no arrows, no count) so the photo keeps the same shape */
+.gal-single .gal-arrow, .gal-single .gal-count, .gal-single .gal-sarrow { display: none; }
+/* Listing detail on phones: Request Info becomes a yellow Call Us button */
+.hd-call { display: none; }
+@media (max-width: 860px) {
+  .hd-info { display: none; }
+  .hd-call { display: grid; place-items: center; background: var(--sun-yellow); border-color: var(--sun-yellow); color: #143250; }
+}
+/* Listing detail lightbox: white backdrop instead of deep river blue */
+.lightbox.lb-light { background: rgba(255, 255, 255, .94); }
+.lightbox.lb-light .lb-card { box-shadow: 0 20px 60px rgba(20, 50, 80, .18); }
+.lightbox.lb-light .lb-close { box-shadow: 0 6px 18px rgba(20, 50, 80, .25); }
+.lightbox.lb-light .lb-hint { color: #335A97; }
+.lightbox.lb-light .lb-ctl { box-shadow: 0 6px 20px rgba(20, 50, 80, .2); }
