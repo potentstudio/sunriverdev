@@ -142,7 +142,7 @@ FOOTER_BG = V("footer-rocks.16z_pgs-5dzer.jpg")
 
 LIFE = [
     ("Live In", "/live-in", "Floor Plans. The Design Center. How We Build.", V("live-in.0-iialxva3p9u.jpg"), "Couple relaxing in a SunRiver Firelight home"),
-    ("Live Out", "/live-out", "Southern Utah. Trails and Nearby Adventure.", V("live-out.2z9c8sf8gogme.jpg"), "SunRiver members hiking in red rock country"),
+    ("Live Out", "/live-out", "Southern Utah. Trails and Nearby Adventure.", V("hike.07ka4q1elcjrm.jpg"), "SunRiver members hiking in red rock country"),
     ("Live On", "/live-on", "Clubs and Activities. Events Calendar. Bucketlist.", V("live-on.2kwzvtocledst.jpg"), "SunRiver members enjoying a club activity"),
 ]
 NAV = [("homes", "Homes", "/homes-for-sale"), ("about", "About", "/about"), ("visit", "Visit", "/contact-us")]

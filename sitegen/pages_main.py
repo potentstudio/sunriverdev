@@ -821,7 +821,7 @@ def build_main(plans, listings):
          "Homes built for the way you actually live: open kitchens for gathering, hobby rooms for picking things back up, and extended garages for the gear.",
          [("Floor Plans", "Seven plans, five of them open as model homes.", "/floor-plans"), ("Homes for Sale", "Move-in ready homes at SunRiver Firelight.", "/homes-for-sale"),
           ("Energy Efficient Homes", "How the homes are built.", "/energy"), ("Incentives", "Current offers for new homebuyers.", "/incentives")]),
-        ("/live-out", "Live Out", "Southern Utah. Trails and Nearby Adventure.", V("live-out.2z9c8sf8gogme.jpg"),
+        ("/live-out", "Live Out", "Southern Utah. Trails and Nearby Adventure.", V("hike.07ka4q1elcjrm.jpg"),
          "Zion is 31 minutes from SunRiver Firelight. Snow Canyon is closer. Six national parks are within a few hours, and trails leave right from the neighborhood.",
          [("Southern Utah", "Zion, Snow Canyon and the region around the community.", "/southern-utah"), ("Why SunRiver?", "The lifestyle, in one place.", "/why-sunriver"),
           ("Bucketlist Living", "Trips, trails and days out from the blog.", "/bucketlistliving"), ("Discovery Villas", "Stay three days and two nights and explore.", "/discovery-villas")]),
