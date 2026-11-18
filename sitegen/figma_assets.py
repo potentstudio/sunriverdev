@@ -180,6 +180,8 @@ def build(dist, on_netlify):
         local = "/media/fg/%s.webp" % name
         dest = out_dir / (name + ".webp")
         override = ROOT / "assets" / "fg" / (name + ".webp")
+        if not override.exists():
+            override = ROOT / "media" / "fg" / (name + ".webp")
         if override.exists():
             dest.write_bytes(override.read_bytes())
             continue

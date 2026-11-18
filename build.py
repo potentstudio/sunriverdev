@@ -116,10 +116,15 @@ def main():
                 shutil.rmtree(p) if p.is_dir() else p.unlink()
     DIST.mkdir(exist_ok=True)
     shutil.copytree(ROOT / "assets", DIST / "assets", dirs_exist_ok=True)
+    # Media committed to the repo (media/v, media/fg), so the site does not depend on the dev sites at build time
+    if (ROOT / "media").exists():
+        shutil.copytree(ROOT / "media", DIST / "media", dirs_exist_ok=True)
+    if (ROOT / "media" / "favicon.ico").exists():
+        shutil.copy(ROOT / "media" / "favicon.ico", DIST / "favicon.ico")
 
     # Mirror the dev site's static media so pages don't depend on another team's deployment.
     failed = []
-    mirror_on = os.environ.get("MIRROR", "1" if ON_NETLIFY else "0") == "1"
+    mirror_on = os.environ.get("MIRROR", "1" if (ON_NETLIFY or os.environ.get("VERCEL")) else "0") == "1"
     if mirror_on:
         download(("/favicon.ico", lib.VERCEL + "/favicon.ico"))
         print("Mirroring %d media files" % len(lib.MIRROR))
@@ -130,7 +135,7 @@ def main():
         if failed:
             print("  %d files could not be mirrored, linking to the dev site instead: %s" % (len(failed), ", ".join(failed)))
     else:
-        failed = list(lib.MIRROR)
+        failed = [l for l in lib.MIRROR if not (DIST / l.lstrip("/")).exists()]
     fallback = {local: lib.MIRROR[local] for local in failed}
     print("Building homepage images from Figma")
     fallback.update(figma_assets.build(DIST, ON_NETLIFY))

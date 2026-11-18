@@ -1,0 +1,261 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "python3 -m pip install -r requirements.txt",
+  "buildCommand": "python3 build.py",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-firelight.html",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-firelight-floor-plans.html",
+      "destination": "/floor-plans",
+      "permanent": true
+    },
+    {
+      "source": "/st-george.html",
+      "destination": "/st-george",
+      "permanent": true
+    },
+    {
+      "source": "/villas.html",
+      "destination": "/villas",
+      "permanent": true
+    },
+    {
+      "source": "/southern-utah.html",
+      "destination": "/southern-utah",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact-us",
+      "permanent": true
+    },
+    {
+      "source": "/discovery-villas.html",
+      "destination": "/discovery-villas",
+      "permanent": true
+    },
+    {
+      "source": "/founders-club.html",
+      "destination": "/founders-club",
+      "permanent": true
+    },
+    {
+      "source": "/no-mortgage-payments-for-life.html",
+      "destination": "/no-mortgage-payments-for-life",
+      "permanent": true
+    },
+    {
+      "source": "/energy.html",
+      "destination": "/energy",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living.html",
+      "destination": "/bucketlistliving",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/history.html",
+      "destination": "/history",
+      "permanent": true
+    },
+    {
+      "source": "/find-a-home.html",
+      "destination": "/find-a-home",
+      "permanent": true
+    },
+    {
+      "source": "/homes-for-sale.html",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-best-55-plus-community-utah.html",
+      "destination": "/why-sunriver",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact-us",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-firelight-floor-plans",
+      "destination": "/floor-plans",
+      "permanent": true
+    },
+    {
+      "source": "/floorplans",
+      "destination": "/floor-plans",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-best-55-plus-community-utah",
+      "destination": "/why-sunriver",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living",
+      "destination": "/bucketlistliving",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/:path*",
+      "destination": "/bucketlistliving/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/calendar",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/calendar/:path*",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/mortgage-options",
+      "destination": "/no-mortgage-payments-for-life",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlistliving",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "(?<p>.+)"
+        }
+      ],
+      "destination": "/bucketlistliving/page/:p",
+      "permanent": true
+    },
+    {
+      "source": "/hamlet",
+      "destination": "/floor-plans/hamlet",
+      "permanent": true
+    },
+    {
+      "source": "/hamlet.html",
+      "destination": "/floor-plans/hamlet",
+      "permanent": true
+    },
+    {
+      "source": "/august",
+      "destination": "/floor-plans/august",
+      "permanent": true
+    },
+    {
+      "source": "/august.html",
+      "destination": "/floor-plans/august",
+      "permanent": true
+    },
+    {
+      "source": "/tara",
+      "destination": "/floor-plans/tara",
+      "permanent": true
+    },
+    {
+      "source": "/tara.html",
+      "destination": "/floor-plans/tara",
+      "permanent": true
+    },
+    {
+      "source": "/evergreen",
+      "destination": "/floor-plans/evergreen",
+      "permanent": true
+    },
+    {
+      "source": "/evergreen.html",
+      "destination": "/floor-plans/evergreen",
+      "permanent": true
+    },
+    {
+      "source": "/elmwood",
+      "destination": "/floor-plans/elmwood",
+      "permanent": true
+    },
+    {
+      "source": "/elmwood.html",
+      "destination": "/floor-plans/elmwood",
+      "permanent": true
+    },
+    {
+      "source": "/astoria",
+      "destination": "/floor-plans/astoria",
+      "permanent": true
+    },
+    {
+      "source": "/astoria.html",
+      "destination": "/floor-plans/astoria",
+      "permanent": true
+    },
+    {
+      "source": "/amberly",
+      "destination": "/floor-plans/amberly",
+      "permanent": true
+    },
+    {
+      "source": "/amberly.html",
+      "destination": "/floor-plans/amberly",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/cdn-img/:path*",
+      "destination": "https://cdn.sanity.io/images/ib6s13lu/production/:path*"
+    },
+    {
+      "source": "/vimg/:path*",
+      "destination": "https://sunriver-website.vercel.app/_next/static/media/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
+}

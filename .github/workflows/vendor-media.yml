@@ -1,0 +1,39 @@
+# One-time (or occasional) job: copies the images the site borrows from the two dev sites
+# (sunriver-website.vercel.app and sunriverdev.netlify.app) into media/ in this repo,
+# so the production build on Vercel does not depend on either dev site staying up.
+# Runs when .github/vendor-media.txt changes, or by hand from the Actions tab.
+name: Vendor media
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/vendor-media.txt"]
+permissions:
+  contents: write
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - name: Build with mirroring on
+        run: NETLIFY=true MIRROR=1 python build.py
+      - name: Copy mirrored media into the repo
+        run: |
+          mkdir -p media
+          rm -rf media/v media/fg
+          cp -r dist/media/v media/v
+          cp -r dist/media/fg media/fg
+          [ -f dist/favicon.ico ] && cp dist/favicon.ico media/favicon.ico || true
+          du -sh media; find media -type f | wc -l
+      - name: Commit
+        run: |
+          git config user.name "Adam Record"
+          git config user.email "adammrecord@gmail.com"
+          git add media
+          git diff --cached --quiet && echo "nothing new" && exit 0
+          git commit -m "Vendor dev-site media into media/ so production builds are self-contained"
+          git push
