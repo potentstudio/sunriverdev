@@ -10,7 +10,9 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-API = "https://ib6s13lu.apicdn.sanity.io/v2024-01-01/data/query/production?query="
+# The live API, not the cached one (apicdn): a build that starts right after someone publishes in Sanity must see
+# that change, and the cached API can serve the previous content for a minute or more.
+API = "https://ib6s13lu.api.sanity.io/v2024-01-01/data/query/production?query="
 ON_NETLIFY = os.environ.get("NETLIFY") == "true"
 NOT_DRAFT = '!(_id in path("drafts.**"))'
 
