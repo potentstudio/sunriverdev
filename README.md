@@ -11,9 +11,10 @@ Run locally: `python3 build.py` then serve `dist/` (for example `cd dist && pyth
 
 ## Deploying on Vercel (production)
 
-1. In Vercel: Add New > Project > import the GitHub repo `adamencore/sunriverdev`.
+1. In Vercel: Add New > Project > import the GitHub repo `potentstudio/sunriverdev`.
 2. Framework preset: Other. Everything else is read from `vercel.json`:
-   install `python3 -m pip install -r requirements.txt`, build `python3 build.py`, output `dist`,
+   install `python3 -m pip install --break-system-packages -r requirements.txt` (Vercel's Python is
+   managed by uv and refuses a plain `pip install`), build `python3 build.py`, output `dist`,
    plus the old-URL redirects, the `/cdn-img` proxy and cache headers.
 3. Deploy, then add the domain (sunriver.com) under Settings > Domains when ready to launch.
 
