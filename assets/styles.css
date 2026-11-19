@@ -2678,3 +2678,8 @@ body.landing main > section:first-child { padding-top: clamp(36px, 5vw, 76px); }
   .chat-form.lp-dv-form .btn { justify-self: stretch; }
 }
 .chat-form.light input[type="date"], .chat-form.light select { border: 2px solid var(--line); }
+
+/* Discovery Villas: one yellow, #E49C08, everywhere on the page (Adam, Nov 2026) */
+.dv-yellow { --sun-yellow: #E49C08; --sun-yellow-deep: #E49C08; }
+.dv-yellow .fh-hero h1::after, .dv-yellow .chat-form { background: #E49C08; }
+.dv-yellow .footer-col a, .dv-yellow .footer-brand a { background-image: linear-gradient(#E49C08, #E49C08); }
