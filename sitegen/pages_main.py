@@ -1,7 +1,7 @@
 """Hand-built pages, matched to the developers' Vercel build (section order, imagery, URLs)
 with SunRiver brand rules applied to the copy (SunRiver members, Zion 31 minutes from
 SunRiver Firelight, no golf at Firelight, no rates or percentages, no em dashes)."""
-from .lib import (FOUNDERS_BADGE, PHONE, PHONE_TEL, S, SQ, V, VP, add, banner, band, btn, chat_section, esc, faq, img,
+from .lib import (FOUNDERS_BADGE, HONEYPOT, PHONE, PHONE_TEL, S, SQ, V, VP, add, banner, band, btn, chat_section, esc, faq, hs_attrs, img,
                   full_hero, photo, photo_hero, sand_hero, simg, star_list, ul, yellow_hero)
 from .figma_assets import FG
 from .pages_cms import fp_card, min_price, plan_card
@@ -354,7 +354,7 @@ def build_main(plans, listings):
         " flip" if i % 2 else "", img(p, t), t, d) for i, (t, d, p) in enumerate(fl_amen))
     ev = by_slug.get("evergreen") or plans[0]
     # Version 2 (Clark, Nov 2026): the live sunriver.com Firelight page, cleaned up, to compare with the prototype
-    add("/sunriver-firelight-v2", "SunRiver Firelight", "SunRiver Firelight in Toquerville, Utah: SunRiver's newest 55+ community puts Zion National Park in your backyard.", "life", '''
+    fl_tpl = '''
 %s
 <section class="section">
   <div class="wrap split wide-text">
@@ -426,8 +426,8 @@ def build_main(plans, listings):
   </div>
 </section>
 %s
-%s''' % (photo_hero("Explore our newest community", "SunRiver's newest community puts Zion in your backyard.", "", V("hero.2h_vl62bxoy8t.jpg"), "SunRiver Firelight homes with red rock mountains behind", btn("Talk with an Agent", "/contact-us")),
-         img(V("badge.3uv840yemxfy7.png"), "SunRiver Firelight badge"),
+%s'''
+    fl_args = (img(V("badge.3uv840yemxfy7.png"), "SunRiver Firelight badge"),
          band(V("clubhouse-rendering.1ka003naw87xl.jpg"), "Rendering of the SunRiver Firelight Clubhouse"), mix_html, btn("Contact Sales Today", "/contact-us"),
          band(V("grand-view.0qm1t8yvr616g.png"), "Grand view of SunRiver Firelight and the surrounding red rock country"),
          fl_clubs_html, week_html, fl_amen_html,
@@ -435,8 +435,47 @@ def build_main(plans, listings):
          btn("Contact a Sales Agent Today", "/contact-us"), V("site-map.0x3u4v7ysjd38.jpg"), img(V("site-map.0x3u4v7ysjd38.jpg"), "Site map of SunRiver Firelight Phase 1 and 2 homesites, model homes and Clubhouse"),
          img(V("couple-couch.00eu4vj9i0gdx.jpg"), "SunRiver members relaxing at home"), img(V("couple-front.24z3-z26uive0.jpg"), "SunRiver members in front of their SunRiver Firelight home"),
          plan_card(ev), btn("Explore More Plans", "/floor-plans", "blue-btn"),
-         banner("Looking for something <strong>more immediate?</strong>", V("parade-home.05ayhbavvyl2k.jpg"), btn("Explore Homes For Sale", "/homes-for-sale"), True),
-         chat_section()))
+         banner("Looking for something <strong>more immediate?</strong>", V("parade-home.05ayhbavvyl2k.jpg"), btn("Explore Homes For Sale", "/homes-for-sale"), True))
+    add("/sunriver-firelight-v2", "SunRiver Firelight", "SunRiver Firelight in Toquerville, Utah: SunRiver's newest 55+ community puts Zion National Park in your backyard.", "life",
+        fl_tpl % ((photo_hero("Explore our newest community", "SunRiver's newest community puts Zion in your backyard.", "", V("hero.2h_vl62bxoy8t.jpg"), "SunRiver Firelight homes with red rock mountains behind", btn("Talk with an Agent", "/contact-us")),)
+                  + fl_args + (chat_section(),)))
+
+    # Ad landing page (Microsoft Ads send people to /firelight-bing). The same page as on the old sunriver.com: the
+    # headline and "Get Pricing & Floor Plans" form on blue, then the SunRiver Firelight sections above. The form
+    # feeds the landing page's own HubSpot form, so these leads stay separate from the rest of the site's.
+    bing_hero = '''<section class="lp-hero" id="pricing">
+  <div class="wrap lp-hero-grid">
+    <div class="lp-hero-copy">
+      <h1>SunRiver's <span class="yellow">newest</span> community puts Zion in <span class="lp-under">your</span> backyard.</h1>
+      <span class="lp-arrow" aria-hidden="true"></span>
+    </div>
+    <div class="lp-hero-form">
+      <h2>Get Pricing &amp; Floor Plans</h2>
+      <p class="lp-sub">A SunRiver agent will send current availability and pricing within one business day.</p>
+      <form class="chat-form lp-form" %s novalidate aria-label="Get pricing and floor plans">
+        <div class="row">
+          <div><label for="lp-first">First Name</label><input id="lp-first" name="firstname" type="text" autocomplete="given-name" required></div>
+          <div><label for="lp-last">Last Name</label><input id="lp-last" name="lastname" type="text" autocomplete="family-name" required></div>
+        </div>
+        <div><label for="lp-email">Email</label><input id="lp-email" name="email" type="email" autocomplete="email" required></div>
+        <div><label for="lp-phone">Mobile Phone Number</label><input id="lp-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>
+        %s
+        <p class="consent">By clicking "Send me pricing", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
+        <button class="btn" type="submit">Send me pricing</button>
+        <p class="form-note" role="status" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>''' % (hs_attrs("firelight-bing"), HONEYPOT)
+    bing_close = '''<section class="section yellow-bg lp-close">
+  <div class="wrap center stack">
+    <h2>Get Pricing &amp; Floor Plans</h2>
+    <p>A SunRiver agent will send current availability and pricing within one business day.</p>
+    <div class="btn-row" style="justify-content:center"><a class="btn sand-btn" href="#pricing">Send me pricing</a><a class="btn blue-btn" href="%s">Call %s</a></div>
+  </div>
+</section>''' % (PHONE_TEL, PHONE)
+    add("/firelight-bing", "SunRiver Firelight in Toquerville: Premier 55+ Living", "Welcome to SunRiver Firelight in Toquerville, Utah. Explore a vibrant 55+ community with stunning homes and an active lifestyle near Zion National Park.", "life",
+        fl_tpl % ((bing_hero,) + fl_args + (bing_close,)), body_class="landing")
 
     # ============================================================== ST. GEORGE
     stg_amen = [("Golf Course", "Our 18-hole championship course is just a golf cart ride away."), ("Fitness", "A fully stocked fitness center and fitness classes free to members."),
@@ -564,20 +603,33 @@ def build_main(plans, listings):
         <div class="office"><h3>SunRiver Villas HOA</h3><p>1404 W Sun River Pkwy, Suite #250<br>St. George, UT 84790<br>(435) 773-6456<br><a href="http://www.swmlife.com">swmlife.com</a></p></div>
       </div>
     </div>
-    <form class="chat-form light" data-demo novalidate aria-label="Contact form">
+    <form class="chat-form light" %s novalidate aria-label="Contact form">
       <div class="row">
         <div><label for="c-first">First Name</label><input id="c-first" name="firstname" type="text" autocomplete="given-name" required></div>
         <div><label for="c-last">Last Name</label><input id="c-last" name="lastname" type="text" autocomplete="family-name" required></div>
       </div>
+      <div><label for="c-phone">Phone Number</label><input id="c-phone" name="phone" type="tel" autocomplete="tel" required></div>
+      <div class="text-consent">
+        <label class="one-check"><input type="checkbox" name="text_consent" value="true" data-hs-bool>Can we text you?</label>
+        <p class="consent">By submitting this form and checking this box, you consent to receive property updates, appointment reminders, and customer care text messages from SunRiver Communities at the number provided, including messages sent by autodialer. Consent is not a condition of purchase. Msg &amp; data rates may apply. Message frequency varies. Reply STOP to unsubscribe or HELP for assistance. <a href="/privacy-policy">Privacy Policy &amp; SMS Terms</a></p>
+      </div>
       <div><label for="c-email">Email Address</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
-      <div><label for="c-phone">Phone</label><input id="c-phone" name="phone" type="tel" autocomplete="tel"></div>
-      <fieldset><legend>Which community?</legend><div class="checks">
-        <label><input type="checkbox" name="community" value="firelight">SunRiver Firelight</label><label><input type="checkbox" name="community" value="stgeorge">SunRiver St. George</label>
-        <label><input type="checkbox" name="community" value="villas">SunRiver Villas</label><label><input type="checkbox" name="community" value="discovery">Discovery Villas stay</label></div></fieldset>
+      <fieldset><legend>What are you interested in?</legend><div class="checks">
+        <label><input type="checkbox" name="interested_in_form___website" value="Living In A SunRiver Community">Living In A SunRiver Community</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="Learning more about the SunRiver lifestyle">Learning more about the SunRiver lifestyle</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="Business Inquiries">Business Inquiries</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="Working At SunRiver">Working At SunRiver</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="Learning more about lending">Learning more about lending</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="Talking to an agent about a home">Talking to an agent about a home</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="SunRiver Firelight | Toquerville, UT">SunRiver Firelight | Toquerville, UT</label>
+        <label><input type="checkbox" name="interested_in_form___website" value="Something Else">Something Else</label>
+      </div></fieldset>
       <div><label for="c-msg">Message</label><textarea id="c-msg" name="message"></textarea></div>
+      <input type="hidden" name="lead_source" value="Website">
+      %s
       <p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
       <button class="btn" type="submit">Submit</button>
-      <p class="form-note" hidden style="color:var(--sunriver-blue)"></p>
+      <p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>
     </form>
   </div>
 </section>
@@ -587,7 +639,7 @@ def build_main(plans, listings):
     <div class="team-grid">%s</div>
   </div>
 </section>''' % (full_hero("Contact Us", "", src=V("hero.2wct_5z-9ksc6.jpg"), alt="",
-                   cta='<a class="hero-phone" href="%s">Sales Office %s</a>' % (PHONE_TEL, PHONE)), PHONE_TEL, PHONE, team_html))
+                   cta='<a class="hero-phone" href="%s">Sales Office %s</a>' % (PHONE_TEL, PHONE)), PHONE_TEL, PHONE, hs_attrs("contact"), HONEYPOT, team_html))
 
     # ============================================================== FOUNDERS CLUB
     add("/founders-club", "Founders Club", "Join the SunRiver Firelight Founders Club: two years of HOA dues paid by SunRiver and first pick of premium homesites for the first 74 homeowners.", "visit", '''
@@ -635,7 +687,7 @@ def build_main(plans, listings):
          star_list(["<strong>A track record since 1998.</strong> SunRiver has built and sold over 2,500 homes across Southern Utah.",
                     "<strong>A growing 55+ destination.</strong> Southern Utah is one of the most sought-after places to live your greatest chapter.",
                     "<strong>Near Zion National Park.</strong> World-class recreation 31 minutes from home."]),
-         btn("Let's Talk", "/contact-us"), band(V("neighborhood-walk.2u4xr239zlka_.jpg"), "SunRiver members walking through the neighborhood"), chat_section()))
+         btn("Let's Talk", "/contact-us"), band(V("neighborhood-walk.2u4xr239zlka_.jpg"), "SunRiver members walking through the neighborhood"), chat_section(hs="founders")))
 
     # ============================================================== DISCOVERY VILLAS
     # Clark, Nov 2026: header says just Discovery Villas over a calmer photo, the Discovery Villas logo on the page,
@@ -670,6 +722,52 @@ def build_main(plans, listings):
 %s''' % (full_hero("Discovery Villas", src=FG("fl-trails"), alt="Red rock and trail country around SunRiver Firelight", pos="50% 55%"),
          dv_logo, PHONE_TEL, PHONE, img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas", "dv-photo"),
          near_html, PHONE_TEL, chat_section("Plan your stay", "Questions about the Discovery Villas? Send us a note and we'll help you pick your dates.")))
+
+    # Ad landing page (Meta ads send people to /discovery-villas-meta). Laid out like the page on the old sunriver.com:
+    # photo beside the offer and a short request form, a few villa photos, then the drive times. The form feeds the
+    # landing page's own HubSpot form, with the arrival date the same way the old page sent it.
+    lp_photos = [("dv-exterior", "A Discovery Villa at SunRiver Firelight from the street"), ("dv-great-room", "The great room and kitchen of a Discovery Villa"),
+                 ("dv-bedroom", "A bedroom in a Discovery Villa"), ("dv-kitchen", "The kitchen and dining area of a Discovery Villa")]
+    lp_gallery = "".join('<a class="photo lp-shot" href="/assets/img/lp/%s.webp" data-lightbox>%s</a>' % (n, img("/assets/img/lp/%s.webp" % n, t)) for n, t in lp_photos)
+    add("/discovery-villas-meta", "Discovery Villas | Stay at SunRiver Firelight 55+", "Spend three days and two nights in a designer-furnished villa at SunRiver Firelight, a 55+ community near St. George, UT. Tour the homes for $399.", "visit", '''
+<section class="section sand lp-dv" id="stay">
+  <div class="wrap lp-dv-grid">
+    <div class="lp-dv-photo">%s</div>
+    <div class="stack lp-dv-copy">
+      %s
+      <hr class="rule">
+      <h1 class="lp-dv-title">Consider It Undercover Research</h1>
+      <p>See SunRiver Firelight the way you'll live it. Spend three days and two nights in a designer-furnished villa and make this community your basecamp while you explore. Tour the homes, walk the neighborhood, and picture your greatest chapter, at your own pace, with no compromises.</p>
+      <p class="serif price-callout">3 days, 2 nights | <span class="yellow">$399</span></p>
+      <form class="chat-form light lp-dv-form" %s novalidate aria-label="Request a Discovery Villas stay">
+        <div class="row">
+          <div><label for="lpd-first">First Name</label><input id="lpd-first" name="firstname" type="text" autocomplete="given-name" required></div>
+          <div><label for="lpd-last">Last Name</label><input id="lpd-last" name="lastname" type="text" autocomplete="family-name" required></div>
+        </div>
+        <div><label for="lpd-email">Email</label><input id="lpd-email" name="email" type="email" autocomplete="email" required></div>
+        <div><label for="lpd-phone">Mobile Phone Number</label><input id="lpd-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>
+        <div><label for="lpd-arrive">Preferred arrival date</label><input id="lpd-arrive" name="date_of_requested_stay" type="date" data-hs-date required></div>
+        %s
+        <p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
+        <button class="btn" type="submit">Submit</button>
+        <p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>
+      </form>
+      <p class="serif lp-call">or call us to book your stay <a href="%s">%s</a></p>
+      <p class="lp-fine">Introductory rate of $399 includes state and local taxes for dual occupancy. No pets allowed.</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap lp-gallery">%s</div>
+</section>
+<section class="section sand">
+  <div class="wrap stack-lg">
+    <div class="center stack"><h2 class="display">Close to everything that makes <span class="yellow">Southern Utah special</span></h2><hr class="rule center"></div>
+    <div class="dv-near-grid">%s</div>
+    <div class="center btn-row" style="justify-content:center"><a class="btn" href="#stay">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
+  </div>
+</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", loading="eager"), dv_logo, hs_attrs("villas-meta"), HONEYPOT,
+        PHONE_TEL, PHONE, lp_gallery, near_html, PHONE_TEL), body_class="landing")
 
     # ============================================================== MORTGAGE
     loans = [("The HECM for Purchase", "The Home Equity Conversion Mortgage for Purchase uses a one-time down payment to buy a home, with no required monthly mortgage payments for as long as you live in the home. HUD insured."),

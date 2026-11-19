@@ -20,6 +20,84 @@ SITE_NAME = "SunRiver Firelight"
 PHONE = "(435) 688-1000"
 PHONE_TEL = "tel:+14356881000"
 
+# HubSpot forms (portal 242537243, region na2). These are the same forms the Squarespace sunriver.com embeds, so a
+# lead from this site lands in the same form, list and workflow as before. site.js posts to HubSpot's submission API.
+HS_FORMS = {
+    "general": "3e5cb955-84b0-49f6-96a9-1efde323356e",        # "What are you interested in?" (sunriver.com/find-a-home)
+    "founders": "608c7cfe-99ed-4e03-9841-52929941eb61",       # same fields, Founders Club page
+    "contact": "f997128f-2c56-417b-932d-cc803fc781a8",        # Contact page (phone required, text consent, lead source)
+    "villas": "e131ea33-9c06-4fc3-982a-3691be90369f",         # Discovery Villas stay request
+    "villas-meta": "c7814775-6e25-4a6b-bc6d-6c66654fbcb1",    # Discovery Villas landing page for Meta ads
+    "firelight-bing": "1392ee00-fac4-421e-bde8-f6e44b4497b7", # SunRiver Firelight landing page for Microsoft ads
+}
+# Thank-you lines, copied from each HubSpot form's own confirmation message
+HS_THANKS = {
+    "general": "Thank you! One of our SunRiver professionals will be in touch shortly.",
+    "founders": "Thank you, we'll be in touch soon.",
+    "contact": "Thank you, we'll be in touch soon.",
+    "villas": "A member of the SunRiver team will be in touch shortly to finalize details and confirm availability of your requested date!",
+    "villas-meta": "A member of the SunRiver team will be in touch shortly to finalize details and confirm availability of your requested date!",
+    "firelight-bing": "Thank you! A SunRiver agent will send current availability and pricing within one business day.",
+}
+# Conversions HubSpot's ads integration fires for these forms on sunriver.com (read from the portal's public
+# pixel config). site.js fires the same ones after a successful submission.
+HS_ADS = {
+    "contact": ' data-ads-conv="AW-988674249/0ZvlCPfP--wcEMnxt9cD" data-fb-lead',
+    "villas-meta": " data-fb-lead",
+}
+# Interest options: the label shown, and the exact option value stored on the HubSpot contact property
+HS_INTERESTS = [
+    ("Speak With A SunRiver Agent", "Speak With A SunRiver Agent"),
+    ("Availability Info", "Availability Info"),
+    ("Learn More About SunRiver Firelight", "Learn More About Firelight"),
+    ("Financing Options", "Financing Options"),
+    ("Something Else", "Something Else"),
+]
+
+
+def hs_attrs(key):
+    """Attributes that connect a <form> to its HubSpot form (see the Forms block in site.js)."""
+    return 'data-hs-form="%s" data-hs-key="%s" data-hs-thanks="%s"%s' % (HS_FORMS[key], key, html.escape(HS_THANKS[key], quote=True), HS_ADS.get(key, ""))
+
+
+# Left blank by people, filled in by bots: site.js quietly drops any submission where this has a value
+HONEYPOT = '<div class="hp-field" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>'
+
+# Analytics and ad tags, the same set sunriver.com runs today: Google Tag Manager, Google Ads, Google Analytics,
+# HubSpot, Microsoft Ads and the Meta pixel. They load on the real domain only, so preview and test builds
+# (vercel.app, localhost) never show up in the numbers. To test on another host, run
+# localStorage.setItem("sr_track", "1") in the browser console and reload.
+TRACKING = '''<script>
+(function () {
+  var live = /(^|\\.)sunriver\\.com$/.test(location.hostname), forced = false;
+  try { forced = localStorage.getItem("sr_track") === "1"; } catch (e) {}
+  if (!live && !forced) return;
+  function load(src, id) { var s = document.createElement("script"); s.async = true; s.src = src; if (id) s.id = id; document.head.appendChild(s); }
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  // Google Tag Manager
+  dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+  load("https://www.googletagmanager.com/gtm.js?id=GTM-TLZP4TZ5");
+  // Google Ads and Google Analytics
+  gtag("js", new Date());
+  gtag("config", "AW-988674249");
+  gtag("config", "G-GB768NFV7L");
+  load("https://www.googletagmanager.com/gtag/js?id=G-GB768NFV7L");
+  // HubSpot tracking code (also what shows HubSpot pop-ups and the cookie banner)
+  load("https://js-na2.hs-scripts.com/242537243.js", "hs-script-loader");
+  // Microsoft Ads
+  (function (w, d, t, r, u) { var f, n, i; w[u] = w[u] || []; f = function () { var o = { ti: "295031258" }; o.q = w[u]; w[u] = new UET(o); w[u].push("pageLoad"); };
+    n = d.createElement(t); n.src = r; n.async = 1; n.onload = n.onreadystatechange = function () { var s = this.readyState; if (s && s !== "loaded" && s !== "complete") return; f(); n.onload = n.onreadystatechange = null; };
+    i = d.getElementsByTagName(t)[0]; i.parentNode.insertBefore(n, i); })(window, document, "script", "https://bat.bing.com/bat.js", "uetq");
+  // Meta pixel
+  !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s); }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init", "1500752294168842");
+  fbq("track", "PageView");
+})();
+</script>'''
+
 MIRROR = {}   # local path -> remote url
 _ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
@@ -296,6 +374,7 @@ def add(path, title, description, active, body, body_class=""):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;900&family=Source+Serif+4:opsz,wght@8..60,500&display=swap">
 %s
 <link rel="stylesheet" href="/assets/styles.css?v=%s">
+%s
 </head>
 <body%s>
 %s
@@ -306,20 +385,23 @@ def add(path, title, description, active, body, body_class=""):
 <script src="/assets/site.js?v=%s" defer></script>
 </body>
 </html>
-''' % (esc(full_title), esc(description), esc(full_title), esc(description), FONTS, asset_v("styles.css"),
+''' % (esc(full_title), esc(description), esc(full_title), esc(description), FONTS, asset_v("styles.css"), TRACKING,
        ' class="%s"' % body_class if body_class else "", header(active), body, footer(), asset_v("site.js"))
     assert "—" not in doc, "em dash found on %s" % path
     PAGES[path] = doc
 
 
 # ------------------------------------------------------------------ components
-def chat_section(title="Ready to Chat?", intro="Ready to take the next step and speak with an agent about your next home? Fill out the form below and we'll reach out as soon as possible.", fid="chat"):
+def chat_section(title="Ready to Chat?", intro="Ready to take the next step and speak with an agent about your next home? Fill out the form below and we'll reach out as soon as possible.", fid="chat", hs="general"):
+    """The sitewide "Ready to Chat?" form. Fields match the HubSpot form it feeds (hs is a key of HS_FORMS):
+    first name, last name, email and at least one interest. Phone is optional and saved to the contact as well."""
+    checks = "\n".join('          <label><input type="checkbox" name="what_are_you_interested_in_" value="%s">%s</label>' % (esc(v), esc(l)) for l, v in HS_INTERESTS)
     return '''<section class="section yellow-bg chat" id="%(fid)s" aria-labelledby="%(fid)s-title">
   <div class="wrap">
     <h2 id="%(fid)s-title">%(title)s</h2>
     <hr class="rule">
     <p>%(intro)s</p>
-    <form class="chat-form" data-demo novalidate>
+    <form class="chat-form" %(hs)s novalidate>
       <div class="row">
         <div><label for="%(fid)s-first">First Name</label><input id="%(fid)s-first" name="firstname" type="text" autocomplete="given-name" required></div>
         <div><label for="%(fid)s-last">Last Name</label><input id="%(fid)s-last" name="lastname" type="text" autocomplete="family-name" required></div>
@@ -328,21 +410,18 @@ def chat_section(title="Ready to Chat?", intro="Ready to take the next step and 
         <div><label for="%(fid)s-email">Email Address</label><input id="%(fid)s-email" name="email" type="email" autocomplete="email" required></div>
         <div><label for="%(fid)s-phone">Phone</label><input id="%(fid)s-phone" name="phone" type="tel" autocomplete="tel"></div>
       </div>
-      <fieldset><legend>What are you interested in?</legend>
+      <fieldset data-required="Please choose at least one."><legend>What are you interested in?</legend>
         <div class="checks">
-          <label><input type="checkbox" name="interest" value="agent">Speak With A SunRiver Agent</label>
-          <label><input type="checkbox" name="interest" value="availability">Availability Info</label>
-          <label><input type="checkbox" name="interest" value="firelight">Learn More About SunRiver Firelight</label>
-          <label><input type="checkbox" name="interest" value="financing">Financing Options</label>
-          <label><input type="checkbox" name="interest" value="other">Something Else</label>
+%(checks)s
         </div>
       </fieldset>
+      %(hp)s
       <p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
       <button class="btn sand-btn" type="submit">Submit</button>
-      <p class="form-note" hidden></p>
+      <p class="form-note" role="status" hidden></p>
     </form>
   </div>
-</section>''' % dict(fid=fid, title=title, intro=intro)
+</section>''' % dict(fid=fid, title=title, intro=intro, hs=hs_attrs(hs), checks=checks, hp=HONEYPOT)
 
 
 def full_hero(title, sub="", eyebrow="", src=None, alt="", cta=None, pos="50% 40%", extra="", tag="h1", cls=""):

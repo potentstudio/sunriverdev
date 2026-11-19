@@ -188,20 +188,91 @@
   var vid = document.querySelector('.home-hero-media');
   if (vid && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { vid.removeAttribute('autoplay'); vid.pause(); }
 
-  // ---------- Forms: placeholder handler until the forms are wired to the CRM
-  document.querySelectorAll('form[data-demo]').forEach(function (form) {
+  // ---------- Forms: every form with data-hs-form posts to the HubSpot form of that id (the same forms the old
+  // sunriver.com embedded), through HubSpot's public submission API. Field names are HubSpot contact property names.
+  //   data-hs-bool   a single yes/no checkbox, sent as "true" or "false"
+  //   data-hs-date   a date input, sent the way HubSpot stores dates (midnight UTC, in milliseconds)
+  //   data-hs-note   not a HubSpot field: its label and value are added to the message instead
+  //   fieldset[data-required]   at least one box in the group must be ticked
+  var HS_PORTAL = '242537243';
+  var HS_SUBMIT = 'https://api-na2.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/';
+  function hsCookie(name) { var m = document.cookie.match('(?:^|; )' + name + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  function hsFields(form) {
+    var out = [], multi = {}, notes = [], message = '';
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.disabled || el.name === 'company_website' || el.type === 'submit' || el.type === 'button') return;
+      if (el.hasAttribute('data-hs-note')) { if (el.value) notes.push(el.getAttribute('data-hs-note') + ': ' + el.value); return; }
+      if (el.type === 'checkbox') {
+        if (el.hasAttribute('data-hs-bool')) { out.push({ name: el.name, value: el.checked ? 'true' : 'false' }); return; }
+        if (el.checked) (multi[el.name] = multi[el.name] || []).push(el.value);
+        return;
+      }
+      if (el.type === 'radio' && !el.checked) return;
+      var value = (el.value || '').trim();
+      if (!value) return;
+      if (el.hasAttribute('data-hs-date')) { var p = value.split('-'); value = String(Date.UTC(+p[0], +p[1] - 1, +p[2])); }
+      if (el.name === 'message') { message = value; return; }
+      out.push({ name: el.name, value: value });
+    });
+    Object.keys(multi).forEach(function (name) { out.push({ name: name, value: multi[name].join(';') }); });
+    if (notes.length) message = (message ? message + '\n\n' : '') + notes.join('\n');
+    if (message) out.push({ name: 'message', value: message });
+    return out.map(function (f) { return { objectTypeId: '0-1', name: f.name, value: f.value }; });
+  }
+  // The same conversion signals the HubSpot embeds fired on the old site, plus a Google Analytics lead event.
+  function hsTrack(form) {
+    var id = form.getAttribute('data-hs-form'), key = form.getAttribute('data-hs-key') || '';
+    try { (window.dataLayer = window.dataLayer || []).push({ event: 'hubspot_form_success', hs_form_id: id, hs_form_key: key }); } catch (e) {}
+    try { if (window.gtag) { gtag('event', 'generate_lead', { form_id: id, form_name: key }); var conv = form.getAttribute('data-ads-conv'); if (conv) gtag('event', 'conversion', { send_to: conv }); } } catch (e) {}
+    try { if (window.uetq) window.uetq.push('event', 'form_submit', { event_category: 'lead' }); } catch (e) {}
+    try { if (window.fbq && form.hasAttribute('data-fb-lead')) fbq('track', 'Lead'); } catch (e) {}
+  }
+  document.querySelectorAll('form[data-hs-form]').forEach(function (form) {
+    var note = form.querySelector('.form-note');
+    var say = function (text) { if (note) { note.hidden = false; note.textContent = text; } };
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (form.dataset.sending) return;
       // required fields: mark the empty ones and stop
       var missing = Array.prototype.filter.call(form.querySelectorAll('[required]'), function (el) {
-        var bad = !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
+        var bad = !el.value.trim() || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim())) || (el.type === 'tel' && el.value.replace(/\D/g, '').length < 10);
         el.classList.toggle('is-invalid', bad); el.setAttribute('aria-invalid', bad ? 'true' : 'false');
         return bad;
       });
-      if (missing.length) { missing[0].focus(); var n0 = form.querySelector('.form-note'); if (n0) { n0.hidden = false; n0.textContent = 'Please fill in the highlighted fields.'; } return; }
-      var note = form.querySelector('.form-note');
-      if (note) { note.hidden = false; note.textContent = 'Thanks! A SunRiver team member will reach out soon.'; }
-      form.querySelectorAll('input, textarea, select, button').forEach(function (el) { el.disabled = true; });
+      var group = Array.prototype.filter.call(form.querySelectorAll('fieldset[data-required]'), function (fs) {
+        var bad = !fs.querySelector('input:checked'); fs.classList.toggle('is-invalid-group', bad); return bad;
+      });
+      if (missing.length) { missing[0].focus(); say('Please fill in the highlighted fields.'); return; }
+      if (group.length) { var first = group[0].querySelector('input'); if (first) first.focus(); say(group[0].getAttribute('data-required')); return; }
+      var controls = form.querySelectorAll('input, textarea, select, button');
+      var done = function () {
+        say(form.getAttribute('data-hs-thanks') || 'Thank you, we\'ll be in touch soon.');
+        controls.forEach(function (el) { el.disabled = true; });
+        form.classList.add('is-sent');
+      };
+      // a filled-in trap field means a bot: look successful, send nothing
+      var trap = form.querySelector('[name="company_website"]');
+      if (trap && trap.value) { done(); return; }
+      var body = { fields: hsFields(form), context: { pageUri: location.href, pageName: document.title } };
+      var hutk = hsCookie('hubspotutk');
+      if (hutk) body.context.hutk = hutk;
+      var btn = form.querySelector('button[type="submit"]'), label = btn ? btn.textContent : '';
+      form.dataset.sending = '1';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+      say('');
+      if (note) note.hidden = true;
+      fetch(HS_SUBMIT + form.getAttribute('data-hs-form'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+        .then(function (r) { if (!r.ok) throw new Error('HubSpot ' + r.status); return r; })
+        .then(function () { hsTrack(form); done(); })
+        .catch(function () {
+          delete form.dataset.sending;
+          if (btn) { btn.disabled = false; btn.textContent = label; }
+          say('Sorry, that did not go through. Please try again, or call us at (435) 688-1000.');
+        });
+    });
+    form.addEventListener('change', function (e) {
+      var fs = e.target.closest && e.target.closest('fieldset.is-invalid-group');
+      if (fs && fs.querySelector('input:checked')) fs.classList.remove('is-invalid-group');
     });
   });
 
@@ -1027,12 +1098,22 @@ document.querySelectorAll("[data-yt]").forEach(function (b) {
   });
 })();
 
-// Discovery Villas form: arrival can't be in the past, and checkout is two nights after arrival
+// Stay-date fields: arrival is tomorrow at the earliest and 90 days out at the latest (the same window the old
+// sunriver.com form allowed)
+(function () {
+  var iso = function (x) { return x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2); };
+  var now = new Date();
+  document.querySelectorAll("input[type=date][data-hs-date]").forEach(function (el) {
+    el.min = iso(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+    el.max = iso(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 90));
+  });
+})();
+
+// Discovery Villas booking form: checkout is two nights after arrival
 (function () {
   var a = document.getElementById("dv-arrive"), d = document.getElementById("dv-depart");
   if (!a || !d) return;
   var iso = function (x) { return x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2); };
-  a.min = iso(new Date());
   a.addEventListener("change", function () {
     if (!a.value) { d.value = ""; return; }
     var p = a.value.split("-"), x = new Date(+p[0], +p[1] - 1, +p[2] + 2);

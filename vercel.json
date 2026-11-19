@@ -126,6 +126,1166 @@
       "permanent": true
     },
     {
+      "source": "/bucketlist-living/tag/:tag*",
+      "destination": "/bucketlistliving",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/category/:cat*",
+      "destination": "/bucketlistliving",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3",
+      "destination": "/bucketlistliving/driving-miss-daisy-at-the-neil-simon-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts",
+      "destination": "/bucketlistliving/zeppelin-usa-at-tuacahn",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx",
+      "destination": "/bucketlistliving/the-39th-annual-st-george-art-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er",
+      "destination": "/bucketlistliving/the-lettermen-at-tuacahn",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j",
+      "destination": "/bucketlistliving/brian-wilson-greatest-hits-live-at-tuacahn",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t",
+      "destination": "/bucketlistliving/6th-annual-wings-and-wheels",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz",
+      "destination": "/bucketlistliving/community-movies-at-the-electric-theater",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp",
+      "destination": "/bucketlistliving/steel-magnolias-at-center-for-the-arts-at-kayenta",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8",
+      "destination": "/bucketlistliving/concert-in-the-park-series-dan-bates",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp",
+      "destination": "/bucketlistliving/have-you-heard-of-terrible-herbst",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww",
+      "destination": "/bucketlistliving/huevos-rancheros",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr",
+      "destination": "/bucketlistliving/k-9-spotlight-reggie",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4",
+      "destination": "/bucketlistliving/discovering-clubs-at-sunriver-billiards-club",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49",
+      "destination": "/bucketlistliving/docutah-international-documentary-film-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75",
+      "destination": "/bucketlistliving/celebrating-20-years",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75-dxff3",
+      "destination": "/bucketlistliving/meet-lifestyle-lisa",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75-dxff3-tle4n-s5wms-xd8e7-wcjkc-kkzfh",
+      "destination": "/bucketlistliving/discovering-clubs-at-sunriver-ukulele-circle",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75-dxff3-tle4n-s5wms-xd8e7-wcjkc-kkzfh-trxws",
+      "destination": "/bucketlistliving/hidden-gems-of-southwest-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75-dxff3-tle4n-s5wms-xd8e7-wcjkc-kkzfh-trxws-6h6se-s78bm-py9t6",
+      "destination": "/bucketlistliving/maximize-your-pickleball-game",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75-dxff3-tle4n-s5wms-xd8e7-wcjkc-kkzfh-trxws-6h6se-s78bm-py9t6-nbl5z",
+      "destination": "/bucketlistliving/huntsman-world-senior-games-still-fostering-worldwide-peace-health-and-friendship",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/26fwtk3sr2d84r3-6djts-a9lwx-x42er-2646j-pbm9b-6kg9t-r8wcm-crexz-lkdfp-y5jfk-5tdn8-rz6mp-4n9ww-xaszg-9r6gr-2w9d4-a6y49-dzh75-dxff3-tle4n-s5wms-xd8e7-wcjkc-kkzfh-trxws-6h6se-s78bm-py9t6-nbl5z-yfzrg",
+      "destination": "/bucketlistliving/advice-for-healthy-living",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j",
+      "destination": "/bucketlistliving/st-george-shuttle-stop-at-terrible-herbst",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz",
+      "destination": "/bucketlistliving/car-care-tips-for-fall",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8",
+      "destination": "/bucketlistliving/discovering-clubs-at-sunriver-model-railroad-club",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg",
+      "destination": "/bucketlistliving/tips-to-make-the-most-of-your-holiday-season",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47",
+      "destination": "/bucketlistliving/thanksgiving-cooking-mistakes-and-how-to-avoid-them-part-1",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj",
+      "destination": "/bucketlistliving/thanksgiving-cooking-mistakes-and-how-to-avoid-them-part-2",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs",
+      "destination": "/bucketlistliving/shuttle-stops-now-in-sunriver",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48",
+      "destination": "/bucketlistliving/discovering-clubs-at-sunriver-mah-jong-club",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne",
+      "destination": "/bucketlistliving/enjoy-ice-skating-in-cedar-city",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne-ybfpg",
+      "destination": "/bucketlistliving/tuacahn-center-for-the-arts-christmas-in-the-canyon-2018",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne-ybfpg-dh7px-byhdd",
+      "destination": "/bucketlistliving/christmas-in-downtown-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne-ybfpg-dh7px-byhdd-6wmmj",
+      "destination": "/bucketlistliving/spicy-hot-chocolate",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne-ybfpg-dh7px-byhdd-6wmmj-r85sy",
+      "destination": "/bucketlistliving/three-ways-to-get-in-the-holiday-spirit",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne-ybfpg-dh7px-byhdd-6wmmj-r85sy-yabpz-4w7b3",
+      "destination": "/bucketlistliving/double-chocolate-chips",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/57gsdlfy8zawm9t-spdnk-srzp8-h4z9j-ew2aj-e78lz-y52a9-gxjb8-aklrk-rxegg-64y9j-fy9g5-7by47-amxxj-kpjh7-4pb6z-b25zs-akx48-ycg44-e5mne-ybfpg-dh7px-byhdd-6wmmj-r85sy-yabpz-4w7b3-2k3f4-p9s65-fyrt2",
+      "destination": "/bucketlistliving/cauliflower-thyme-soup",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw",
+      "destination": "/bucketlistliving/2019-memorial-day-service",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds",
+      "destination": "/bucketlistliving/pork-chops-with-sage-and-butter",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8",
+      "destination": "/bucketlistliving/the-3rd-annual-creative-age-summit-on-arts-and-healing",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms",
+      "destination": "/bucketlistliving/old-west-celebration",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw",
+      "destination": "/bucketlistliving/tuacahn-saturday-market",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2",
+      "destination": "/bucketlistliving/historic-st-george-live",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak",
+      "destination": "/bucketlistliving/tunnels-trestles-and-tracks-at-the-silver-reef-museum",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb",
+      "destination": "/bucketlistliving/rok-dox-video",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e",
+      "destination": "/bucketlistliving/freaky-friday-at-st-george-musical-theater",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr",
+      "destination": "/bucketlistliving/orange-bbq-ribs",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682",
+      "destination": "/bucketlistliving/james-and-the-giant-peach",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln",
+      "destination": "/bucketlistliving/spirit-of-polynesia-luau-and-dinner-show",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj",
+      "destination": "/bucketlistliving/all-american-hot-dogs",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x",
+      "destination": "/bucketlistliving/pipes-plus-ensemble-at-the-st-george-tabernacle",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x-75a9l",
+      "destination": "/bucketlistliving/four-ways-to-celebrate-the-fourth-of-july",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x-75a9l-mf79a-8dcnp",
+      "destination": "/bucketlistliving/sgt-stubby-american-hero-at-sunset-on-the-square",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x-75a9l-mf79a-8dcnp-9gwt8",
+      "destination": "/bucketlistliving/cagney-frizzell-at-sand-hollow",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x-75a9l-mf79a-8dcnp-9gwt8-drjaf-2k3e8",
+      "destination": "/bucketlistliving/the-sound-of-music-at-tuacahn-amphitheater",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x-75a9l-mf79a-8dcnp-9gwt8-drjaf-2k3e8-xgt6f",
+      "destination": "/bucketlistliving/tour-of-organ-favorites-through-time-by-misty-schaffert",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws-z3lj8-ed7ms-wtsla-l24tw-typd3-zrff2-wjdak-6r976-lbehb-bj53e-9rp2k-7k7tr-hp682-d7jln-lllhj-5l7fn-r553x-75a9l-mf79a-8dcnp-9gwt8-drjaf-2k3e8-xgt6f-5lgp3",
+      "destination": "/bucketlistliving/blood-sweat-and-tears",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n",
+      "destination": "/bucketlistliving/sunriver-st-george-reflections-pool-closed-for-maintenance",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf",
+      "destination": "/bucketlistliving/pioneer-day-festivities-a-complete-list",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4",
+      "destination": "/bucketlistliving/stargazing-in-southern-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep",
+      "destination": "/bucketlistliving/best-places-to-take-your-grandchildren-this-summer",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd",
+      "destination": "/bucketlistliving/southwest-symphony-an-evening-in-paris",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc",
+      "destination": "/bucketlistliving/hiking-safety-tips",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2",
+      "destination": "/bucketlistliving/coconut-cloud-cake",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp",
+      "destination": "/bucketlistliving/tuacahn-miracle-in-padre-canyon",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7",
+      "destination": "/bucketlistliving/family-roots-conference-giveaway",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m",
+      "destination": "/bucketlistliving/september-2019-concert-round-up",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8",
+      "destination": "/bucketlistliving/southern-utah-strings-youth-music-celebration",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8-tg33d-698xm",
+      "destination": "/bucketlistliving/revisiting-the-massacre-at-mountain-meadows-with-dr-glen-leonard",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8-tg33d-698xm-c8sz5",
+      "destination": "/bucketlistliving/the-scarlet-pimpernel-at-st-george-musical-theater",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8-tg33d-698xm-c8sz5-sxdwt-x9kdb",
+      "destination": "/bucketlistliving/3rd-annual-southwest-astronomy-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8-tg33d-698xm-c8sz5-sxdwt-x9kdb-fpb22-w88at",
+      "destination": "/bucketlistliving/19th-annual-arts-and-crafts-boutique-at-sunriver-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8-tg33d-698xm-c8sz5-sxdwt-x9kdb-fpb22-w88at-td8t8",
+      "destination": "/bucketlistliving/vinyl-fusion-concert-coming-sept-27th",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-5snf3-jz7k7-jb74m-rspnm-5xwx8-tg33d-x9mab-678rs",
+      "destination": "/bucketlistliving/homes-for-sale-september-2019",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8ybf38b8krzycxe-gk63n-3t3mf-wh3n6-l84m4-rkdb4-bz5ep-mg2rd-6lwkf-76jej-nhxfc-s7ax2-rs2ej-wp723-skdc6-n4blp-n4hs5",
+      "destination": "/bucketlistliving/on-location-hollywood-movies-filmed-in-washington-county",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k",
+      "destination": "/bucketlistliving/honeycomb-caramel-popcorn",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-hakjk",
+      "destination": "/bucketlistliving/morris-murdock-travel-expo",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma",
+      "destination": "/bucketlistliving/7-tips-to-help-you-relate-to-your-grandchildren",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2",
+      "destination": "/bucketlistliving/stir-fried-asparagus",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw",
+      "destination": "/bucketlistliving/bikestock-2019",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t",
+      "destination": "/bucketlistliving/discovering-clubs-at-sunriver-gardening-club",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m",
+      "destination": "/bucketlistliving/aebleskivers",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp",
+      "destination": "/bucketlistliving/walk-your-way-on-miles-of-paved-trails-in-st-george-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8",
+      "destination": "/bucketlistliving/st-george-jazz-festival-2019",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me",
+      "destination": "/bucketlistliving/all-i-ask-of-you-a-night-with-john-smitherman-and-friends",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me-t5y2e-smyg6",
+      "destination": "/bucketlistliving/lemon-cream-cheese-pancakes",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me-t5y2e-smyg6-2gyzn-25zkh",
+      "destination": "/bucketlistliving/grown-up-grilled-cheese",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me-t5y2e-smyg6-2gyzn-25zkh-6aadd-9mars-sesdl-2kme2",
+      "destination": "/bucketlistliving/3-demo-days",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me-t5y2e-smyg6-2gyzn-25zkh-6aadd-9mars-sesdl-2kme2-6k625",
+      "destination": "/bucketlistliving/st-george-jazz-party",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me-t5y2e-smyg6-2gyzn-25zkh-6aadd-9mars-sesdl-2kme2-6k625-t53em-4alw3-ppycg-5ehtf-msd5y",
+      "destination": "/bucketlistliving/marinated-pork-tenderloin",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/alfzzdcwn5764db-lkh6k-b9d2k-r44ma-ylps2-b2xxw-my2hw-5c454-7be6t-fjj7m-mrcbp-cp6e8-bfhwl-ypkm7-4j5me-t5y2e-smyg6-2gyzn-25zkh-6aadd-9mars-sesdl-2kme2-6k625-t53em-4alw3-ppycg-5ehtf-msd5y-72syp",
+      "destination": "/bucketlistliving/dixie-quilt-guild-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx",
+      "destination": "/bucketlistliving/veterans-day-activities",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5",
+      "destination": "/bucketlistliving/st-george-literary-arts-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4",
+      "destination": "/bucketlistliving/coyote-tales-you-gotta-be-kidding-me",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy",
+      "destination": "/bucketlistliving/annual-model-train-show",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy",
+      "destination": "/bucketlistliving/12th-annual-classic-jet-fly-in",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn",
+      "destination": "/bucketlistliving/the-magic-of-stefan-oswald-at-staheli-farms",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594",
+      "destination": "/bucketlistliving/big-the-musical-at-the-stage-door",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2",
+      "destination": "/bucketlistliving/thriller-2019",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww",
+      "destination": "/bucketlistliving/cliffside-restaurant",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6",
+      "destination": "/bucketlistliving/active-adult-savings-around-southern-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8",
+      "destination": "/bucketlistliving/free-fallin-a-tribute-to-tom-petty",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk",
+      "destination": "/bucketlistliving/the-three-redneck-tenors-opera-in-blue-jeans-and-tuxedos",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk-yjpnf",
+      "destination": "/bucketlistliving/inspirational-people-who-found-success-later-in-life",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk-yjpnf-pp4sn",
+      "destination": "/bucketlistliving/mashed-potatoes-101",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk-yjpnf-pp4sn-sstk7",
+      "destination": "/bucketlistliving/movie-night-at-kayenta-unfinished-song",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk-yjpnf-pp4sn-sstk7-4nm3d",
+      "destination": "/bucketlistliving/holiday-inn-at-sgmt",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk-yjpnf-pp4sn-sstk7-4nm3d-wjbba-67ce5",
+      "destination": "/bucketlistliving/thanksgiving-activities-in-southern-utah-2019",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/dl7cj66ex7jakyx-2pjyr-k52b5-26fs4-5jrmy-pfjra-5hchy-gd39j-95zl3-ds6xn-ax594-ls2ed-kapzd-hltrr-8e5r2-ffes3-j9bww-tc5e6-k9x8b-fedh8-ssgdk-yjpnf-pp4sn-sstk7-4nm3d-wjbba-67ce5-lrgy2",
+      "destination": "/bucketlistliving/christmas-activities-in-southern-utah-2019",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-5hkpj",
+      "destination": "/bucketlistliving/cedar-breaks-wildflower-festival",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-dj275",
+      "destination": "/bucketlistliving/covid-19-pops-up-in-art",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36",
+      "destination": "/bucketlistliving/15-best-retirement-blogs-to-follow",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz",
+      "destination": "/bucketlistliving/golf-tips-hover-the-club-at-address",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp",
+      "destination": "/bucketlistliving/the-history-of-st-george-ut",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a",
+      "destination": "/bucketlistliving/golf-tips-eliminate-one-side-of-the-course",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta",
+      "destination": "/bucketlistliving/what-is-a-55-golf-cart-community",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft",
+      "destination": "/bucketlistliving/being-okay-with-doing-nothing",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8",
+      "destination": "/bucketlistliving/where-to-golf-in-st-george-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs",
+      "destination": "/bucketlistliving/tour-the-st-george-area-parade-of-homes",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7",
+      "destination": "/bucketlistliving/24-pickleball-tips-for-seniors",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k",
+      "destination": "/bucketlistliving/experience-zion-national-park-by-helicopter",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99",
+      "destination": "/bucketlistliving/viva-las-vegas-the-perfect-weekend-getaway",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6",
+      "destination": "/bucketlistliving/festival-season-in-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8",
+      "destination": "/bucketlistliving/summer-fun-at-sand-hollow-state-park",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff",
+      "destination": "/bucketlistliving/checking-off-an-80th-birthday-bucket-list",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9",
+      "destination": "/bucketlistliving/a-crash-course-in-social-media",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer",
+      "destination": "/bucketlistliving/the-rok-dox-rock-sunriver",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa",
+      "destination": "/bucketlistliving/staying-healthy-during-summer-in-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa-wdl8m",
+      "destination": "/bucketlistliving/explore-the-tuacahn-saturday-market",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa-wdl8m-zsmr9",
+      "destination": "/bucketlistliving/easy-diy-healthy-snacks",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa-wdl8m-zsmr9-e5s2t",
+      "destination": "/bucketlistliving/podcasts-for-active-adults",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa-wdl8m-zsmr9-e5s2t-db68s",
+      "destination": "/bucketlistliving/a-brief-history-of-st-george-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa-wdl8m-zsmr9-e5s2t-db68s-nr25s-asdbw-jcmkf-69t6n",
+      "destination": "/bucketlistliving/zion-narrows-service-project",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-74y2k-acp99-5fpd6-28ss8-4beff-c7ra9-ecrer-r2wwa-wdl8m-zsmr9-e5s2t-db68s-nr25s-asdbw-jcmkf-69t6n-tshch",
+      "destination": "/bucketlistliving/exploring-the-art-of-painting-in-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-hty36-s78tz-frnhp-4rf5a-jm28z-4leta-rhhft-57ee8-xfyxs-b97j7-m75bm",
+      "destination": "/bucketlistliving/hiking-kanarraville-falls",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-s5z8k",
+      "destination": "/bucketlistliving/a-brief-history-of-the-settlement-of-st-george-utah",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-s5z8k-ea74g-cgnhp",
+      "destination": "/bucketlistliving/yellow-knolls-trail-hike",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-ypxl4-cg47n",
+      "destination": "/bucketlistliving/attention-golfers-changes-to-golf-cart-rules",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s",
+      "destination": "/bucketlistliving/easy-diy-healthy-snacks-part-2",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw",
+      "destination": "/bucketlistliving/hoodoo-500-hits-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs",
+      "destination": "/bucketlistliving/remembering-september-11",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d",
+      "destination": "/bucketlistliving/st-george-settlement-and-the-smithsonian-exhibition",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h",
+      "destination": "/bucketlistliving/for-the-love-of-art-home-tour",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53",
+      "destination": "/bucketlistliving/santa-clara-swiss-days",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem",
+      "destination": "/bucketlistliving/the-way-we-worked-special-exhibits-part-1",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9",
+      "destination": "/bucketlistliving/the-way-we-worked-special-exhibits-part-2",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em",
+      "destination": "/bucketlistliving/the-2017-huntsman-world-senior-games",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b",
+      "destination": "/bucketlistliving/fall-foliage-photography-workshop",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce",
+      "destination": "/bucketlistliving/thriller",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr",
+      "destination": "/bucketlistliving/the-ultimate-outdoor-recreation-expo",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h",
+      "destination": "/bucketlistliving/daffodils-by-the-bunch",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk",
+      "destination": "/bucketlistliving/st-george-city-2018-half-marathon-expo",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d",
+      "destination": "/bucketlistliving/sky-fest-2018",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d-b3byf",
+      "destination": "/bucketlistliving/enchantment-endangered-solo-gallery-show-at-the-difiore-center",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d-b3byf-npy8e-cswd3-k4pna",
+      "destination": "/bucketlistliving/31st-annual-sears-art-museum-gallery-gala",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d-b3byf-npy8e-cswd3-k4pna-9pk6j",
+      "destination": "/bucketlistliving/vietnam-through-my-lens",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d-b3byf-npy8e-cswd3-k4pna-9pk6j-tna5l",
+      "destination": "/bucketlistliving/2018-parade-of-homes",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d-b3byf-npy8e-cswd3-k4pna-9pk6j-tna5l-6m4lf-s2zkr",
+      "destination": "/bucketlistliving/sunriver-st-george-parade-of-homes",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/gs4bx2z26fsa56s-jr7jw-s76cs-png3d-b4bas-7msx6-np26h-eal53-cccem-xw66c-jted9-9ehpb-4r7em-hjs8b-x75ce-jwhl8-6f9cr-3gk3h-tncxk-j46m5-87wxh-3l23d-b3byf-npy8e-cswd3-k4pna-9pk6j-tna5l-6m4lf-s2zkr-n8h2f",
+      "destination": "/bucketlistliving/lieto-voices-presents-pure-imagination",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/hiking-essentials-for-active-adults-a6lgz",
+      "destination": "/bucketlistliving/a-little-more-conversation-four-conversational-clubs-at-sunriver-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd",
+      "destination": "/bucketlistliving/golf-tips-the-magic-move",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd",
+      "destination": "/bucketlistliving/golf-tips-the-weed-cutter",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846",
+      "destination": "/bucketlistliving/maintenance-tips-drywall",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn",
+      "destination": "/bucketlistliving/golf-tips-stay-connected",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh",
+      "destination": "/bucketlistliving/golf-tips-hitting-the-stinger",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m",
+      "destination": "/bucketlistliving/golf-tips-how-much-bounce",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-f9b6w",
+      "destination": "/bucketlistliving/golf-tips-putt-left-hand-low",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-f9b6w-h4z4f",
+      "destination": "/bucketlistliving/golf-tips-strong-grip-vs-weak-grip",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-f9b6w-h4z4f-58prb",
+      "destination": "/bucketlistliving/golf-tips-when-pitching-swing-short-to-long",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-f9b6w-h4z4f-58prb-755ws",
+      "destination": "/bucketlistliving/10-quick-tips-about-retiring-in-st-george-ut",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-f9b6w-h4z4f-58prb-755ws-8kwc2",
+      "destination": "/bucketlistliving/20-myths-about-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-f9b6w-h4z4f-58prb-755ws-8kwc2-b22yy",
+      "destination": "/bucketlistliving/5-ted-talks-to-watch-about-retirement",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/preparing-for-summer-living-in-southern-utah-edkxd-5t4dh-7fwbd-g5846-pp5sn-2khxh-ba22m-x25ct",
+      "destination": "/bucketlistliving/golf-tips-driver-shaft-length",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/seven-tips-for-mindful-meditation-swk2e",
+      "destination": "/bucketlistliving/accomplice-drive-in-premiere-presented-by-teton-gravity-research",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/summer-in-southern-utah-for-seniors-55-and-older",
+      "destination": "/bucketlistliving/summer-in-southern-utah-for-seniors-55-and-older-2024",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp",
+      "destination": "/bucketlistliving/all-american-breakfast",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y",
+      "destination": "/bucketlistliving/happenings-is-now-bucketlist-living",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h",
+      "destination": "/bucketlistliving/new-sunriver-website",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9",
+      "destination": "/bucketlistliving/extasis-professional-tango-trio",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr",
+      "destination": "/bucketlistliving/swedish-pancakes",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw",
+      "destination": "/bucketlistliving/rebel-jazz-band-concert",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4",
+      "destination": "/bucketlistliving/red-rock-rampage",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep",
+      "destination": "/bucketlistliving/iron-man-pep-rally",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh",
+      "destination": "/bucketlistliving/ladies-golf-clinics-at-sunriver-golf-course",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f",
+      "destination": "/bucketlistliving/moroccan-braised-chicken",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs",
+      "destination": "/bucketlistliving/santa-clara-city-shakespeare-in-the-park",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb",
+      "destination": "/bucketlistliving/pantry-pasta",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st",
+      "destination": "/bucketlistliving/carrot-jalapeno-soup",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz",
+      "destination": "/bucketlistliving/the-taffetas-at-hurricane-valley-theatrical-company",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye",
+      "destination": "/bucketlistliving/washington-county-cotton-days",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye-hd4sd",
+      "destination": "/bucketlistliving/chicken-with-lemon-herb-sauce",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye-hd4sd-wkfgs",
+      "destination": "/bucketlistliving/jeff-foxworthy-at-tuacahn",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye-hd4sd-wkfgs-e7cxl-dzg82-hx3kb",
+      "destination": "/bucketlistliving/double-dealing-dollface-may-11-at-sunriver-ballroom",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye-hd4sd-wkfgs-e7cxl-dzg82-hx3kb-7zg6a",
+      "destination": "/bucketlistliving/beet-salad",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye-hd4sd-wkfgs-e7cxl-dzg82-hx3kb-7zg6a-meelk-yy5z4-wp5gb",
+      "destination": "/bucketlistliving/hank-williams-lost-highway",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/wbhcyabfl6mfsrp-8j53y-rga3h-dgs55-a9df9-jawjr-l2zrw-8gkt4-djzep-7dsy3-39dlh-bac5f-8lpnr-clrrs-y44sb-557st-ptrkz-myxka-ktgye-hd4sd-wkfgs-e7cxl-dzg82-hx3kb-7zg6a-meelk-yy5z4-wp5gb-pyate-a2jk2-bx9ss",
+      "destination": "/bucketlistliving/grilled-peach-salad",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez",
+      "destination": "/bucketlistliving/a-kurt-bestor-christmas-peace-on-earth",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm",
+      "destination": "/bucketlistliving/christmas-at-the-st-george-tabernacle",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y",
+      "destination": "/bucketlistliving/a-classroom-christmas-at-the-sunriver-ballroom",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4",
+      "destination": "/bucketlistliving/3-secrets-to-maintain-happiness-in-retirement",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-a6dha",
+      "destination": "/bucketlistliving/st-george-art-museum-soup-n-bowl",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3",
+      "destination": "/bucketlistliving/how-to-create-the-ultimate-bucketlist",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3-hd64e",
+      "destination": "/bucketlistliving/sunriver-golf-covid-19-information",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3-hd64e-7ls6c",
+      "destination": "/bucketlistliving/planning-for-health-care-in-retirement",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3-hd64e-7ls6c-hbysm-jc3lb",
+      "destination": "/bucketlistliving/commonly-asked-questions-about-the-sunriver-villas",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3-hd64e-7ls6c-hbysm-jc3lb-2cpx8",
+      "destination": "/bucketlistliving/3-ways-to-maximize-your-retirement-savings",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3-hd64e-7ls6c-hbysm-jc3lb-2cpx8-ye9ry",
+      "destination": "/bucketlistliving/video-a-new-sunriver-community",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-t7by9",
+      "destination": "/bucketlistliving/video-sunriver-villas-model-tour",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-t7by9-73dns-frj3x",
+      "destination": "/bucketlistliving/st-george-home-expo-spring-2020",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-t7by9-73dns-frj3x-634r2",
+      "destination": "/bucketlistliving/four-podcasts-to-keep-updated-on-coronavirus",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7",
+      "destination": "/bucketlistliving/imaginarium-the-magician-jonah-lavelle",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e",
+      "destination": "/bucketlistliving/st-george-heritage-days",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8",
+      "destination": "/bucketlistliving/how-to-retire-early",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm",
+      "destination": "/bucketlistliving/clay-con-west",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y",
+      "destination": "/bucketlistliving/2020-winter-4x4-jamboree",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99",
+      "destination": "/bucketlistliving/enjoy-a-quality-lifestyle-year-round-in-st-george",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f",
+      "destination": "/bucketlistliving/the-complete-works-of-shakespeare-abridged-at-center-for-the-arts-at-kayenta",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j",
+      "destination": "/bucketlistliving/9-tax-breaks-for-people-over-50",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-dzs8j",
+      "destination": "/bucketlistliving/love-stories-in-song-with-john-d-smitherman-and-rachel-cox",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-skcmg",
+      "destination": "/bucketlistliving/dsu-sears-invitational-show",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-skcmg-k4jes",
+      "destination": "/bucketlistliving/finding-love-after-50-retiree-dating-tips",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-skcmg-k4jes-2m9mj-999gy",
+      "destination": "/bucketlistliving/young-dubliners-at-the-fox-theater",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-skcmg-k4jes-2m9mj-999gy-a5t3f",
+      "destination": "/bucketlistliving/chuck-negron-benefit-concert-at-dixie-state-university",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-skcmg-k4jes-2m9mj-999gy-a5t3f-3nas8",
+      "destination": "/bucketlistliving/best-ways-to-prevent-heart-disease",
+      "permanent": true
+    },
+    {
+      "source": "/bucketlist-living/8t7tpge75clshpw-f64kb-xzpds-bp9zd-7ac39-mf3ws",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/bucketlist-living/golf-tips-thumb-thing-interesting-ypxl4-che69",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-dn4m9-eh8e4-l5ra3-hd64e-7ls6c-hbysm-jc3lb-2cpx8-ye9ry-h4wg8",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j-3ac5f-jakxe-wtg2j-e4wch-gkt6g-skcmg-rb6ez",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/bucketlist-living/homesite-22-august",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/bucketlist-living/update-on-the-clubhouse",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
+      "source": "/bucketlist-living/ztey9cf7e68s6ez-hl2ct-9dajm-wgb5y-p3yb7-68h9e-2e9y8-8k2lm-acn6y-htz99-7y27j",
+      "destination": "/bucketlistliving",
+      "permanent": false
+    },
+    {
       "source": "/bucketlist-living/:path*",
       "destination": "/bucketlistliving/:path*",
       "permanent": true

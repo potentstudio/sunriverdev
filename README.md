@@ -24,3 +24,17 @@ Images borrowed from the earlier dev sites are committed under `media/` (see `.g
 so the build does not depend on sunriver-website.vercel.app or sunriverdev.netlify.app.
 
 Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by Vercel and harmless.
+
+## Forms, tracking and ad landing pages
+
+- **Forms** post to the SunRiver HubSpot portal (242537243), into the same forms the old sunriver.com embedded. The form ids,
+  thank-you lines and ad conversions are in `HS_FORMS`, `HS_THANKS` and `HS_ADS` at the top of `sitegen/lib.py`; the
+  submit code is the "Forms" block in `assets/site.js`. Field `name`s are HubSpot contact property names. A form works on any
+  host, including previews, so a test submission creates a real HubSpot contact.
+- **Tracking** (`TRACKING` in `sitegen/lib.py`): Google Tag Manager, Google Ads, Google Analytics, HubSpot, Microsoft Ads and
+  the Meta pixel, the same ids as the old site. They load only on sunriver.com. To test elsewhere, run
+  `localStorage.setItem("sr_track", "1")` in the browser console and reload.
+- **Ad landing pages**: `/firelight-bing` (Microsoft Ads) and `/discovery-villas-meta` (Meta ads) are built in
+  `sitegen/pages_main.py`, each with its own HubSpot form.
+- **Old blog addresses**: the 220 or so redirects near the top of the blog rules in `vercel.json` map old Squarespace post
+  URLs to the same post's new address. They must stay above the catch-all `/bucketlist-living/:path*` rule.

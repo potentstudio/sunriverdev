@@ -8,7 +8,7 @@ import math
 import re
 
 from .figma_assets import FG
-from .lib import (full_hero, PAGES, PHONE, PHONE_TEL, S, V, VP, FOUNDERS_BADGE, add, btn, chat_section, clean, esc, img, money,
+from .lib import (full_hero, HONEYPOT, PAGES, PHONE, PHONE_TEL, S, V, VP, FOUNDERS_BADGE, add, btn, chat_section, clean, esc, hs_attrs, img, money,
                   nice_date, sand_hero, simg, slugify, star_list)
 
 STATUS_ORDER = {"Move in Ready": 0, "For Sale": 1, "Under Contract": 2, "Sold": 3}
@@ -1227,8 +1227,8 @@ def build_design():
 
 # ================================================================== DISCOVERY VILLAS: request a stay (form)
 def build_dv_book():
-    """Request-a-stay form for the Discovery Villas. Basic fields only. Like the other site forms it is a placeholder
-    (data-demo) until the forms are wired to the CRM; the checkout date fills in from the arrival date (2 nights)."""
+    """Request-a-stay form for the Discovery Villas. It feeds the HubSpot Discovery Villas form: name, email, mobile phone and
+    the arrival date. Checkout, guests and notes ride along in the message. Checkout fills in from the arrival date (2 nights)."""
     add("/discovery-villas/book", "Request a Discovery Villas Stay", "Request three days and two nights in a designer-furnished Discovery Villa at SunRiver Firelight for $399.", "visit", """
 <section class="fah-hero li-hero dvb-hero">
   %s
@@ -1247,30 +1247,31 @@ def build_dv_book():
       </ul>
       <p class="dvb-call">Rather talk it through? Call <a href="%s">%s</a></p>
     </aside>
-    <form class="chat-form light dvb-form" data-demo novalidate aria-label="Request a Discovery Villas stay">
+    <form class="chat-form light dvb-form" %s novalidate aria-label="Request a Discovery Villas stay">
       <div class="row">
         <div><label for="dv-first">First name</label><input id="dv-first" name="firstname" type="text" autocomplete="given-name" required></div>
         <div><label for="dv-last">Last name</label><input id="dv-last" name="lastname" type="text" autocomplete="family-name" required></div>
       </div>
       <div class="row">
         <div><label for="dv-email">Email</label><input id="dv-email" name="email" type="email" autocomplete="email" required></div>
-        <div><label for="dv-phone">Phone</label><input id="dv-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div><label for="dv-phone">Mobile phone</label><input id="dv-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>
       </div>
       <div class="row">
-        <div><label for="dv-arrive">Arrival date</label><input id="dv-arrive" name="arrival" type="date" required></div>
-        <div><label for="dv-depart">Checkout</label><input id="dv-depart" name="checkout" type="date" readonly tabindex="-1" aria-describedby="dv-depart-note"><span class="dvb-hint" id="dv-depart-note">Two nights after arrival</span></div>
+        <div><label for="dv-arrive">Arrival date</label><input id="dv-arrive" name="date_of_requested_stay" type="date" data-hs-date required></div>
+        <div><label for="dv-depart">Checkout</label><input id="dv-depart" name="checkout" type="date" data-hs-note="Checkout" readonly tabindex="-1" aria-describedby="dv-depart-note"><span class="dvb-hint" id="dv-depart-note">Two nights after arrival</span></div>
       </div>
       <div class="row">
-        <div><label for="dv-guests">Guests</label><select id="dv-guests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+        <div><label for="dv-guests">Guests</label><select id="dv-guests" name="guests" data-hs-note="Guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
         <div><label for="dv-from">Traveling from</label><input id="dv-from" name="city" type="text" autocomplete="address-level2" placeholder="City, State"></div>
       </div>
       <div><label for="dv-msg">Questions or notes</label><textarea id="dv-msg" name="message" placeholder="Flexible dates, accessibility needs, anything we should know"></textarea></div>
       <p class="consent">By clicking "Request my stay", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
+      %s
       <button class="btn" type="submit">Request my stay</button>
-      <p class="form-note" hidden style="color:var(--sunriver-blue)"></p>
+      <p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>
     </form>
   </div>
-</section>""" % (img(FG("dv-living"), "Inside a designer-furnished Discovery Villa", "fah-hero-img", "eager"), PHONE_TEL, PHONE))
+</section>""" % (img(FG("dv-living"), "Inside a designer-furnished Discovery Villa", "fah-hero-img", "eager"), PHONE_TEL, PHONE, hs_attrs("villas"), HONEYPOT))
 
 
 # ================================================================== DISCOVERY VILLAS V2 (draft beside the current page)
