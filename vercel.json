@@ -1386,6 +1386,106 @@
       "source": "/amberly.html",
       "destination": "/floor-plans/amberly",
       "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/homes-for-sale-1",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/incentives-1",
+      "destination": "/incentives",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-firelight-1",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/discovery-villas-2",
+      "destination": "/discovery-villas",
+      "permanent": true
+    },
+    {
+      "source": "/evergreen-1",
+      "destination": "/floor-plans/evergreen",
+      "permanent": true
+    },
+    {
+      "source": "/lot-1",
+      "destination": "/homes-for-sale/august-lot-1",
+      "permanent": false
+    },
+    {
+      "source": "/amenities-landing",
+      "destination": "/live-on",
+      "permanent": true
+    },
+    {
+      "source": "/rsvp",
+      "destination": "/contact-us",
+      "permanent": true
+    },
+    {
+      "source": "/st-george",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/st-george/:path*",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/villas",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/villas/:path*",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/sunriver-villas-floor-plans",
+      "destination": "/sunriver-firelight",
+      "permanent": true
+    },
+    {
+      "source": "/1348-vincent",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/1427-martin",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/1438-knowles",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/1544-miller",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/1664-ernest",
+      "destination": "/homes-for-sale",
+      "permanent": true
+    },
+    {
+      "source": "/1681-agnes",
+      "destination": "/homes-for-sale",
+      "permanent": true
     }
   ],
   "rewrites": [
