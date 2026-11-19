@@ -1160,7 +1160,7 @@ def build_design():
           ("Can I prepare ahead of time?", "Yes, and it helps. Bring photos of rooms you love, measurements of furniture you are keeping, and notes on how you use each space."),
           ("Will someone try to upsell me?", "No. The point of the appointment is not to upsell you. It is to make the house match the way you live."),
           ("How much do options cost?", "It depends on the plan and the selections you make. You leave knowing what each selection costs, before anything is final."),
-          ("Can I see finished homes first?", "Yes. Five of the seven floor plans are open as model homes, and move-in ready homes are available to walk through.")]
+          ("Can I see finished homes first?", "Yes. Five of the seven floor plans are open as model homes, and move-in ready homes are available to walk through. Come see for yourself!")]
     faq_html = "".join('<details class="faq dz-faq"><summary>%s</summary><div class="answer"><p>%s</p></div></details>' % x for x in qa)
     add("/design", "The Design Center", "The SunRiver Design Center: choose finishes with a designer beside you, see full-size samples, and leave knowing what each selection costs.", "life-overlay", """
 <section class="fah-hero li-hero dz-hero no-wash">
