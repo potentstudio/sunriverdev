@@ -721,7 +721,7 @@ def build_main(plans, listings):
 </section>
 %s''' % (full_hero("Discovery Villas", src=FG("fl-trails"), alt="Red rock and trail country around SunRiver Firelight", pos="50% 55%"),
          dv_logo, PHONE_TEL, PHONE, img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas", "dv-photo"),
-         near_html, PHONE_TEL, chat_section("Plan your stay", "Questions about the Discovery Villas? Send us a note and we'll help you pick your dates.")))
+         near_html, PHONE_TEL, chat_section("Plan your stay", "Questions about the Discovery Villas? Send us a note and we'll help you pick your dates.")), body_class="dv-yellow")
 
     # Ad landing page (Meta ads send people to /discovery-villas-meta). Laid out like the page on the old sunriver.com:
     # photo beside the offer and a short request form, a few villa photos, then the drive times. The form feeds the
