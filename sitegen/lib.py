@@ -9,8 +9,10 @@ Image helpers:
 """
 import hashlib
 import html
+import os
 import re
 from pathlib import Path
+from urllib.parse import quote
 from datetime import datetime, timedelta
 
 VERCEL = "https://sunriver-website.vercel.app"
@@ -166,27 +168,250 @@ def S(ref, w=None):
     return url + "?" + "&".join(q)
 
 
-def img(src, alt="", cls="", loading="lazy", attrs=""):
+# ------------------------------------------------------------------ local images
+# Local raster images (/media/... and /assets/img/...) get three things from img():
+#   * width and height, read from the file, so the page does not jump while images load
+#   * a ?v=<content hash> on the plain URL, so a replaced file is fetched again (media is cached for a year)
+#   * on Vercel, a srcset through Vercel Image Optimization (/_vercel/image), so a phone downloads a
+#     phone-size AVIF or WebP instead of the full file. The widths and quality must be listed under "images"
+#     in vercel.json, or the service answers with an error.
+# Off Vercel (local preview, Netlify) the plain file is used, so nothing depends on the service.
+_REPO = Path(__file__).resolve().parent.parent
+ON_VERCEL = os.environ.get("VERCEL") == "1"
+IMG_WIDTHS = (640, 1080, 1600, 2400)   # keep in step with images.sizes in vercel.json
+IMG_QUALITY = 75                       # keep in step with images.qualities in vercel.json
+_RASTER = (".jpg", ".jpeg", ".png", ".webp")
+_IMG_INFO = {}
+
+
+def local_image(src):
+    """The file in this repo behind a local raster image URL, or None (remote images, SVGs, files that are
+    only mirrored in at build time)."""
+    path = src.split("?", 1)[0].split("#", 1)[0]
+    if not path.startswith(("/media/", "/assets/img/")) or not path.lower().endswith(_RASTER):
+        return None
+    candidates = [_REPO / path.lstrip("/")]
+    if path.startswith("/media/fg/"):   # figma_assets lets a file in assets/fg override the one in media/fg
+        candidates.insert(0, _REPO / "assets" / "fg" / path.rsplit("/", 1)[1])
+    for f in candidates:
+        if f.is_file():
+            return f
+    return None
+
+
+def image_info(src):
+    """(width, height, content hash) of a local raster image, cached. None when the file is not in the repo
+    or Pillow is not installed."""
+    path = src.split("?", 1)[0].split("#", 1)[0]
+    if path not in _IMG_INFO:
+        info, f = None, local_image(path)
+        if f:
+            try:
+                from PIL import Image
+                with Image.open(f) as im:
+                    info = (im.width, im.height, hashlib.md5(f.read_bytes()).hexdigest()[:8])
+            except Exception:  # noqa: BLE001  (no Pillow, or not an image: fall back to a plain <img>)
+                info = None
+        _IMG_INFO[path] = info
+    return _IMG_INFO[path]
+
+
+def other_size(src):
+    """Pixel size for images that are not local rasters, where it can be known without downloading anything:
+    a Sanity image carries its size in its filename, and a local SVG states it in its viewBox."""
+    m = re.search(r"cdn\.sanity\.io/images/[^?]*-(\d+)x(\d+)\.\w+(\?.*)?$", src)
+    if m:
+        if m.group(3) and re.search(r"[?&](h=|rect=|crop=|fit=(?!max))", m.group(3)):   # cropped: not the file's shape
+            return None
+        return int(m.group(1)), int(m.group(2))
+    path = src.split("?", 1)[0].split("#", 1)[0]
+    if path.startswith(("/media/", "/assets/")) and path.lower().endswith(".svg"):
+        if path not in _IMG_INFO:
+            dims, f = None, _REPO / path.lstrip("/")
+            if f.is_file():
+                head = f.read_text(encoding="utf-8", errors="ignore")[:2000]
+                vb = re.search(r'viewBox="\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)', head)
+                if vb and float(vb.group(1)) > 0 and float(vb.group(2)) > 0:
+                    dims = (round(float(vb.group(1))), round(float(vb.group(2))))
+            _IMG_INFO[path] = dims
+        return _IMG_INFO[path]
+    return None
+
+
+def versioned(src):
+    """src with ?v=<content hash> added, for a local raster image that has no query string yet."""
+    info = image_info(src)
+    return "%s?v=%s" % (src, info[2]) if info and "?" not in src else src
+
+
+def image_srcset(src):
+    """srcset for a local raster image through Vercel Image Optimization, or "" when it does not apply.
+    Widths larger than the file are left out; the file itself is the last entry when it is wider than the
+    largest listed width, so a large screen still gets every pixel there is."""
+    info = image_info(src)
+    if not ON_VERCEL or not info:
+        return ""
+    width = info[0]
+    widths = [w for w in IMG_WIDTHS if w <= width]
+    if not widths:
+        return ""
+    url = quote(src.split("?", 1)[0].split("#", 1)[0], safe="")
+    entries = ["/_vercel/image?url=%s&amp;w=%d&amp;q=%d %dw" % (url, w, IMG_QUALITY, w) for w in widths]
+    if width > widths[-1]:
+        entries.append("%s %dw" % (versioned(src), width))
+    return ", ".join(entries)
+
+
+def img(src, alt="", cls="", loading="lazy", attrs="", sizes="100vw", priority=False):
+    """An <img>. sizes says how wide the image is shown (a CSS sizes value); it only matters for local images
+    on Vercel, where it picks the right entry from the srcset. priority marks the page's main image (the hero):
+    it loads first, ahead of everything else. A hero image (class fah-hero-img) is the main image by default."""
     c = ' class="%s"' % cls if cls else ""
+    if priority or ("fah-hero-img" in cls and loading == "eager"):
+        loading = "eager"
+        if "fetchpriority" not in attrs:
+            attrs = ('fetchpriority="high" ' + attrs).strip()
+    extra = ""
+    info = image_info(src)
+    if info and "srcset=" not in attrs:
+        srcset = image_srcset(src)
+        if srcset:
+            extra += ' srcset="%s" sizes="%s"' % (srcset, sizes)
+        if "width=" not in attrs:
+            extra += ' width="%d" height="%d"' % info[:2]
+        src = versioned(src)
+    elif "width=" not in attrs:
+        dims = other_size(src)
+        if dims:
+            extra += ' width="%d" height="%d"' % dims
     a = (" " + attrs) if attrs else ""
-    return '<img src="%s" alt="%s"%s loading="%s" decoding="async"%s>' % (src, esc(alt), c, loading, a)
+    return '<img src="%s" alt="%s"%s loading="%s" decoding="async"%s%s>' % (src, esc(alt), c, loading, extra, a)
 
 
-def simg(ref, alt="", w=1200, cls="", loading="lazy", sizes="100vw"):
-    """Responsive Sanity image with a small srcset."""
+# How wide a local image is shown, by where it sits on the page: (class on the image or one of its three nearest
+# ancestors, CSS sizes value). img() writes sizes="100vw" unless a caller passes something else; add() then
+# swaps that default for the first match below, so a photo in a three-across grid is not sent the file a
+# full-width hero needs. Full-width images (heroes, bands, banners, the footer photo) match nothing and stay
+# at 100vw. The values come from measuring every page at 1440 px and 390 px wide. To set one by hand, pass
+# sizes= to img(), photo() or simg(): an explicit value is never replaced.
+_PHONE = "(max-width: 860px) "
+IMG_SIZES = [
+    ("thumb", _PHONE + "22vw, 14vw"),
+    ("ht-node", _PHONE + "22vw, 12vw"),
+    ("community-logo", _PHONE + "38vw, 11vw"), ("ws-comm-logo", _PHONE + "55vw, 17vw"), ("fh-badge", _PHONE + "30vw, 13vw"),
+    ("day", _PHONE + "45vw, 17vw"),
+    ("lon-t-paddle", _PHONE + "100vw, 46vw"), ("lon-tile", _PHONE + "45vw, 34vw"),
+    ("dv2-col-small", _PHONE + "50vw, 18vw"),
+    ("home-img", _PHONE + "100vw, 20vw"),
+    ("lon-slide", _PHONE + "100vw, 75vw"), ("dz-pane", _PHONE + "100vw, 78vw"), ("team-photo", _PHONE + "100vw, 70vw"),
+    ("viewer-main", _PHONE + "100vw, 55vw"), ("h4-couple", _PHONE + "100vw, 55vw"),
+    ("wordmark", _PHONE + "80vw, 36vw"),
+    ("photo-card", _PHONE + "100vw, 28vw"), ("person", _PHONE + "100vw, 28vw"), ("cols-2", _PHONE + "100vw, 28vw"),
+    ("homes-trio", _PHONE + "100vw, 28vw"), ("lo-card", _PHONE + "100vw, 25vw"), ("fl-amen-img", _PHONE + "100vw, 25vw"),
+    ("dv2-link-img", _PHONE + "100vw, 26vw"), ("badge-wrap", _PHONE + "75vw, 26vw"),
+    ("hd-team", _PHONE + "100vw, 32vw"), ("fl-promo-img", _PHONE + "100vw, 34vw"), ("ws-comm-photo", _PHONE + "100vw, 32vw"),
+    ("community-img", _PHONE + "100vw, 30vw"), ("fl-img", _PHONE + "100vw, 36vw"), ("lon-built-tile", _PHONE + "100vw, 35vw"),
+    ("dv2-col-main", _PHONE + "100vw, 32vw"), ("hy-img", _PHONE + "100vw, 37vw"), ("lon-running-couple", _PHONE + "100vw, 37vw"),
+    ("lo-visit-couple", _PHONE + "100vw, 48vw"), ("dv2-day-img", _PHONE + "100vw, 34vw"),
+    ("lp-shot", _PHONE + "100vw, 43vw"), ("amen-row", _PHONE + "100vw, 41vw"), ("split", _PHONE + "100vw, 41vw"),
+    ("dv2-split-img", _PHONE + "100vw, 41vw"), ("li-dc-img", _PHONE + "100vw, 42vw"), ("lp-dv-photo", _PHONE + "100vw, 41vw"),
+    ("ws-map", _PHONE + "100vw, 41vw"),
+]
+_VOID = {"img", "br", "hr", "input", "source", "link", "meta", "area", "base", "col", "embed", "param", "track", "wbr"}
+_TAG = re.compile(r"<(/?)([a-zA-Z][\w-]*)((?:[^>\"']|\"[^\"]*\"|'[^']*')*)>")
+
+
+def place_sizes(body):
+    """Swap the default sizes="100vw" on optimized images for the value that fits where each image sits
+    (see IMG_SIZES). Walks the markup once, keeping the classes of the open elements."""
+    if 'sizes="100vw"' not in body or "/_vercel/image" not in body:
+        return body
+    out, stack, pos, skip_until = [], [], 0, None
+    for m in _TAG.finditer(body):
+        close, tag, rest = m.group(1), m.group(2).lower(), m.group(3)
+        if skip_until:                       # inside <script> or <style>: not markup
+            if close and tag == skip_until:
+                skip_until = None
+            continue
+        if close:
+            for k in range(len(stack) - 1, -1, -1):
+                if stack[k][0] == tag:
+                    del stack[k:]
+                    break
+            continue
+        cls = re.search(r'\bclass="([^"]*)"', rest)
+        cls = cls.group(1) if cls else ""
+        if tag == "img":
+            if ' sizes="100vw"' in rest and "/_vercel/image" in rest:
+                where = " ".join([cls] + [c for _, c in stack[-3:]]).split()
+                hit = next((v for k, v in IMG_SIZES if k in where), None)
+                if hit:
+                    out.append(body[pos:m.start()])
+                    out.append(m.group(0).replace(' sizes="100vw"', ' sizes="%s"' % hit, 1))
+                    pos = m.end()
+            continue
+        if tag in ("script", "style"):
+            skip_until = tag
+            continue
+        if tag not in _VOID and not rest.rstrip().endswith("/"):
+            stack.append((tag, cls))
+    out.append(body[pos:])
+    return "".join(out)
+
+
+def deferred_img(src, alt=""):
+    """An <img> that downloads nothing until site.js copies data-src into src (the photos in the Life at
+    SunRiver menu, which is closed on most visits)."""
+    info = image_info(src)
+    dims = ' width="%d" height="%d"' % info[:2] if info else ""
+    return '<img data-src="%s" alt="%s"%s decoding="async">' % (versioned(src), esc(alt), dims)
+
+
+def preload_link(body):
+    """<link rel="preload"> for the page's main image (the first one marked fetchpriority="high"), so the
+    browser starts on it before it has read the rest of the page."""
+    m = re.search(r'<img\b[^>]*\bfetchpriority="high"[^>]*>', body)
+    if not m:
+        return ""
+    get = lambda tag, k: (re.search(r'\b%s="([^"]*)"' % k, tag) or [None, ""])[1]
+    def link(tag, src_key, media=""):
+        href, srcset, sizes = get(tag, src_key) if src_key == "src" else "", get(tag, "srcset"), get(tag, "sizes")
+        if not href and not srcset:
+            return ""
+        out = '<link rel="preload" as="image" fetchpriority="high"'
+        if href:
+            out += ' href="%s"' % href
+        if srcset:
+            out += ' imagesrcset="%s" imagesizes="%s"' % (srcset, sizes or "100vw")
+        return out + (' media="%s"' % media if media else "") + ">"
+    tag = m.group(0)
+    # inside a <picture> with one media-specific <source> (the homepage hero): one link per version
+    before = body[max(0, m.start() - 600):m.start()]
+    pic = before.rfind("<picture")
+    if pic > -1 and "</picture>" not in before[pic:]:
+        sources = re.findall(r"<source\b[^>]*>", before[pic:])
+        if len(sources) == 1 and get(sources[0], "media"):
+            media = get(sources[0], "media")
+            return link(sources[0], "srcset", media) + "\n" + link(tag, "src", "not all and %s" % media)
+        return ""
+    return link(tag, "src")
+
+
+def simg(ref, alt="", w=1200, cls="", loading="lazy", sizes="100vw", priority=False):
+    """Responsive Sanity image with a small srcset. priority marks the page's main image (see img())."""
     if ref.startswith("http"):
-        return img(ref, alt, cls, loading)
+        return img(ref, alt, cls, loading, sizes=sizes, priority=priority)
     if ref.startswith("/"):
-        return img(S(ref, w), alt, cls, loading)
+        return img(S(ref, w), alt, cls, loading, sizes=sizes, priority=priority)
     _, ow, oh = sanity_id(ref)
     widths = sorted(set(x for x in (w // 2, w, w * 2) if not ow or x <= ow) or {ow})
     srcset = ", ".join("%s %dw" % (S(ref, x), x) for x in widths)
     dims = ' width="%d" height="%d"' % (ow, oh) if ow and oh else ""
-    return img(S(ref, w), alt, cls, loading, 'srcset="%s" sizes="%s"%s' % (srcset, sizes, dims))
+    return img(S(ref, w), alt, cls, loading, 'srcset="%s" sizes="%s"%s' % (srcset, sizes, dims), priority=priority)
 
 
-def photo(src, alt="", ratio="ratio-43", extra=""):
-    return '<div class="photo %s %s">%s</div>' % (ratio, extra, img(src, alt))
+def photo(src, alt="", ratio="ratio-43", extra="", sizes="100vw"):
+    return '<div class="photo %s %s">%s</div>' % (ratio, extra, img(src, alt, sizes=sizes))
 
 
 def btn(label, href, kind=""):
@@ -235,10 +460,12 @@ def pill_header(active, variant="bar"):
     from .figma_assets import FG
     items = "".join('<li><a href="%s" data-i="%d"><strong>%s</strong></a></li>' % (h, k, t) for k, (t, h, sub, _, _) in enumerate(LIFE))
     # Dropdown photo per item, Figma "Home NAV Live In 3": each photo carries a serif title, and it swaps as you hover.
-    shots = [(FG("nav-kitchen"), "A couple cooking together in a SunRiver Firelight kitchen", "Your Home"),
-             (LIFE[1][3], LIFE[1][4], "Southern Utah"),
-             (FG("nav-photo"), "SunRiver members playing pickleball", "Clubs &amp; Groups")]
-    photos = "".join('<span class="pd-shot%s" data-i="%d">%s<span class="pd-shot-title">%s</span></span>' % (" is-on" if k == 0 else "", k, img(src, alt, loading="eager"), title)
+    # The photos are 800 px copies made for this slot (389 px wide), and they carry data-src instead of src:
+    # nothing downloads until a visitor goes to open the menu (see "menu photos" in site.js).
+    shots = [("/media/fg/nav-menu-home.webp", "A couple cooking together in a SunRiver Firelight kitchen", "Your Home"),
+             ("/media/fg/nav-menu-hike.webp", LIFE[1][4], "Southern Utah"),
+             ("/media/fg/nav-menu-clubs.webp", "SunRiver members playing pickleball", "Clubs &amp; Groups")]
+    photos = "".join('<span class="pd-shot%s" data-i="%d">%s<span class="pd-shot-title">%s</span></span>' % (" is-on" if k == 0 else "", k, deferred_img(src, alt), title)
                      for k, (src, alt, title) in enumerate(shots))
     cur = lambda k: ' aria-current="page"' if k == active else ""
     tab = ""  # the Founders Club tab is retired
@@ -358,6 +585,7 @@ def add(path, title, description, active, body, body_class=""):
         active = (active or "page") + "-overlay"  # full photo hero: the header and nav sit on the photo
     if active.endswith("-overlay") and active != "home-overlay":
         body_class = (body_class + " overlay-page").strip()
+    body = place_sizes(body)
     doc = '''<!doctype html>
 <html lang="en">
 <head>
@@ -373,6 +601,7 @@ def add(path, title, description, active, body, body_class=""):
 <link rel="preconnect" href="https://cdn.sanity.io">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;900&family=Source+Serif+4:opsz,wght@8..60,500&display=swap">
 %s
+%s
 <link rel="stylesheet" href="/assets/styles.css?v=%s">
 %s
 </head>
@@ -385,7 +614,7 @@ def add(path, title, description, active, body, body_class=""):
 <script src="/assets/site.js?v=%s" defer></script>
 </body>
 </html>
-''' % (esc(full_title), esc(description), esc(full_title), esc(description), FONTS, asset_v("styles.css"), TRACKING,
+''' % (esc(full_title), esc(description), esc(full_title), esc(description), FONTS, preload_link(body), asset_v("styles.css"), TRACKING,
        ' class="%s"' % body_class if body_class else "", header(active), body, footer(), asset_v("site.js"))
     assert "—" not in doc, "em dash found on %s" % path
     PAGES[path] = doc

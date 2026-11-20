@@ -38,3 +38,17 @@ Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by 
   `sitegen/pages_main.py`, each with its own HubSpot form.
 - **Old blog addresses**: the 220 or so redirects near the top of the blog rules in `vercel.json` map old Squarespace post
   URLs to the same post's new address. They must stay above the catch-all `/bucketlist-living/:path*` rule.
+
+## Images
+
+- **Every `<img>` goes through `img()` in `sitegen/lib.py`.** For an image stored in this repo (`media/`, `assets/img/`) it
+  adds `width` and `height`, a `?v=` content hash, and on Vercel a `srcset` through Vercel Image Optimization
+  (`/_vercel/image`), so phones get a phone-size AVIF or WebP. The allowed widths and quality are under `images` in
+  `vercel.json` and must match `IMG_WIDTHS` and `IMG_QUALITY` in `lib.py`. Off Vercel the plain file is used.
+- **How wide an image is shown** comes from the `IMG_SIZES` table in `lib.py`, keyed by the class of the image's container.
+  A new grid or card layout should get a line there (or pass `sizes=` to `img()`), otherwise it is treated as full width.
+- **The page's main image** (the hero) is the only one with `fetchpriority="high"`; it also gets a preload link. Use
+  `priority=True` on `img()` or `simg()` for a page whose top image is not a `fah-hero-img`. Everything else is lazy.
+- **Menu photos** in the Life at SunRiver dropdown carry `data-src` and load the first time someone goes to open the menu.
+- **Adding photos:** keep them under 400 KB. `python3 tools/compress_media.py` shrinks anything new in `media/` or
+  `assets/img/` in place (see the notes at the top of that file). It is run by hand, not by the build.

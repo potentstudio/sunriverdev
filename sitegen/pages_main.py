@@ -766,7 +766,7 @@ def build_main(plans, listings):
     <div class="dv-near-grid">%s</div>
     <div class="center btn-row" style="justify-content:center"><a class="btn" href="#stay">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
   </div>
-</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", loading="eager"), dv_logo, hs_attrs("villas-meta"), HONEYPOT,
+</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", sizes="(max-width: 860px) 100vw, 50vw"), dv_logo, hs_attrs("villas-meta"), HONEYPOT,
         PHONE_TEL, PHONE, lp_gallery, near_html, PHONE_TEL), body_class="landing")
 
     # ============================================================== MORTGAGE
