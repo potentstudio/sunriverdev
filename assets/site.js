@@ -248,6 +248,8 @@
       var done = function () {
         say(form.getAttribute('data-hs-thanks') || 'Thank you, we\'ll be in touch soon.');
         controls.forEach(function (el) { el.disabled = true; });
+        var sent = form.querySelector('button[type="submit"]');
+        if (sent) sent.textContent = 'Sent';   // it said "Sending..." while the request was out
         form.classList.add('is-sent');
       };
       // a filled-in trap field means a bot: look successful, send nothing
