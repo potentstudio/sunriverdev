@@ -29,8 +29,10 @@ Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by 
 
 - **Forms** post to the SunRiver HubSpot portal (242537243), into the same forms the old sunriver.com embedded. The form ids,
   thank-you lines and ad conversions are in `HS_FORMS`, `HS_THANKS` and `HS_ADS` at the top of `sitegen/lib.py`; the
-  submit code is the "Forms" block in `assets/site.js`. Field `name`s are HubSpot contact property names. A form works on any
-  host, including previews, so a test submission creates a real HubSpot contact.
+  submit code is the "Forms" block in `assets/site.js`. Field `name`s are HubSpot contact property names. HubSpot only accepts
+  a submission from a domain listed under Settings > Tracking & Analytics > Tracking Code > Advanced Tracking > Additional site
+  domains. From any other host (a preview, sunriverdev.vercel.app unless it is added there) the form still shows its thank-you,
+  but HubSpot files the submission under the form's Blocked Submissions as "Unregistered Site Domain" and creates no contact.
 - **Tracking** (`TRACKING` in `sitegen/lib.py`): Google Tag Manager, Google Ads, Google Analytics, HubSpot, Microsoft Ads and
   the Meta pixel, the same ids as the old site. They load only on sunriver.com. To test elsewhere, run
   `localStorage.setItem("sr_track", "1")` in the browser console and reload.
