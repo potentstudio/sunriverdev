@@ -2687,6 +2687,21 @@ body.landing main > section:first-child { padding-top: clamp(36px, 5vw, 76px); }
 .dv-offer .lp-call a { color: inherit; }
 .dv-yellow .chat-form.lp-dv-form { background: transparent; }
 .dv-offer .lp-dv-photo img { object-position: 14% 50%; }
+/* Shortened (Clark, Nov 2026): less padding, smaller logo and type, and the form paired up into three rows */
+.section.dv-offer { padding-block: clamp(36px, 4vw, 56px) clamp(40px, 4.5vw, 64px); }
+.dv-offer .lp-dv-copy { gap: 14px; }
+.dv-offer img.dv-logo { width: 210px; margin-bottom: 0; }
+.dv-offer .lp-dv-title { font-size: clamp(24px, 2.1vw, 30px); }
+.dv-offer .lp-dv-copy > p { max-width: none; }
+.dv-offer .price-callout { font-size: clamp(26px, 2.5vw, 34px); }
+.dv-offer .chat-form.lp-dv-form { max-width: none; gap: 12px; }
+.dv-offer .chat-form label { font-size: 15px; margin-bottom: 5px; }
+.dv-offer .dv-row-send { align-items: end; }
+.dv-offer .chat-form.lp-dv-form .dv-row-send .btn { justify-self: stretch; }
+.dv-offer .chat-form .consent { font-size: 11px; line-height: 1.4; }
+.dv-offer .lp-call { font-size: clamp(22px, 2.1vw, 28px); }
+.dv-offer .lp-fine { font-size: 12px; margin-top: -6px; }
+.dv-offer .lp-dv-photo { min-height: 0; }
 .dv-close h2.display { color: var(--deep-river); }
 .dv-dest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
 .dv-dest { display: grid; align-content: start; }
