@@ -165,6 +165,6 @@ def get_all():
     sanity = load("homeListings")
     # SunRiver Firelight from the sales team's inventory sheet; other communities from the MLS feed
     listings = inventory_listings(sanity, plans) + [l for l in mls_listings(sanity) if l.get("community") != "SunRiver Firelight"]
-    posts = [p for p in load("posts")
+    posts = [p for p in load("posts") + json.loads((ROOT / "data" / "local_posts.json").read_text(encoding="utf-8"))
              if p.get("slug") and p.get("title") and not p["title"].startswith("[PENDING") and block_text(p.get("body"))]
     return plans, listings, posts
