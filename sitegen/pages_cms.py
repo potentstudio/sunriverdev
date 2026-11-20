@@ -212,7 +212,7 @@ def build_plan(p, i, plans):
     gallery = p.get("gallery") or []
     refs = [g["asset"] for g in gallery]
     alt = gallery[0].get("alt") if gallery and gallery[0].get("alt") else "%s at SunRiver Firelight" % p["name"]
-    main = simg(refs[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px") if refs else ""
+    main = simg(refs[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px", priority=True) if refs else ""
     sqft = "{:,}".format(p["squareFootage"])
     beds, baths = num(p.get("bedrooms")), num(p.get("bathrooms"))
     spec = (p.get("specLine") or "").lower()
@@ -432,7 +432,7 @@ GAL_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="curr
 def gallery(pics, alt, variant):
     """Listing gallery with arrows: large photo with prev/next and a count, then a strip of 4 thumbnails with its own arrows."""
     L, R = GAL_CHEV % "M15 5l-7 7 7 7", GAL_CHEV % "M9 5l7 7-7 7"
-    main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px")
+    main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px", priority=True)
     thumbs = "".join('<button type="button" class="thumb%s" data-src="%s" aria-label="Show photo %d of %d">%s</button>' % (
         " is-active" if k == 0 else "", S(r, 1600), k + 1, len(pics), img(S(r, 320), "%s photo %d" % (alt, k + 1))) for k, r in enumerate(pics))
     return '''<div class="hd-media viewer gal gal-%s%s" data-gal>
@@ -453,7 +453,7 @@ def build_listing(l, path=None, gal="a"):
     """Listing page, OFFICIAL Figma "Homes for Sale Home Detail" (6:503)."""
     pics = ([l["photo"]] if l.get("photo") else []) + [g for g in (l.get("gallery") or []) if g != l.get("photo")]
     alt = l.get("photoAlt") or l.get("title")
-    main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px") if pics else ""
+    main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px", priority=True) if pics else ""
     thumbs = ""
     if len(pics) > 1:
         thumbs = '<div class="hd-thumbs%s">%s%s</div>' % (
@@ -630,7 +630,7 @@ def blog_listing(posts, base, title_html, intro_html, page_title, description, c
     </a>
   </div>
 </section>''' % (top["slug"], esc(clean(top["title"])),
-                 simg(top["cover"], top["title"], 1200, loading="eager", sizes="(max-width: 860px) 100vw, 470px") if top.get("cover") else "",
+                 simg(top["cover"], top["title"], 1200, sizes="(max-width: 860px) 100vw, 470px") if top.get("cover") else "",
                  esc(cat) if cat else nice_date(top.get("publishDate")), esc(clean(top["title"])), esc(excerpt))
         prev = '<a class="li-btn" href="%s">Newer stories</a>' % (base if n == 2 else "%s/page/%d" % (base, n - 1)) if n > 1 else ""
         nxt = '<a class="li-btn blue" href="%s/page/%d">Older stories</a>' % (base, n + 1) if n < pages else ""
@@ -664,7 +664,7 @@ def build_blog(posts):
         more = [q for q in posts[max(0, i - 2): i + 6] if q is not p][:4]
         chips = '<div class="post-chips"><a href="/bucketlistliving">#bucketlistliving</a>%s</div>' % "".join(
             '<a href="/bucketlistliving/category/%s">%s</a>' % (slugify(c), esc(c)) for c in (p.get("categories") or []) if c)
-        cover = '<div class="post-cover">%s</div>' % simg(p["cover"], p["title"], 1400, loading="eager", sizes="(max-width: 1100px) 100vw, 1040px") if p.get("cover") else ""
+        cover = '<div class="post-cover">%s</div>' % simg(p["cover"], p["title"], 1400, loading="eager", sizes="(max-width: 1100px) 100vw, 1040px", priority=True) if p.get("cover") else ""
         desc = clean(p.get("excerpt")) or clean(" ".join(
             "".join(c.get("text", "") for c in b.get("children", [])) for b in p["body"] if b.get("_type") == "block"))[:155]
         add("/bucketlistliving/%s" % p["slug"], clean(p["title"]), desc, "life", '''
@@ -891,7 +891,7 @@ def build_live_on(posts):
               ("Clubhouse", "lon-clubhouse", "The Clubhouse under construction"),
               ("Additional phases", "/assets/img/lon-additional-phases.webp", "New homes going up in the next phases at SunRiver Firelight")]
     slide_html = "".join('<div class="lon-slide lon-s%d" role="group" aria-roledescription="slide" aria-label="%d of %d">%s<span>%s</span></div>' % (
-        i + 1, i + 1, len(slides), img(f if f.startswith("/") else FG(f), alt, loading="eager" if i == 0 else "lazy"), t) for i, (t, f, alt) in enumerate(slides))
+        i + 1, i + 1, len(slides), img(f if f.startswith("/") else FG(f), alt), t) for i, (t, f, alt) in enumerate(slides))
     honest = '''
     <div class="lon-honest">
       <div class="lon-honest-img">%s</div>
@@ -1008,7 +1008,7 @@ def build_firelight(plans):
                 (FG("fl-trails"), "Red rock mountains and desert trail near SunRiver Firelight", "50% 30%"),
                 (FG("lon-pickleball"), "SunRiver members on the pickleball courts", "50% 35%")]
     mix_html = "".join('<div class="lon-slide fl-slide" role="group" aria-roledescription="slide" aria-label="%d of %d">%s<span class="fl-slide-text"><strong>%s</strong><em>%s</em></span></div>' % (
-        i + 1, len(mix), img(src, alt, loading="eager" if i == 0 else "lazy", attrs='style="object-position:%s"' % pos), t, d)
+        i + 1, len(mix), img(src, alt, attrs='style="object-position:%s"' % pos), t, d)
         for i, ((t, d), (src, alt, pos)) in enumerate(zip(mix, mix_pics)))
     amen = [("The Clubhouse", "The hub for social, recreational and wellness life at SunRiver Firelight, with fitness rooms, event spaces and dedicated rooms for hobbies and clubs.", V("amenity-clubhouse.1s09xtqihpiiw.jpg")),
             ("The pool", "A 4,000 square foot pool for laps, sunning on the deck or a poolside evening with neighbors.", V("amenity-pool.3xoam7a_jzu33.jpg")),
