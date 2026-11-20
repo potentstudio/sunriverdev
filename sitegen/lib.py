@@ -256,7 +256,9 @@ def image_srcset(src):
     if not widths:
         return ""
     url = quote(src.split("?", 1)[0].split("#", 1)[0], safe="")
-    entries = ["/_vercel/image?url=%s&amp;w=%d&amp;q=%d %dw" % (url, w, IMG_QUALITY, w) for w in widths]
+    # v is not read by the service. It is there because the resized image is sent with the same browser cache
+    # lifetime as the file it came from (a year for /media/), so the URL has to change when the file does.
+    entries = ["/_vercel/image?url=%s&amp;w=%d&amp;q=%d&amp;v=%s %dw" % (url, w, IMG_QUALITY, info[2], w) for w in widths]
     if width > widths[-1]:
         entries.append("%s %dw" % (versioned(src), width))
     return ", ".join(entries)
