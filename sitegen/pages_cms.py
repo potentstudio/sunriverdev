@@ -797,7 +797,7 @@ def build_live_out():
     """Live Out page, built from the Figma "LIVE OUT" frame (OFFICIAL file, node 255:900). Copy from Adam's Live Out doc.
     Drive times marked as estimates in that doc still need verifying."""
     far = [("Zion National Park", "31 min", "/assets/img/lo-zion.webp"),
-           ("Shakespeare Festival", "Cedar City, about 50 min", "/assets/img/lo-shakespeare.webp"),
+           ("Shakespeare Festival", "Cedar City, 35 min", "/assets/img/lo-shakespeare.webp"),
            ("Bryce Canyon", "about 2 hrs", "/assets/img/lo-bryce.webp")]
     cards = "".join('<div class="lo-card lo-photo">%s<div class="lo-photo-text"><strong>%s</strong><span>%s</span></div></div>' % (
         img(p, t), esc(t), d) for t, d, p in far)
@@ -1045,7 +1045,7 @@ def build_firelight(plans):
       <div class="lo-stats">
         <div><strong>31 min</strong><span>To Zion National Park</span></div>
         <div><strong>30 min</strong><span>To St. George, give or take</span></div>
-        <div><strong>50 min</strong><span>To Cedar City and the Utah Shakespeare Festival</span></div>
+        <div><strong>35 min</strong><span>To Cedar City and the Utah Shakespeare Festival</span></div>
       </div>
       <p class="li-copy">Toquerville Parkway, the new bypass now under construction, will run right past SunRiver Firelight with direct access to I-15 and Zion National Park.</p>
     </div>

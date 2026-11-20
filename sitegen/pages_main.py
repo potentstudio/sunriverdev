@@ -717,8 +717,8 @@ def build_main(plans, listings):
     dv_gallery = "".join('<a class="photo lp-shot" href="/assets/img/lp/%s.webp" data-lightbox>%s</a>' % (n, img("/assets/img/lp/%s.webp" % n, t)) for n, t in dv_photos)
 
     # The three places and what to do there are the old page's. The drive times are the ones this site already states
-    # (Zion's Springdale entrance 31 min, St. George 24 min, Cedar City about 50 min), not the old page's "25 min" for all three.
-    dests = [("Cedar City", "50 min", "dv-cedar-city", "A forest lake in the mountains near Cedar City", " dark",
+    # (Zion's Springdale entrance 31 min, St. George 24 min, Cedar City 35 min per Clark), not the old page's "25 min" for all three.
+    dests = [("Cedar City", "35 min", "dv-cedar-city", "A forest lake in the mountains near Cedar City", " dark",
               ["Ski at Brian Head Resort", "Catch a show at Utah Shakespeare Festival", "Take a hike at Cedar Breaks National Monument"]),
              ("Springdale", "31 min", "dv-springdale", "The sun over the cliffs above Springdale", "",
               ["Explore Zion Canyon", "Walk the Art and Shop Corridor", "Relax at George Barker River Park"]),
