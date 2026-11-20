@@ -246,8 +246,9 @@ def versioned(src):
 
 def image_srcset(src):
     """srcset for a local raster image through Vercel Image Optimization, or "" when it does not apply.
-    Widths larger than the file are left out; the file itself is the last entry when it is wider than the
-    largest listed width, so a large screen still gets every pixel there is."""
+    Only widths up to the file's own are listed. When the file is wider than the largest of those (a 1500 px
+    photo, say), one more entry asks for the next allowed width and is labelled with the file's real width:
+    the service never enlarges, so that returns the full-size picture as AVIF or WebP."""
     info = image_info(src)
     if not ON_VERCEL or not info:
         return ""
@@ -258,9 +259,11 @@ def image_srcset(src):
     url = quote(src.split("?", 1)[0].split("#", 1)[0], safe="")
     # v is not read by the service. It is there because the resized image is sent with the same browser cache
     # lifetime as the file it came from (a year for /media/), so the URL has to change when the file does.
-    entries = ["/_vercel/image?url=%s&amp;w=%d&amp;q=%d&amp;v=%s %dw" % (url, w, IMG_QUALITY, info[2], w) for w in widths]
+    entry = lambda w, label: "/_vercel/image?url=%s&amp;w=%d&amp;q=%d&amp;v=%s %dw" % (url, w, IMG_QUALITY, info[2], label)
+    entries = [entry(w, w) for w in widths]
     if width > widths[-1]:
-        entries.append("%s %dw" % (versioned(src), width))
+        larger = [w for w in IMG_WIDTHS if w > width]
+        entries.append(entry(larger[0], width) if larger else "%s %dw" % (versioned(src), width))
     return ", ".join(entries)
 
 
