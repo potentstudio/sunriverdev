@@ -690,15 +690,15 @@ def build_main(plans, listings):
          btn("Let's Talk", "/contact-us"), band(V("neighborhood-walk.2u4xr239zlka_.jpg"), "SunRiver members walking through the neighborhood"), chat_section(hs="founders")))
 
     # ============================================================== DISCOVERY VILLAS
-    # Clark, Nov 2026: laid out like the Discovery Villas page on the old sunriver.com (photo beside the offer and a short
-    # request form, four villa photos, then three places to go), under the sitewide photo header, which stays.
+    # Clark, Nov 2026: laid out like the Discovery Villas page on the old sunriver.com (photo beside the offer, four villa
+    # photos, then three places to go), under the sitewide photo header, which stays. The request form is not on the page:
+    # "Request your stay" opens the fuller form at /discovery-villas/book (built in pages_cms.py).
     dv_logo = '<img class="dv-logo" src="/assets/img/discovery-villas-logo.svg" alt="Discovery Villa" width="1148" height="451">'
     dv_copy = "See SunRiver Firelight the way you'll live it. Spend three days and two nights in a designer-furnished villa and make this community your basecamp while you explore. Tour the homes, walk the neighborhood, and picture your greatest chapter, at your own pace, with no compromises."
     dv_fine = '<p class="lp-fine">Introductory rate of $399 includes state and local taxes for dual occupancy. No pets allowed.</p>'
 
-    def dv_form(pre, key, compact=False):
-        """The short stay request form (name, email, mobile, arrival date). `key` picks the HubSpot form.
-        compact pairs the fields up (email with phone, the date with the Submit button) so the form is three rows tall."""
+    def dv_form(pre, key):
+        """The short stay request form (name, email, mobile, arrival date). `key` picks the HubSpot form."""
         first = '<div><label for="{p}-first">First Name</label><input id="{p}-first" name="firstname" type="text" autocomplete="given-name" required></div>'
         last = '<div><label for="{p}-last">Last Name</label><input id="{p}-last" name="lastname" type="text" autocomplete="family-name" required></div>'
         email = '<div><label for="{p}-email">Email</label><input id="{p}-email" name="email" type="email" autocomplete="email" required></div>'
@@ -707,12 +707,8 @@ def build_main(plans, listings):
         consent = '<p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>'
         send = '<button class="btn" type="submit">Submit</button>'
         note = '<p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>'
-        if compact:
-            body = '<div class="row">%s%s</div><div class="row">%s%s</div><div class="row dv-row-send">%s%s</div>%s%s%s' % (first, last, email, phone, date, send, HONEYPOT, consent, note)
-        else:
-            body = '<div class="row">%s%s</div>%s%s%s%s%s%s%s' % (first, last, email, phone, date, HONEYPOT, consent, send, note)
-        return '<form class="chat-form light lp-dv-form%s" %s novalidate aria-label="Request a Discovery Villas stay">%s</form>' % (
-            " dv-form-compact" if compact else "", hs_attrs(key), body.replace("{p}", pre))
+        body = '<div class="row">%s%s</div>%s%s%s%s%s%s%s' % (first, last, email, phone, date, HONEYPOT, consent, send, note)
+        return '<form class="chat-form light lp-dv-form" %s novalidate aria-label="Request a Discovery Villas stay">%s</form>' % (hs_attrs(key), body.replace("{p}", pre))
 
     dv_photos = [("dv-exterior", "A Discovery Villa at SunRiver Firelight from the street"), ("dv-great-room", "The great room and kitchen of a Discovery Villa"),
                  ("dv-bedroom", "A bedroom in a Discovery Villa"), ("dv-kitchen", "The kitchen and dining area of a Discovery Villa")]
@@ -731,7 +727,7 @@ def build_main(plans, listings):
 
     add("/discovery-villas", "Discovery Villas", "Spend three days and two nights in a designer-furnished villa at SunRiver Firelight. Tour the homes for $399.", "visit", '''
 %s
-<section class="section sand lp-dv dv-offer" id="stay">
+<section class="section sand lp-dv dv-offer">
   <div class="wrap lp-dv-grid">
     <div class="lp-dv-photo">%s</div>
     <div class="stack lp-dv-copy">
@@ -740,8 +736,7 @@ def build_main(plans, listings):
       <h2 class="lp-dv-title">Consider It Undercover Research</h2>
       <p>%s</p>
       <p class="serif price-callout">3 days, 2 nights - $399</p>
-      %s
-      <p class="serif lp-call">Or call us <a href="%s">%s</a></p>
+      <div class="btn-row"><a class="btn" href="/discovery-villas/book">Request your stay</a><a class="btn blue-btn" href="%s">Or call us %s</a></div>
       %s
     </div>
   </div>
@@ -753,10 +748,10 @@ def build_main(plans, listings):
   <div class="wrap stack-lg">
     <div class="center"><h2 class="display">Close to everything that makes Southern Utah special</h2></div>
     <div class="dv-dest-grid">%s</div>
-    <div class="center btn-row" style="justify-content:center"><a class="btn" href="#stay">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
+    <div class="center btn-row" style="justify-content:center"><a class="btn" href="/discovery-villas/book">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
   </div>
 </section>''' % (full_hero("Discovery Villas", src=FG("fl-trails"), alt="Red rock and trail country around SunRiver Firelight", pos="50% 55%"),
-         img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas"), dv_logo, dv_copy, dv_form("dv", "villas", compact=True),
+         img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas"), dv_logo, dv_copy,
          PHONE_TEL, PHONE, dv_fine, dv_gallery, dest_html, PHONE_TEL), body_class="dv-yellow")
 
     # Ad landing page (Meta ads send people to /discovery-villas-meta): the same offer, photos and form without the photo
