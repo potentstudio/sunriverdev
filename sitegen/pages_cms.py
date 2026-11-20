@@ -90,6 +90,7 @@ def build_floor_plans(plans):
   %s
   <div class="wrap fah-hero-inner">
     <h1>Floor Plans</h1>
+    <p class="fp-banner-sub">SunRiver Firelight</p>
   </div>
 </section>
 <section class="mh-section">
@@ -1023,7 +1024,7 @@ def build_firelight(plans):
     add("/sunriver-firelight", "SunRiver Firelight", "SunRiver Firelight in Toquerville, Utah: SunRiver's newest 55+ community puts Zion National Park in your backyard.", "life-overlay", '''
 <section class="fah-hero li-hero fl-hero no-wash dz-hero">
   %s
-  <div class="wrap fah-hero-inner"><p class="fl-hero-eyebrow">Explore our newest community</p><h1>SunRiver Firelight</h1><p class="fl-hero-sub">Toquerville, UT</p></div>
+  <div class="wrap fah-hero-inner"><h1>SunRiver Firelight</h1><p class="fl-hero-sub">Toquerville, UT</p></div>
 </section>
 <section class="li-intro fl-intro">
   <div class="wrap li-in">

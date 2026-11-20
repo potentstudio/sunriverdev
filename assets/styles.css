@@ -1182,6 +1182,7 @@ details.faq .answer { padding-bottom: 24px; display: grid; gap: 12px; font-famil
 .fp-banner .fah-hero-inner { padding-top: 328px; }
 .fp-banner h1 { max-width: none; font-size: 67px; line-height: 64px; }
 .fp-banner p { max-width: none; margin-top: 12px; font-size: 27px; line-height: 30px; }
+.fah-hero.fp-banner .fp-banner-sub { color: var(--sun-yellow) !important; text-shadow: 0 1px 10px rgba(20, 50, 80, .35) !important; }
 @media (max-width: 860px) {
   .fp-banner .fah-hero-inner { padding-top: 230px; }
   .fp-banner h1 { font-size: 44px; line-height: 46px; }
