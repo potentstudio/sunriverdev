@@ -40,3 +40,17 @@ Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by 
   `sitegen/pages_main.py`, each with its own HubSpot form.
 - **Old blog addresses**: the 220 or so redirects near the top of the blog rules in `vercel.json` map old Squarespace post
   URLs to the same post's new address. They must stay above the catch-all `/bucketlist-living/:path*` rule.
+
+## Search basics (sitemap, canonical tags, share images, schema markup)
+
+`sitegen/seo.py` runs at the end of the build and adds to every page: a canonical link on `https://www.sunriver.com`
+(`SITE_URL`), Open Graph and Twitter tags with a 1200x630 share photo, and schema markup (the business on the homepage,
+About and Contact; breadcrumbs on inner pages; `BlogPosting` on posts; `FAQPage` on `/faq`). It also writes
+`/sitemap.xml` and `/robots.txt`.
+
+- **Share photo**: floor plans, listings and posts use their own first photo. Every other page uses
+  `assets/img/share.jpg`.
+- **Hidden pages**: paths in `NOINDEX` (the two `-v2` drafts, the two ad landing pages and the 404 page) get a
+  `noindex` tag and are left out of the sitemap. They still open for anyone with the link. Remove a path from the set
+  when the page should be found on Google.
+- **After launch**: submit `https://www.sunriver.com/sitemap.xml` in Google Search Console.
