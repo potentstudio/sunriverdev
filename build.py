@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from sitegen import figma_assets, lib  # noqa: E402
+from sitegen import figma_assets, lib, seo  # noqa: E402
 from sitegen.data import ON_NETLIFY, get_all  # noqa: E402
 from sitegen.pages_cms import build_blog, build_design, build_dv_book, build_dv_v2, build_floor_plans, build_homes, build_firelight, build_live_in, build_live_on, build_live_out  # noqa: E402
 from sitegen.pages_main import build_main  # noqa: E402
@@ -139,6 +139,11 @@ def main():
     fallback = {local: lib.MIRROR[local] for local in failed}
     print("Building homepage images from Figma")
     fallback.update(figma_assets.build(DIST, ON_NETLIFY))
+
+    # Search basics: canonical, share image and schema markup on every page, plus the sitemap and robots file
+    sitemap, robots = seo.apply(lib.PAGES, posts, DIST)
+    (DIST / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    (DIST / "robots.txt").write_text(robots, encoding="utf-8")
 
     for path, doc in lib.PAGES.items():
         for local, remote in fallback.items():

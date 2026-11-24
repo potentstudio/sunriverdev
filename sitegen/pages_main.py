@@ -690,45 +690,77 @@ def build_main(plans, listings):
          btn("Let's Talk", "/contact-us"), band(V("neighborhood-walk.2u4xr239zlka_.jpg"), "SunRiver members walking through the neighborhood"), chat_section(hs="founders")))
 
     # ============================================================== DISCOVERY VILLAS
-    # Clark, Nov 2026: header says just Discovery Villas over a calmer photo, the Discovery Villas logo on the page,
-    # and the drive times as real cards instead of images.
+    # Clark, Nov 2026: laid out like the Discovery Villas page on the old sunriver.com (photo beside the offer, four villa
+    # photos, then three places to go), under the sitewide photo header, which stays. The request form is not on the page:
+    # "Request your stay" opens the fuller form at /discovery-villas/book (built in pages_cms.py).
     dv_logo = '<img class="dv-logo" src="/assets/img/discovery-villas-logo.svg" alt="Discovery Villa" width="1148" height="451">'
+    dv_copy = "See SunRiver Firelight the way you'll live it. Spend three days and two nights in a designer-furnished villa and make this community your basecamp while you explore. Tour the homes, walk the neighborhood, and picture your greatest chapter, at your own pace, with no compromises."
+    dv_fine = '<p class="lp-fine">Introductory rate of $399 includes state and local taxes for dual occupancy. No pets allowed.</p>'
+
+    def dv_form(pre, key):
+        """The short stay request form (name, email, mobile, arrival date). `key` picks the HubSpot form."""
+        first = '<div><label for="{p}-first">First Name</label><input id="{p}-first" name="firstname" type="text" autocomplete="given-name" required></div>'
+        last = '<div><label for="{p}-last">Last Name</label><input id="{p}-last" name="lastname" type="text" autocomplete="family-name" required></div>'
+        email = '<div><label for="{p}-email">Email</label><input id="{p}-email" name="email" type="email" autocomplete="email" required></div>'
+        phone = '<div><label for="{p}-phone">Mobile Phone Number</label><input id="{p}-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>'
+        date = '<div><label for="{p}-arrive">Preferred arrival date</label><input id="{p}-arrive" name="date_of_requested_stay" type="date" data-hs-date required></div>'
+        consent = '<p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>'
+        send = '<button class="btn" type="submit">Submit</button>'
+        note = '<p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>'
+        body = '<div class="row">%s%s</div>%s%s%s%s%s%s%s' % (first, last, email, phone, date, HONEYPOT, consent, send, note)
+        return '<form class="chat-form light lp-dv-form" %s novalidate aria-label="Request a Discovery Villas stay">%s</form>' % (hs_attrs(key), body.replace("{p}", pre))
+
+    dv_photos = [("dv-exterior", "A Discovery Villa at SunRiver Firelight from the street"), ("dv-great-room", "The great room and kitchen of a Discovery Villa"),
+                 ("dv-bedroom", "A bedroom in a Discovery Villa"), ("dv-kitchen", "The kitchen and dining area of a Discovery Villa")]
+    dv_gallery = "".join('<a class="photo lp-shot" href="/assets/img/lp/%s.webp" data-lightbox>%s</a>' % (n, img("/assets/img/lp/%s.webp" % n, t)) for n, t in dv_photos)
+
+    # The three places and what to do there are the old page's. The drive times are the ones this site already states
+    # (Zion's Springdale entrance 31 min, St. George 24 min, Cedar City 35 min per Clark), not the old page's "25 min" for all three.
+    dests = [("Cedar City", "35 min", "dv-cedar-city", "A forest lake in the mountains near Cedar City", " dark",
+              ["Ski at Brian Head Resort", "Catch a show at Utah Shakespeare Festival", "Take a hike at Cedar Breaks National Monument"]),
+             ("Springdale", "31 min", "dv-springdale", "The sun over the cliffs above Springdale", "",
+              ["Explore Zion Canyon", "Walk the Art and Shop Corridor", "Relax at George Barker River Park"]),
+             ("St. George", "24 min", "dv-st-george", "Red rock cliffs near St. George", "",
+              ["Experience Broadway at Tuacahn Amphitheatre", "Explore Snow Canyon State Park", "Play in the water at Sand Hollow State Park"])]
+    dest_html = "".join('<div class="dv-dest"><div class="dv-dest-photo%s">%s<div class="dv-dest-title"><h3>%s</h3><span>%s</span></div></div><ul class="dv-dest-list">%s</ul></div>' % (
+        tone, img("/assets/img/lp/%s.webp" % f, alt), name, mins, "".join("<li>%s</li>" % x for x in todo)) for name, mins, f, alt, tone, todo in dests)
+
+    add("/discovery-villas", "Discovery Villas", "Spend three days and two nights in a designer-furnished villa at SunRiver Firelight. Tour the homes for $399.", "visit", '''
+%s
+<section class="section sand lp-dv dv-offer">
+  <div class="wrap lp-dv-grid">
+    <div class="lp-dv-photo">%s</div>
+    <div class="stack lp-dv-copy">
+      %s
+      <hr class="rule">
+      <h2 class="lp-dv-title">Consider It Undercover Research</h2>
+      <p>%s</p>
+      <p class="serif price-callout">3 days, 2 nights - $399</p>
+      <div class="btn-row"><a class="btn" href="/discovery-villas/book">Request your stay</a><a class="btn blue-btn" href="%s">Or call us %s</a></div>
+      %s
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap lp-gallery">%s</div>
+</section>
+<section class="section sand dv-close">
+  <div class="wrap stack-lg">
+    <div class="center"><h2 class="display">Close to everything that makes Southern Utah special</h2></div>
+    <div class="dv-dest-grid">%s</div>
+    <div class="center btn-row" style="justify-content:center"><a class="btn" href="/discovery-villas/book">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
+  </div>
+</section>''' % (full_hero("Discovery Villas", src=FG("fl-trails"), alt="Red rock and trail country around SunRiver Firelight", pos="50% 55%"),
+         img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas"), dv_logo, dv_copy,
+         PHONE_TEL, PHONE, dv_fine, dv_gallery, dest_html, PHONE_TEL), body_class="dv-yellow")
+
+    # Ad landing page (Meta ads send people to /discovery-villas-meta): the same offer, photos and form without the photo
+    # header, feeding the landing page's own HubSpot form. Its drive-time cards are the ones the page launched with.
     near = [("5 min", "Groceries", "Stock the kitchen in La Verkin, just down the road."),
             ("13 min", "Urgent care", "Care close by, whenever you need it."),
             ("24 min", "St. George", "Shopping, dining and the rest of the city."),
             ("31 min", "Zion National Park", "The Springdale entrance, red rock and all.")]
     near_html = "".join('<div class="dv-near-card"><strong>%s</strong><h3>%s</h3><p>%s</p></div>' % x for x in near)
-    add("/discovery-villas", "Discovery Villas", "Spend three days and two nights in a designer-furnished villa at SunRiver Firelight. Tour the homes for $399.", "visit", '''
-%s
-<section class="section">
-  <div class="wrap split">
-    <div class="stack">
-      %s
-      <h2 class="display">See SunRiver Firelight the way <span class="yellow">you'll live it.</span></h2><hr class="rule">
-      <p class="lede">Spend three days and two nights in a designer-furnished villa and make this community your basecamp while you explore. Tour the homes, walk the neighborhood and picture your greatest chapter, at your own pace, with no compromises.</p>
-      <p class="serif price-callout">3 days, 2 nights <span class="yellow">$399</span></p>
-      <div class="btn-row"><a class="btn" href="/discovery-villas/book">Request your stay</a><a class="btn blue-btn" href="%s">Or call us %s</a></div>
-    </div>
-    <div class="photo ratio-34 shadow">%s</div>
-  </div>
-</section>
-<section class="section sand">
-  <div class="wrap stack-lg">
-    <div class="center stack"><h2 class="display">Close to everything that makes <span class="yellow">Southern Utah special</span></h2><hr class="rule center"></div>
-    <div class="dv-near-grid">%s</div>
-    <div class="center btn-row" style="justify-content:center"><a class="btn" href="/discovery-villas/book">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
-  </div>
-</section>
-%s''' % (full_hero("Discovery Villas", src=FG("fl-trails"), alt="Red rock and trail country around SunRiver Firelight", pos="50% 55%"),
-         dv_logo, PHONE_TEL, PHONE, img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas", "dv-photo"),
-         near_html, PHONE_TEL, chat_section("Plan your stay", "Questions about the Discovery Villas? Send us a note and we'll help you pick your dates.")), body_class="dv-yellow")
-
-    # Ad landing page (Meta ads send people to /discovery-villas-meta). Laid out like the page on the old sunriver.com:
-    # photo beside the offer and a short request form, a few villa photos, then the drive times. The form feeds the
-    # landing page's own HubSpot form, with the arrival date the same way the old page sent it.
-    lp_photos = [("dv-exterior", "A Discovery Villa at SunRiver Firelight from the street"), ("dv-great-room", "The great room and kitchen of a Discovery Villa"),
-                 ("dv-bedroom", "A bedroom in a Discovery Villa"), ("dv-kitchen", "The kitchen and dining area of a Discovery Villa")]
-    lp_gallery = "".join('<a class="photo lp-shot" href="/assets/img/lp/%s.webp" data-lightbox>%s</a>' % (n, img("/assets/img/lp/%s.webp" % n, t)) for n, t in lp_photos)
     add("/discovery-villas-meta", "Discovery Villas | Stay at SunRiver Firelight 55+", "Spend three days and two nights in a designer-furnished villa at SunRiver Firelight, a 55+ community near St. George, UT. Tour the homes for $399.", "visit", '''
 <section class="section sand lp-dv" id="stay">
   <div class="wrap lp-dv-grid">
@@ -737,23 +769,11 @@ def build_main(plans, listings):
       %s
       <hr class="rule">
       <h1 class="lp-dv-title">Consider It Undercover Research</h1>
-      <p>See SunRiver Firelight the way you'll live it. Spend three days and two nights in a designer-furnished villa and make this community your basecamp while you explore. Tour the homes, walk the neighborhood, and picture your greatest chapter, at your own pace, with no compromises.</p>
+      <p>%s</p>
       <p class="serif price-callout">3 days, 2 nights | <span class="yellow">$399</span></p>
-      <form class="chat-form light lp-dv-form" %s novalidate aria-label="Request a Discovery Villas stay">
-        <div class="row">
-          <div><label for="lpd-first">First Name</label><input id="lpd-first" name="firstname" type="text" autocomplete="given-name" required></div>
-          <div><label for="lpd-last">Last Name</label><input id="lpd-last" name="lastname" type="text" autocomplete="family-name" required></div>
-        </div>
-        <div><label for="lpd-email">Email</label><input id="lpd-email" name="email" type="email" autocomplete="email" required></div>
-        <div><label for="lpd-phone">Mobile Phone Number</label><input id="lpd-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>
-        <div><label for="lpd-arrive">Preferred arrival date</label><input id="lpd-arrive" name="date_of_requested_stay" type="date" data-hs-date required></div>
-        %s
-        <p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
-        <button class="btn" type="submit">Submit</button>
-        <p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>
-      </form>
+      %s
       <p class="serif lp-call">or call us to book your stay <a href="%s">%s</a></p>
-      <p class="lp-fine">Introductory rate of $399 includes state and local taxes for dual occupancy. No pets allowed.</p>
+      %s
     </div>
   </div>
 </section>
@@ -766,8 +786,8 @@ def build_main(plans, listings):
     <div class="dv-near-grid">%s</div>
     <div class="center btn-row" style="justify-content:center"><a class="btn" href="#stay">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
   </div>
-</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", sizes="(max-width: 860px) 100vw, 50vw"), dv_logo, hs_attrs("villas-meta"), HONEYPOT,
-        PHONE_TEL, PHONE, lp_gallery, near_html, PHONE_TEL), body_class="landing")
+</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", sizes="(max-width: 860px) 100vw, 50vw"), dv_logo, dv_copy, dv_form("lpd", "villas-meta"),
+        PHONE_TEL, PHONE, dv_fine, dv_gallery, near_html, PHONE_TEL), body_class="landing")
 
     # ============================================================== MORTGAGE
     loans = [("The HECM for Purchase", "The Home Equity Conversion Mortgage for Purchase uses a one-time down payment to buy a home, with no required monthly mortgage payments for as long as you live in the home. HUD insured."),

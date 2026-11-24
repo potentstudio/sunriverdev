@@ -1182,6 +1182,7 @@ details.faq .answer { padding-bottom: 24px; display: grid; gap: 12px; font-famil
 .fp-banner .fah-hero-inner { padding-top: 328px; }
 .fp-banner h1 { max-width: none; font-size: 67px; line-height: 64px; }
 .fp-banner p { max-width: none; margin-top: 12px; font-size: 27px; line-height: 30px; }
+.fah-hero.fp-banner .fp-banner-sub { color: var(--sun-yellow) !important; text-shadow: 0 1px 10px rgba(20, 50, 80, .35) !important; }
 @media (max-width: 860px) {
   .fp-banner .fah-hero-inner { padding-top: 230px; }
   .fp-banner h1 { font-size: 44px; line-height: 46px; }
@@ -2678,6 +2679,37 @@ body.landing main > section:first-child { padding-top: clamp(36px, 5vw, 76px); }
   .chat-form.lp-dv-form .btn { justify-self: stretch; }
 }
 .chat-form.light input[type="date"], .chat-form.light select { border: 2px solid var(--line); }
+
+/* Discovery Villas page (Clark, Nov 2026): the old sunriver.com layout under the photo header. The offer block reuses
+   the .lp-dv rules above; these are the page's own touches and the three "places to go" photo cards. */
+.dv-offer .rule { width: min(100%, 320px); max-width: none; }
+.dv-offer .lp-dv-title { font-size: clamp(26px, 2.4vw, 34px); }
+.dv-offer .lp-dv-photo img { object-position: 14% 50%; }
+/* Kept short (Clark, Nov 2026): less padding, smaller logo and type. The request form lives on /discovery-villas/book. */
+.section.dv-offer { padding-block: clamp(36px, 4vw, 56px) clamp(40px, 4.5vw, 64px); }
+.dv-offer .lp-dv-copy { gap: 14px; }
+.dv-offer img.dv-logo { width: 210px; margin-bottom: 0; }
+.dv-offer .lp-dv-title { font-size: clamp(24px, 2.1vw, 30px); }
+.dv-offer .lp-dv-copy > p { max-width: none; }
+.dv-offer .price-callout { font-size: clamp(26px, 2.5vw, 34px); }
+.dv-offer .lp-fine { font-size: 12px; }
+.dv-offer .lp-dv-photo { min-height: 0; }
+.dv-close h2.display { color: var(--deep-river); }
+.dv-dest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.dv-dest { display: grid; align-content: start; }
+.dv-dest-photo { position: relative; z-index: 1; aspect-ratio: 16 / 10; border-radius: var(--radius-img); overflow: hidden; background: var(--deep-river); }
+.dv-dest-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; }
+.dv-dest-photo.dark img { object-position: 50% 100%; }
+.dv-dest-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 42%); pointer-events: none; }
+.dv-dest-photo.dark::after { background: linear-gradient(160deg, rgba(20, 50, 80, .5), rgba(20, 50, 80, 0) 48%); }
+.dv-dest-title { position: absolute; z-index: 1; left: 22px; top: 18px; right: 22px; display: grid; gap: 2px; }
+.dv-dest-title h3 { color: var(--sunriver-blue); font-weight: 900; font-size: clamp(26px, 2.5vw, 36px); line-height: 1; letter-spacing: -0.02em; }
+.dv-dest-title span { font-family: var(--font-serif); font-size: 18px; line-height: 1.2; color: var(--deep-river); }
+.dv-dest-photo.dark h3, .dv-dest-photo.dark span { color: var(--white); }
+.dv-dest-list { list-style: none; margin: -26px 22px 0; padding: 42px 22px 20px; display: grid; gap: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 0 0 22px 22px; color: var(--sunriver-blue); font-size: 15px; line-height: 1.35; }
+.dv-dest-list li { position: relative; padding-left: 20px; }
+.dv-dest-list li::before { content: ""; position: absolute; left: 0; top: .42em; width: 9px; height: 9px; border-radius: 50%; background: var(--sun-yellow); }
+@media (max-width: 900px) { .dv-dest-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; } }
 
 /* Discovery Villas: one yellow, #E49C08, everywhere on the page (Adam, Nov 2026) */
 .dv-yellow { --sun-yellow: #E49C08; --sun-yellow-deep: #E49C08; }

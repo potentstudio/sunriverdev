@@ -90,6 +90,7 @@ def build_floor_plans(plans):
   %s
   <div class="wrap fah-hero-inner">
     <h1>Floor Plans</h1>
+    <p class="fp-banner-sub">SunRiver Firelight</p>
   </div>
 </section>
 <section class="mh-section">
@@ -796,7 +797,7 @@ def build_live_out():
     """Live Out page, built from the Figma "LIVE OUT" frame (OFFICIAL file, node 255:900). Copy from Adam's Live Out doc.
     Drive times marked as estimates in that doc still need verifying."""
     far = [("Zion National Park", "31 min", "/assets/img/lo-zion.webp"),
-           ("Shakespeare Festival", "Cedar City, about 50 min", "/assets/img/lo-shakespeare.webp"),
+           ("Shakespeare Festival", "Cedar City, 35 min", "/assets/img/lo-shakespeare.webp"),
            ("Bryce Canyon", "about 2 hrs", "/assets/img/lo-bryce.webp")]
     cards = "".join('<div class="lo-card lo-photo">%s<div class="lo-photo-text"><strong>%s</strong><span>%s</span></div></div>' % (
         img(p, t), esc(t), d) for t, d, p in far)
@@ -1023,7 +1024,7 @@ def build_firelight(plans):
     add("/sunriver-firelight", "SunRiver Firelight", "SunRiver Firelight in Toquerville, Utah: SunRiver's newest 55+ community puts Zion National Park in your backyard.", "life-overlay", '''
 <section class="fah-hero li-hero fl-hero no-wash dz-hero">
   %s
-  <div class="wrap fah-hero-inner"><p class="fl-hero-eyebrow">Explore our newest community</p><h1>SunRiver Firelight</h1><p class="fl-hero-sub">Toquerville, UT</p></div>
+  <div class="wrap fah-hero-inner"><h1>SunRiver Firelight</h1><p class="fl-hero-sub">Toquerville, UT</p></div>
 </section>
 <section class="li-intro fl-intro">
   <div class="wrap li-in">
@@ -1044,7 +1045,7 @@ def build_firelight(plans):
       <div class="lo-stats">
         <div><strong>31 min</strong><span>To Zion National Park</span></div>
         <div><strong>30 min</strong><span>To St. George, give or take</span></div>
-        <div><strong>50 min</strong><span>To Cedar City and the Utah Shakespeare Festival</span></div>
+        <div><strong>35 min</strong><span>To Cedar City and the Utah Shakespeare Festival</span></div>
       </div>
       <p class="li-copy">Toquerville Parkway, the new bypass now under construction, will run right past SunRiver Firelight with direct access to I-15 and Zion National Park.</p>
     </div>

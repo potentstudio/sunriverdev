@@ -1,0 +1,213 @@
+[
+ {
+  "title": "Burgers and New Friends at the Founders Club Grill",
+  "slug": "founders-club-grill",
+  "publishDate": "2026-11-20T17:00:00.000Z",
+  "categories": [
+   "Events"
+  ],
+  "cover": "/assets/img/blog/founders-club-grill/01.webp",
+  "excerpt": "SunRiver Firelight members and their friends gathered for free burgers, good conversation and plenty of laughs at the Founders Club Grill.",
+  "body": [
+   {
+    "_type": "block",
+    "_key": "fcg02",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg01",
+      "marks": [],
+      "text": "Earlier this week, SunRiver Firelight members and their friends gathered for the Founders Club Grill, a hamburger social with free burgers hot off the grill and plenty of room at the table. The garage door rolled up, the folding chairs came out, and a neighborhood that is still brand new started to feel a lot like home."
+     }
+    ]
+   },
+   {
+    "_type": "image",
+    "_key": "fcg03",
+    "alt": "The Founders Club Grill sign welcoming SunRiver Firelight members and friends",
+    "asset": {
+     "_ref": "/assets/img/blog/founders-club-grill/02.webp"
+    }
+   },
+   {
+    "_type": "block",
+    "_key": "fcg05",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg04",
+      "marks": [],
+      "text": "Fired up and ready"
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "fcg07",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg06",
+      "marks": [],
+      "text": "Out back, the grill never cooled down. Patties hit the grates, smoke rolled into the afternoon sun, and our sales manager, Dalan Madsen, manned the grill and kept the line moving in his Grumpy Old Man apron. For the record, he was anything but grumpy."
+     }
+    ]
+   },
+   {
+    "_type": "image",
+    "_key": "fcg08",
+    "alt": "Burgers sizzling on the grill as smoke rolls into the afternoon sun",
+    "asset": {
+     "_ref": "/assets/img/blog/founders-club-grill/03.webp"
+    }
+   },
+   {
+    "_type": "image",
+    "_key": "fcg09",
+    "alt": "Sales manager Dalan Madsen in his Grumpy Old Man apron at the Founders Club Grill",
+    "asset": {
+     "_ref": "/assets/img/blog/founders-club-grill/04.webp"
+    }
+   },
+   {
+    "_type": "block",
+    "_key": "fcg11",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg10",
+      "marks": [],
+      "text": "The best part was the company"
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "fcg13",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg12",
+      "marks": [],
+      "text": "Inside, members built their burgers just the way they like them, grabbed a cold drink and found a seat. Some sat down with neighbors they already knew. Others met the people they will be waving to from across the street for years to come. The conversations ran long, and nobody was in a hurry to leave."
+     }
+    ]
+   },
+   {
+    "_type": "image",
+    "_key": "fcg14",
+    "alt": "SunRiver Firelight members talking over burgers and chips",
+    "asset": {
+     "_ref": "/assets/img/blog/founders-club-grill/05.webp"
+    }
+   },
+   {
+    "_type": "image",
+    "_key": "fcg15",
+    "alt": "Members and friends catching up at the tables during the hamburger social",
+    "asset": {
+     "_ref": "/assets/img/blog/founders-club-grill/06.webp"
+    }
+   },
+   {
+    "_type": "image",
+    "_key": "fcg16",
+    "alt": "Members enjoying lunch together at the Founders Club Grill",
+    "asset": {
+     "_ref": "/assets/img/blog/founders-club-grill/07.webp"
+    }
+   },
+   {
+    "_type": "block",
+    "_key": "fcg18",
+    "style": "h3",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg17",
+      "marks": [],
+      "text": "Bring a friend next time"
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "fcg20",
+    "style": "normal",
+    "markDefs": [],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg19",
+      "marks": [],
+      "text": "That is what the Founders Club is all about: getting to know the people you will share this place with, one burger at a time. Friends are always welcome, so if someone you know has been curious about life at SunRiver Firelight, this is the easiest introduction there is."
+     }
+    ]
+   },
+   {
+    "_type": "block",
+    "_key": "fcg28",
+    "style": "normal",
+    "markDefs": [
+     {
+      "_type": "link",
+      "_key": "fcg22",
+      "href": "/founders-club"
+     },
+     {
+      "_type": "link",
+      "_key": "fcg25",
+      "href": "/contact-us"
+     }
+    ],
+    "children": [
+     {
+      "_type": "span",
+      "_key": "fcg21",
+      "marks": [],
+      "text": "Want to be at the next one? Learn more about the "
+     },
+     {
+      "_type": "span",
+      "_key": "fcg23",
+      "marks": [
+       "fcg22"
+      ],
+      "text": "Founders Club"
+     },
+     {
+      "_type": "span",
+      "_key": "fcg24",
+      "marks": [],
+      "text": " or "
+     },
+     {
+      "_type": "span",
+      "_key": "fcg26",
+      "marks": [
+       "fcg25"
+      ],
+      "text": "schedule a visit"
+     },
+     {
+      "_type": "span",
+      "_key": "fcg27",
+      "marks": [],
+      "text": " and come see SunRiver Firelight for yourself."
+     }
+    ]
+   }
+  ]
+ }
+]

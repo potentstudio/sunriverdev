@@ -321,6 +321,7 @@ IMG_SIZES = [
     ("lp-shot", _PHONE + "100vw, 43vw"), ("amen-row", _PHONE + "100vw, 41vw"), ("split", _PHONE + "100vw, 41vw"),
     ("dv2-split-img", _PHONE + "100vw, 41vw"), ("li-dc-img", _PHONE + "100vw, 42vw"), ("lp-dv-photo", _PHONE + "100vw, 41vw"),
     ("ws-map", _PHONE + "100vw, 41vw"),
+    ("dv-dest-photo", _PHONE + "100vw, 28vw"),
 ]
 _VOID = {"img", "br", "hr", "input", "source", "link", "meta", "area", "base", "col", "embed", "param", "track", "wbr"}
 _TAG = re.compile(r"<(/?)([a-zA-Z][\w-]*)((?:[^>\"']|\"[^\"]*\"|'[^']*')*)>")
