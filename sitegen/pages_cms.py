@@ -997,7 +997,7 @@ def build_firelight(plans):
     dated items (reservations, summer/fall updates, the invented week of activities) dropped."""
     mix = [("Brand New Homes", "Choose your homesite, then design the home that goes on it."),
            ("Outdoor Living", "Red rock, open desert and 22 miles of trail run through and around the community."),
-           ("Prime Location", "On the Zion side of Southern Utah, north of Hurricane, with St. George about 30 minutes away."),
+           ("Prime Location", "On the Zion side of Southern Utah, north of Hurricane, with St. George 24 minutes away."),
            ("Designed for You", "Hobby rooms, open kitchens and garages up to an extended three-car, with room for the gear you love."),
            ("Mild Seasons", "About 500 feet higher than St. George, so summers run a few degrees cooler, without the snow."),
            ("Community", "SunRiver is more than a place to live. It is a community of people who refuse to slow down.")]
@@ -1044,7 +1044,7 @@ def build_firelight(plans):
       <h3>Live a little closer.</h3>
       <div class="lo-stats">
         <div><strong>31 min</strong><span>To Zion National Park</span></div>
-        <div><strong>30 min</strong><span>To St. George, give or take</span></div>
+        <div><strong>24 min</strong><span>To St. George</span></div>
         <div><strong>35 min</strong><span>To Cedar City and the Utah Shakespeare Festival</span></div>
       </div>
       <p class="li-copy">Toquerville Parkway, the new bypass now under construction, will run right past SunRiver Firelight with direct access to I-15 and Zion National Park.</p>

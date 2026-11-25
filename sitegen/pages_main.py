@@ -872,7 +872,7 @@ def build_main(plans, listings):
           ("Building a Home", "Building is the only way to get your buyer exactly what they want. Our onsite design team keeps the process efficient and simple."),
           ("Move-In Ready Homes", "Buyers are often on a timeline. We keep many of our most popular plans completed or close to completion, so you can close in 30 days or less."),
           ("Proven Product", "Active adult living fits Southern Utah perfectly. With the full amenity package SunRiver is known for and over 50 clubs and groups, your buyers will truly live young."),
-          ("Live a Little Closer", "SunRiver Firelight is 15 minutes from St. George and much closer to what makes this area amazing: Zion, Cedar City and Brian Head. At 3,500 feet, the temperatures are cooler, with no snow to shovel."),
+          ("Live a Little Closer", "SunRiver Firelight is 24 minutes from St. George and much closer to what makes this area amazing: Zion, Cedar City and Brian Head. At 3,500 feet, the temperatures are cooler, with no snow to shovel."),
           ("Proven Partnership", "SunRiver has built over 2,600 homes with the help of Washington County Realtors. We work well together and protect the relationship you have with your client.")]
     rb_html = "".join('<div class="card"><h3>%s</h3><hr class="rule short"><p>%s</p></div>' % x for x in rb)
     add("/realtor-benefits", "Realtor Benefits", "Partner with Southern Utah's premier 55+ builder. Why Realtors love selling SunRiver Firelight.", "", '''
