@@ -659,6 +659,35 @@ def chat_section(title="Ready to Chat?", intro="Ready to take the next step and 
 </section>''' % dict(fid=fid, title=title, intro=intro, hs=hs_attrs(hs), checks=checks, hp=HONEYPOT)
 
 
+def dv_book_form(key="villas"):
+    """The Discovery Villas request-a-stay form, shared by /discovery-villas/book and the Meta ad landing page.
+    `key` picks the HubSpot form it feeds (a key of HS_FORMS). HubSpot gets name, email, mobile phone and the arrival
+    date; checkout, guests and notes ride along in the message. Checkout fills in from the arrival date (site.js)."""
+    return '''<form class="chat-form light dvb-form" %s novalidate aria-label="Request a Discovery Villas stay">
+      <div class="row">
+        <div><label for="dv-first">First name</label><input id="dv-first" name="firstname" type="text" autocomplete="given-name" required></div>
+        <div><label for="dv-last">Last name</label><input id="dv-last" name="lastname" type="text" autocomplete="family-name" required></div>
+      </div>
+      <div class="row">
+        <div><label for="dv-email">Email</label><input id="dv-email" name="email" type="email" autocomplete="email" required></div>
+        <div><label for="dv-phone">Mobile phone</label><input id="dv-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>
+      </div>
+      <div class="row">
+        <div><label for="dv-arrive">Arrival date</label><input id="dv-arrive" name="date_of_requested_stay" type="date" data-hs-date required></div>
+        <div><label for="dv-depart">Checkout</label><input id="dv-depart" name="checkout" type="date" data-hs-note="Checkout" readonly tabindex="-1" aria-describedby="dv-depart-note"><span class="dvb-hint" id="dv-depart-note">Two nights after arrival</span></div>
+      </div>
+      <div class="row">
+        <div><label for="dv-guests">Guests</label><select id="dv-guests" name="guests" data-hs-note="Guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+        <div><label for="dv-from">Traveling from</label><input id="dv-from" name="city" type="text" autocomplete="address-level2" placeholder="City, State"></div>
+      </div>
+      <div><label for="dv-msg">Questions or notes</label><textarea id="dv-msg" name="message" placeholder="Flexible dates, accessibility needs, anything we should know"></textarea></div>
+      <p class="consent">By clicking "Request my stay", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>
+      %s
+      <button class="btn" type="submit">Request my stay</button>
+      <p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>
+    </form>''' % (hs_attrs(key), HONEYPOT)
+
+
 def full_hero(title, sub="", eyebrow="", src=None, alt="", cta=None, pos="50% 40%", extra="", tag="h1", cls=""):
     """The sitewide page hero: a full-bleed photo that runs up under the floating header (like Homes for Sale),
     a white wash at the top for the logo and nav, a blue tint behind a white title with a yellow underline."""

@@ -1,7 +1,7 @@
 """Hand-built pages, matched to the developers' Vercel build (section order, imagery, URLs)
 with SunRiver brand rules applied to the copy (SunRiver members, Zion 31 minutes from
 SunRiver Firelight, no golf at Firelight, no rates or percentages, no em dashes)."""
-from .lib import (FOUNDERS_BADGE, HONEYPOT, PHONE, PHONE_TEL, S, SQ, V, VP, add, banner, band, btn, chat_section, esc, faq, hs_attrs, img,
+from .lib import (dv_book_form, FOUNDERS_BADGE, HONEYPOT, PHONE, PHONE_TEL, S, SQ, V, VP, add, banner, band, btn, chat_section, esc, faq, hs_attrs, img,
                   full_hero, photo, photo_hero, sand_hero, simg, star_list, ul, yellow_hero)
 from .figma_assets import FG
 from .pages_cms import fp_card, min_price, plan_card
@@ -697,19 +697,6 @@ def build_main(plans, listings):
     dv_copy = "See SunRiver Firelight the way you'll live it. Spend three days and two nights in a designer-furnished villa and make this community your basecamp while you explore. Tour the homes, walk the neighborhood, and picture your greatest chapter, at your own pace, with no compromises."
     dv_fine = '<p class="lp-fine">Introductory rate of $399 includes state and local taxes for dual occupancy. No pets allowed.</p>'
 
-    def dv_form(pre, key):
-        """The short stay request form (name, email, mobile, arrival date). `key` picks the HubSpot form."""
-        first = '<div><label for="{p}-first">First Name</label><input id="{p}-first" name="firstname" type="text" autocomplete="given-name" required></div>'
-        last = '<div><label for="{p}-last">Last Name</label><input id="{p}-last" name="lastname" type="text" autocomplete="family-name" required></div>'
-        email = '<div><label for="{p}-email">Email</label><input id="{p}-email" name="email" type="email" autocomplete="email" required></div>'
-        phone = '<div><label for="{p}-phone">Mobile Phone Number</label><input id="{p}-phone" name="mobilephone" type="tel" autocomplete="tel" required></div>'
-        date = '<div><label for="{p}-arrive">Preferred arrival date</label><input id="{p}-arrive" name="date_of_requested_stay" type="date" data-hs-date required></div>'
-        consent = '<p class="consent">By clicking "Submit", I authorize SunRiver to contact me about this request via the contact information I provide. I understand calls or texts may use automated technology. I can opt out at any time on the SunRiver website or by unsubscribing. This consent is not required to complete my request.</p>'
-        send = '<button class="btn" type="submit">Submit</button>'
-        note = '<p class="form-note" role="status" hidden style="color:var(--sunriver-blue)"></p>'
-        body = '<div class="row">%s%s</div>%s%s%s%s%s%s%s' % (first, last, email, phone, date, HONEYPOT, consent, send, note)
-        return '<form class="chat-form light lp-dv-form" %s novalidate aria-label="Request a Discovery Villas stay">%s</form>' % (hs_attrs(key), body.replace("{p}", pre))
-
     dv_photos = [("dv-exterior", "A Discovery Villa at SunRiver Firelight from the street"), ("dv-great-room", "The great room and kitchen of a Discovery Villa"),
                  ("dv-bedroom", "A bedroom in a Discovery Villa"), ("dv-kitchen", "The kitchen and dining area of a Discovery Villa")]
     dv_gallery = "".join('<a class="photo lp-shot" href="/assets/img/lp/%s.webp" data-lightbox>%s</a>' % (n, img("/assets/img/lp/%s.webp" % n, t)) for n, t in dv_photos)
@@ -754,8 +741,9 @@ def build_main(plans, listings):
          img(FG("dv-firepit"), "SunRiver members around the fire pit at the Discovery Villas"), dv_logo, dv_copy,
          PHONE_TEL, PHONE, dv_fine, dv_gallery, dest_html, PHONE_TEL), body_class="dv-yellow")
 
-    # Ad landing page (Meta ads send people to /discovery-villas-meta): the same offer, photos and form without the photo
-    # header, feeding the landing page's own HubSpot form. Its drive-time cards are the ones the page launched with.
+    # Ad landing page (Meta ads send people to /discovery-villas-meta): the same offer and photos without the photo
+    # header, with the full request-a-stay form from /discovery-villas/book (Clark, Nov 2026) feeding the landing page's
+    # own HubSpot form. Its drive-time cards are the ones the page launched with.
     near = [("5 min", "Groceries", "Stock the kitchen in La Verkin, just down the road."),
             ("13 min", "Urgent care", "Care close by, whenever you need it."),
             ("24 min", "St. George", "Shopping, dining and the rest of the city."),
@@ -786,7 +774,7 @@ def build_main(plans, listings):
     <div class="dv-near-grid">%s</div>
     <div class="center btn-row" style="justify-content:center"><a class="btn" href="#stay">Request your stay</a><a class="btn blue-btn" href="%s">Call to book your stay</a></div>
   </div>
-</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", sizes="(max-width: 860px) 100vw, 50vw"), dv_logo, dv_copy, dv_form("lpd", "villas-meta"),
+</section>''' % (img("/assets/img/lp/dv-firepit.webp", "SunRiver members around the fire pit at the Discovery Villas", sizes="(max-width: 860px) 100vw, 50vw"), dv_logo, dv_copy, dv_book_form("villas-meta"),
         PHONE_TEL, PHONE, dv_fine, dv_gallery, near_html, PHONE_TEL), body_class="landing")
 
     # ============================================================== MORTGAGE
