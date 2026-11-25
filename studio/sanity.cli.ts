@@ -10,5 +10,8 @@ export default defineCliConfig({
     dataset: 'production',
   },
   studioHost: 'sunriverdev',
-  autoUpdates: true,
+  deployment: {
+    appId: 'glfa1za49tzjhfelo28ydlk8',
+    autoUpdates: true,
+  },
 })
