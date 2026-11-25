@@ -44,6 +44,8 @@ One home for each kind of content. Do not add a second source for something that
 | Clubs and calendar on Live On | `data/live_on.json` | Edit the file. |
 
 Sanity project: `ib6s13lu`, dataset `production` (public read). The site reads it at build time.
+The editing screen (Studio) is the code in `studio/`, published at https://sunriverdev.sanity.studio; a new field
+for one of those types is added there, in `studio/src/schemaTypes/`, and then deployed (see README).
 Publishing a `post`, `floorPlan` or `homeListing` in Sanity rebuilds the live site by itself within about a minute
 (Sanity webhook "Rebuild website on publish" calls a Vercel deploy hook). No code push is needed for those.
 

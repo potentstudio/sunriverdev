@@ -68,3 +68,14 @@ About and Contact; breadcrumbs on inner pages; `BlogPosting` on posts; `FAQPage`
   `noindex` tag and are left out of the sitemap. They still open for anyone with the link. Remove a path from the set
   when the page should be found on Google.
 - **After launch**: submit `https://www.sunriver.com/sitemap.xml` in Google Search Console.
+
+## The Studio (editing screen for Sanity content)
+
+`studio/` is the Sanity Studio for this site's content: Bucketlist Living posts, floor plans and home listings. It is
+separate from the website build (Vercel ignores it). Its address is https://sunriverdev.sanity.studio.
+
+- Change the editing screens in `studio/src/` (field definitions in `schemaTypes/`, the sidebar in `structure/`).
+- Publish a new version with `cd studio && npm install && npm run deploy`. That needs a Sanity login or token allowed
+  to deploy Studios (an Editor token cannot).
+- The document types grouped under "Not used by the website" were made for the earlier Next.js prototype. The site
+  does not read them.
