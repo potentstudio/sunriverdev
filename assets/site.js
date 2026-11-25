@@ -63,6 +63,21 @@
       item.addEventListener('mouseenter', function () { if (!hoverable.matches) return; clearTimeout(t); closeAll(item); item.setAttribute('data-open', 'true'); btn.setAttribute('aria-expanded', 'true'); });
       item.addEventListener('mouseleave', function () { if (!hoverable.matches) return; t = setTimeout(function () { item.setAttribute('data-open', 'false'); btn.setAttribute('aria-expanded', 'false'); }, 160); });
     });
+    // Menu photos: the dropdown photos ship with data-src, so no page downloads them up front. They load once,
+    // the first time a visitor goes to open the menu (pointer over the nav item, keyboard focus, or the first
+    // tap or click on its button). Phones never show the photo slot, so there they never load at all.
+    header.querySelectorAll('.pill-drop').forEach(function (drop) {
+      var pending = drop.querySelectorAll('img[data-src]');
+      var item = drop.closest('.nav-item'), slot = drop.querySelector('.pill-drop-photo');
+      if (!pending.length || !item || !slot) return;
+      var events = ['pointerenter', 'focusin', 'click'];
+      var load = function () {
+        if (getComputedStyle(slot).display === 'none') return;   // hidden at this width: try again on the next intent
+        pending.forEach(function (im) { im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); });
+        events.forEach(function (ev) { item.removeEventListener(ev, load); });
+      };
+      events.forEach(function (ev) { item.addEventListener(ev, load); });
+    });
     // Life at SunRiver dropdown: the photo follows the item under the pointer (or keyboard focus).
     header.querySelectorAll('.pill-drop').forEach(function (drop) {
       var shots = drop.querySelectorAll('.pd-shot');

@@ -4,6 +4,32 @@
   "installCommand": "python3 -m pip install --break-system-packages -r requirements.txt",
   "buildCommand": "python3 build.py",
   "outputDirectory": "dist",
+  "images": {
+    "sizes": [
+      640,
+      1080,
+      1600,
+      2400
+    ],
+    "formats": [
+      "image/avif",
+      "image/webp"
+    ],
+    "qualities": [
+      75
+    ],
+    "minimumCacheTTL": 2678400,
+    "localPatterns": [
+      {
+        "pathname": "^/media/.*$",
+        "search": ""
+      },
+      {
+        "pathname": "^/assets/img/.*$",
+        "search": ""
+      }
+    ]
+  },
   "redirects": [
     {
       "source": "/index.html",

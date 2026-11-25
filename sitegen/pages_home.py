@@ -4,7 +4,7 @@ Section order and measurements follow the 1440px design. Brand rules applied to 
 Zion is 31 minutes from SunRiver Firelight, and "members" instead of "residents".
 """
 from .figma_assets import FG
-from .lib import V, VP, add, chat_section, esc, img, simg
+from .lib import V, VP, add, chat_section, esc, image_info, image_srcset, img, simg
 from .pages_cms import plan_image
 
 WAVE_BLUE = ('<svg class="story-wave" viewBox="0 0 1713 421" preserveAspectRatio="none" aria-hidden="true">'
@@ -37,8 +37,8 @@ def build_home(plans):
     body = '''
 <section class="h4-hero">
   <picture>
-    <source media="(max-width: 760px)" srcset="%(hero_tall)s">
-    <img class="h4-hero-img" src="%(hero_wide)s" alt="A SunRiver couple riding bikes in Southern Utah" fetchpriority="high">
+    <source media="(max-width: 760px)" srcset="%(hero_tall)s" sizes="100vw"%(hero_tall_dims)s>
+    %(hero_wide)s
   </picture>
   <div class="wrap h4-hero-inner">
     <h1>A <span class="h4-new">NEW</span> 55+ community in Southern Utah for people who refuse to slow down.</h1>
@@ -106,8 +106,10 @@ def build_home(plans):
 </section>
 
 %(chat)s''' % dict(
-        hero_tall=FG("hero-tall"), hero_wide=FG("hero-wide"), wave_blue=WAVE_BLUE, wave_sand=WAVE_SAND,
-        couple=img(FG("couple"), "A smiling SunRiver couple", loading="eager"),
+        hero_tall=image_srcset(FG("hero-tall")) or FG("hero-tall"),
+        hero_tall_dims=' width="%d" height="%d"' % image_info(FG("hero-tall"))[:2] if image_info(FG("hero-tall")) else "",
+        hero_wide=img(FG("hero-wide"), "A SunRiver couple riding bikes in Southern Utah", "h4-hero-img", priority=True), wave_blue=WAVE_BLUE, wave_sand=WAVE_SAND,
+        couple=img(FG("couple"), "A smiling SunRiver couple"),
         live_cards=live_cards, sky=img(FG("sky"), ""),
         y1=img(FG("years-1"), "SunRiver members hiking in red rock country"), y2=img(FG("years-2"), "SunRiver members riding bikes"),
         y3=img(FG("years-3"), "SunRiver members at a yoga class"), y4=img(FG("years-4"), "A SunRiver member playing pickleball"),
