@@ -560,10 +560,9 @@ FOOTER_COLS = [
     ("Find a Home", [("Homes for Sale", "/homes-for-sale"), ("Mortgage Options", "/no-mortgage-payments-for-life"), ("Energy Efficient Homes", "/energy"), ("Design Center", "/design")]),
     # Clark, Nov 2026: St. George and Villas are shown by name only (no link, no page); SunRiver Firelight is the one to explore
     ("Communities", [("SunRiver St. George", None), ("SunRiver Firelight", "/sunriver-firelight"), ("SunRiver Villas", None)]),
-    # The two member sites use the exact addresses the old sunriver.com footer used. Their https://www. addresses serve an
-    # expired or mismatched certificate (checked Nov 2026), so a visitor would get a browser security warning.
-    ("Get in Touch", [("Contact Us", "/contact-us"), ("Bucketlistliving Blog", "/bucketlistliving"), ("SunRiverToday.com", "http://www.sunrivertoday.com/"),
-                      ("SRvillasToday.com", "https://a.mwapp.net/p/mweb_ws.v?id=98048090"), ("Privacy Policy", "/privacy-policy")]),
+    # Clark, Nov 2026: the SunRiverToday.com and SRvillasToday.com links are gone; the St. George and Villas contacts are on their own page
+    ("Get in Touch", [("Contact Us", "/contact-us"), ("Bucketlistliving Blog", "/bucketlistliving"),
+                      ("Previous Community Information", "/previous-communities"), ("Privacy Policy", "/privacy-policy")]),
 ]
 
 

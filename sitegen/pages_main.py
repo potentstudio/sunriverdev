@@ -590,18 +590,13 @@ def build_main(plans, listings):
     tel = lambda t: "tel:+1" + "".join(ch for ch in t if ch.isdigit())
     team_html = "".join('<div class="person">%s<p class="role">%s</p><h3>%s</h3><p><a href="mailto:%s">%s</a><br>M: <a href="%s">%s</a></p></div>' % (
         photo(p, "Portrait of %s" % n, ""), r, n, e, e, tel(t), t) for n, r, e, t, p in team)
-    add("/contact-us", "Contact Us", "Contact the SunRiver sales team in Toquerville and St. George, Utah. Sales Office (435) 688-1000.", "visit", '''
+    add("/contact-us", "Contact Us", "Contact the SunRiver Firelight sales team in Toquerville, Utah. Sales Office (435) 688-1000.", "visit", '''
 %s
 <section class="section">
   <div class="wrap split" style="align-items:start">
     <div class="stack-lg">
       <div class="stack"><h2 class="display">Let's <span class="yellow">talk.</span></h2><hr class="rule"><p class="lede">Fill out the form and a representative from SunRiver Communities will respond as soon as possible. Or email us at <a href="mailto:info@sunriver.com">info@sunriver.com</a>.</p></div>
-      <div class="grid cols-2">
-        <div class="office"><h3>SunRiver Firelight Sales Office</h3><p>182 Cottonwood Dr<br>Toquerville, UT 84737<br><a href="%s">%s</a></p><p>Mon to Fri 9am to 5pm<br>Sat 10am to 5pm<br>Sun 11am to 5pm</p></div>
-        <div class="office"><h3>SunRiver Communities Sales Office</h3><p>1404 W Sun River Pkwy, Suite #200<br>St. George, UT 84790</p><p>Mon to Fri 9am to 5pm<br>Sat and Sun closed</p></div>
-        <div class="office"><h3>SunRiver St. George HOA</h3><p>4275 Country Club Drive<br>St. George, UT 84790<br>(435) 287-3061<br><a href="https://pmprollc.com">pmprollc.com</a></p></div>
-        <div class="office"><h3>SunRiver Villas HOA</h3><p>1404 W Sun River Pkwy, Suite #250<br>St. George, UT 84790<br>(435) 773-6456<br><a href="http://www.swmlife.com">swmlife.com</a></p></div>
-      </div>
+      <div class="office"><h3>SunRiver Firelight Sales Office</h3><p>182 Cottonwood Dr<br>Toquerville, UT 84737<br><a href="%s">%s</a></p><p>Mon to Fri 9am to 5pm<br>Sat 10am to 5pm<br>Sun 11am to 5pm</p></div>
     </div>
     <form class="chat-form light" %s novalidate aria-label="Contact form">
       <div class="row">
@@ -640,6 +635,22 @@ def build_main(plans, listings):
   </div>
 </section>''' % (full_hero("Contact Us", "", src=V("hero.2wct_5z-9ksc6.jpg"), alt="",
                    cta='<a class="hero-phone" href="%s">Sales Office %s</a>' % (PHONE_TEL, PHONE)), PHONE_TEL, PHONE, hs_attrs("contact"), HONEYPOT, team_html))
+
+    # ============================================================== PREVIOUS COMMUNITIES
+    # Clark, Nov 2026: Contact Us shows only the SunRiver Firelight sales office. The St. George sales office and the two
+    # HOA contacts that used to sit beside it live here, linked from the footer as "Previous Community Information".
+    add("/previous-communities", "Previous Community Information", "Contact information for SunRiver St. George and SunRiver Villas in St. George, Utah.", "", '''
+%s
+<section class="section">
+  <div class="wrap stack-lg">
+    <div class="stack"><h2 class="display">SunRiver St. George and <span class="yellow">SunRiver Villas</span></h2><hr class="rule"><p class="lede">Contact information for our previous communities in St. George, Utah. Looking for SunRiver Firelight? <a href="/contact-us">Contact the sales office</a>.</p></div>
+    <div class="grid cols-3 prev-offices">
+      <div class="office"><h3>SunRiver Communities Sales Office</h3><p>1404 W Sun River Pkwy, Suite #200<br>St. George, UT 84790</p><p>Mon to Fri 9am to 5pm<br>Sat and Sun closed</p></div>
+      <div class="office"><h3>SunRiver St. George HOA</h3><p>4275 Country Club Drive<br>St. George, UT 84790<br>(435) 287-3061<br><a href="https://pmprollc.com">pmprollc.com</a></p></div>
+      <div class="office"><h3>SunRiver Villas HOA</h3><p>1404 W Sun River Pkwy, Suite #250<br>St. George, UT 84790<br>(435) 773-6456<br><a href="http://www.swmlife.com">swmlife.com</a></p></div>
+    </div>
+  </div>
+</section>''' % full_hero("Previous Community Information"))
 
     # ============================================================== FOUNDERS CLUB
     add("/founders-club", "Founders Club", "Join the SunRiver Firelight Founders Club: two years of HOA dues paid by SunRiver and first pick of premium homesites for the first 74 homeowners.", "visit", '''
