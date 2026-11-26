@@ -162,7 +162,7 @@ def apply(pages, posts=(), dist=None):
             schema = _schema(path, doc, originals, by_path, image)
             if schema:
                 tags.append(schema)
-        marker = '<link rel="icon" href="/favicon.ico">'
+        marker = '<link rel="icon" href="/favicon.ico'
         assert marker in doc, "no <head> marker on %s" % path
         pages[path] = doc.replace(marker, "\n".join(tags) + "\n" + marker, 1)
 

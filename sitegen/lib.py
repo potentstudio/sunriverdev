@@ -611,7 +611,9 @@ def add(path, title, description, active, body, body_class=""):
 <meta property="og:title" content="%s">
 <meta property="og:description" content="%s">
 <meta name="theme-color" content="#325A96" media="(width: 382px), (width: 594px) and (max-height: 420px)">
-<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.ico?v=2" media="(prefers-color-scheme: light)">
+<link rel="icon" href="/media/favicon-dark.ico?v=2" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.sanity.io">
