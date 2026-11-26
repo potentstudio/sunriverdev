@@ -49,6 +49,20 @@ for one of those types is added there, in `studio/src/schemaTypes/`, and then de
 Publishing a `post`, `floorPlan` or `homeListing` in Sanity rebuilds the live site by itself within about a minute
 (Sanity webhook "Rebuild website on publish" calls a Vercel deploy hook). No code push is needed for those.
 
+### Writing to Sanity from a Claude Code session
+
+The Sanity plan is the free one, where people can only be Administrator or Viewer. Sessions write content with an
+**Editor API token** instead, read from the environment variable `SANITY_AUTH_TOKEN` (never print it, never commit it):
+
+- Query: `GET https://ib6s13lu.api.sanity.io/v2024-01-01/data/query/production?query=<GROQ>` (public, no token needed).
+- Change content: `POST https://ib6s13lu.api.sanity.io/v2024-01-01/data/mutate/production` with
+  `Authorization: Bearer $SANITY_AUTH_TOKEN`.
+- Upload a photo: `POST https://ib6s13lu.api.sanity.io/v2024-01-01/assets/images/production?filename=<name>` with the
+  same header and the image as the body; use the returned `document._id` as the image reference.
+- A new post gets the id `post-<slug>` and the fields in `studio/src/schemaTypes/documents/post.ts`.
+
+If `SANITY_AUTH_TOKEN` is not set, stop and ask the owner for access. Do not fall back to adding the post as a file.
+
 ## Workflow and deployment
 
 - **A push to `main` goes live.** Vercel project `sunriverdev` in the SunRiver Communities team builds every push.
