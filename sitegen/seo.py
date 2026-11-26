@@ -29,7 +29,7 @@ NOINDEX = {
 }
 
 ADDRESS = {"@type": "PostalAddress", "streetAddress": "182 Cottonwood Dr", "addressLocality": "Toquerville",
-           "addressRegion": "UT", "postalCode": "84737", "addressCountry": "US"}  # the footer's sales office address
+           "addressRegion": "UT", "postalCode": "84774", "addressCountry": "US"}  # the footer's sales office address
 ORG_ID = SITE_URL + "/#organization"
 
 

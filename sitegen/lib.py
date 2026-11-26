@@ -578,7 +578,7 @@ def footer():
   <div class="wrap">
     %s
     <div class="footer-grid">
-      <div class="footer-brand">%s<p>182 Cottonwood Dr<br>Toquerville, UT 84737</p><p><a href="%s">Sales Office: %s</a></p></div>
+      <div class="footer-brand">%s<p>182 Cottonwood Dr<br>Toquerville, UT 84774</p><p><a href="%s">Sales Office: %s</a></p></div>
       %s
     </div>
   </div>
