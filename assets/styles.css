@@ -2740,3 +2740,13 @@ body.landing main > section:first-child { padding-top: clamp(36px, 5vw, 76px); }
 .dv-yellow { --sun-yellow: #E49C08; --sun-yellow-deep: #E49C08; }
 .dv-yellow .fh-hero h1::after, .dv-yellow .chat-form { background: #E49C08; }
 .dv-yellow .footer-col a, .dv-yellow .footer-brand a { background-image: linear-gradient(#E49C08, #E49C08); }
+
+/* iPhone Duo, outer screen (Clark, Nov 2026). Safari keeps its controls in a strip beside the page there, does not let
+   a site extend into that strip, and fills it with the page's background colour, which was white. These rules make
+   that colour SunRiver Blue on the Duo's outer screen only: Apple gives its Safari viewport as exactly 382px wide in
+   portrait and 594px wide in landscape, widths no other iPhone has. The page keeps its white background through
+   <main>, so nothing on the page changes. Remove this once Safari lets sites use that strip. */
+@media (width: 382px), (width: 594px) and (max-height: 420px) {
+  html, body { background-color: #325A96; }
+  main { background-color: var(--white); }
+}
