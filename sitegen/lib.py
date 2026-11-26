@@ -474,6 +474,8 @@ def pill_header(active, variant="bar"):
     photos = "".join('<span class="pd-shot%s" data-i="%d">%s<span class="pd-shot-title">%s</span></span>' % (" is-on" if k == 0 else "", k, deferred_img(src, alt), title)
                      for k, (src, alt, title) in enumerate(shots))
     cur = lambda k: ' aria-current="page"' if k == active else ""
+    m_life = "\n".join('        <li><a class="m-nav-row m-nav-rich" href="%s"><span class="m-nav-title">%s<svg class="m-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><span class="m-nav-desc">%s</span></a></li>'
+                       % (href, name, desc) for name, href, desc, _, _ in LIFE)
     tab = ""  # the Founders Club tab is retired
     # One header everywhere: logo plus the floating pill, no white bar behind it.
     cls = {"home": "site-header overlay is-home", "overlay": "site-header overlay", "bar": "site-header overlay on-light"}[variant]
@@ -482,6 +484,7 @@ def pill_header(active, variant="bar"):
   %s
   <div class="wrap header-inner">
     <a class="logo" href="/" aria-label="SunRiver Communities home">%s</a>
+    <a class="m-visit" href="/contact-us">Visit</a>
     <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="main-nav pill-nav" aria-label="Main">
       <span class="pill-morph" aria-hidden="true"></span>
@@ -497,40 +500,43 @@ def pill_header(active, variant="bar"):
 <div class="m-nav" id="m-nav" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <div class="m-nav-bar">
     <a class="m-nav-logo" href="/" aria-label="SunRiver Communities home">%s</a>
-    <button class="m-nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+    <a class="m-visit" href="/contact-us">Visit</a>
+    <button class="m-nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
   <nav class="m-nav-body" aria-label="Mobile">
     <div class="m-nav-panels">
     <div class="m-nav-panel" data-panel="main">
       <ul class="m-nav-list">
-        <li><button type="button" class="m-nav-row" data-go="life" aria-expanded="false">Life at SunRiver<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></button></li>
-        <li><button type="button" class="m-nav-row" data-go="homes" aria-expanded="false">Homes<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></button></li>
-        <li><a class="m-nav-row" href="/discovery-villas">Discovery Villas<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
-        <li><a class="m-nav-row" href="/contact-us">Visit<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
+        <li><button type="button" class="m-nav-row" data-go="life" aria-expanded="false">Life at SunRiver<svg class="m-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li>
+        <li><button type="button" class="m-nav-row" data-go="homes" aria-expanded="false">Homes<svg class="m-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li>
+        <li><a class="m-nav-row" href="/discovery-villas">Discovery Villas</a></li>
+        <li><a class="m-nav-row" href="/contact-us">Visit</a></li>
       </ul>
-      <ul class="m-nav-small"><li><a href="/about">About</a></li><li><a href="/contact-us">Contact Us</a></li><li><a href="/bucketlistliving">#bucketlistliving</a></li></ul>
+      <div class="m-nav-more">
+        <p class="m-nav-label">More</p>
+        <ul class="m-nav-small"><li><a href="/about">About</a></li><li><a href="/contact-us">Contact Us</a></li><li><a href="/bucketlistliving">Bucketlist Living</a></li></ul>
+      </div>
     </div>
     <div class="m-nav-panel" data-panel="life" aria-hidden="true" inert>
-      <button type="button" class="m-nav-back" data-go="main"><svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M8 2L2 8l6 6"/></svg>Back</button>
+      <button type="button" class="m-nav-back" data-go="main"><svg class="m-back-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
+      <p class="m-nav-label">Life at SunRiver</p>
       <ul class="m-nav-list">
-        <li><a class="m-nav-row" href="/live-in">Live In<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
-        <li><a class="m-nav-row" href="/live-out">Live Out<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
-        <li><a class="m-nav-row" href="/live-on">Live On<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
+%s
       </ul>
-      <ul class="m-nav-small"><li><a href="/about">About</a></li><li><a href="/contact-us">Contact Us</a></li><li><a href="/bucketlistliving">#bucketlistliving</a></li></ul>
     </div>
     <div class="m-nav-panel" data-panel="homes" aria-hidden="true" inert>
-      <button type="button" class="m-nav-back" data-go="main"><svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M8 2L2 8l6 6"/></svg>Back</button>
+      <button type="button" class="m-nav-back" data-go="main"><svg class="m-back-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
+      <p class="m-nav-label">Homes</p>
       <ul class="m-nav-list">
-        <li><a class="m-nav-row" href="/floor-plans">Floor Plans<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
-        <li><a class="m-nav-row" href="/homes-for-sale">Homes for Sale<svg class="m-chev" viewBox="0 0 10 16" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg></a></li>
+        <li><a class="m-nav-row" href="/floor-plans">Floor Plans<svg class="m-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li>
+        <li><a class="m-nav-row" href="/homes-for-sale">Homes for Sale<svg class="m-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li>
       </ul>
-      <ul class="m-nav-small"><li><a href="/about">About</a></li><li><a href="/contact-us">Contact Us</a></li><li><a href="/bucketlistliving">#bucketlistliving</a></li></ul>
     </div>
     </div>
   </nav>
-</div>''' % (cls, tab, LOGO_SVG, cur("life"), items, photos,
-       cur("homes"), cur("villas"), cur("visit"), LOGO_SVG)
+</div>
+''' % (cls, tab, LOGO_SVG, cur("life"), items, photos,
+       cur("homes"), cur("villas"), cur("visit"), LOGO_SVG, m_life)
 
 
 def header(active):

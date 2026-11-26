@@ -16,13 +16,15 @@
       var closeSheet = function () {
         if (!sheet || sheet.hidden) return;
         sheet.classList.remove('is-open'); document.body.classList.remove('m-nav-lock'); toggle.setAttribute('aria-expanded', 'false');
-        setTimeout(function () { if (!sheet.classList.contains('is-open')) sheet.hidden = true; }, 280);
+        setTimeout(function () { if (!sheet.classList.contains('is-open')) sheet.hidden = true; }, 300);
         toggle.focus();
       };
       toggle.setAttribute('aria-controls', 'm-nav');
       toggle.addEventListener('click', openSheet);
       if (sheet) {
         sheet.querySelector('.m-nav-close').addEventListener('click', closeSheet);
+        // a tap on the dimmed page around the card closes the menu
+        sheet.addEventListener('click', function (e) { if (e.target === sheet || (e.target.classList && e.target.classList.contains('m-nav-bar'))) closeSheet(); });
         sheet.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { if (a.hash && a.pathname === location.pathname) closeSheet(); }); });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
         // drill-down: Life at SunRiver slides to its own panel, Back slides home
