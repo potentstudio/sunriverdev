@@ -43,7 +43,7 @@ def build_home(plans):
   <div class="wrap h4-hero-inner">
     <h1>A <span class="h4-new">NEW</span> 55+ community in Southern Utah for people who refuse to slow down.</h1>
     <p class="h4-eyebrow">SunRiver Firelight</p>
-    <a class="btn h4-hero-btn" href="/why-sunriver">Life at SunRiver</a>
+    <a class="btn h4-hero-btn" href="/sunriver-firelight">Life at SunRiver</a>
   </div>
 </section>
 
