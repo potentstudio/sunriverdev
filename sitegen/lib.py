@@ -454,6 +454,8 @@ LIFE = [
     ("Live Out", "/live-out", "Southern Utah. Trails and Nearby Adventure.", V("hike.07ka4q1elcjrm.jpg"), "SunRiver members hiking in red rock country"),
     ("Live On", "/live-on", "Clubs and Activities. Events Calendar. Bucketlist.", V("live-on.2kwzvtocledst.jpg"), "SunRiver members enjoying a club activity"),
 ]
+# Clark, Nov 2026: the phone menu uses these shorter lines under Live In, Live Out and Live On (the desktop dropdown keeps LIFE's)
+LIFE_PHONE = {"Live In": "The home itself", "Live Out": "Everything past the front door", "Live On": "Everyone you have not met yet"}
 NAV = [("homes", "Homes", "/homes-for-sale"), ("about", "About", "/about"), ("visit", "Visit", "/contact-us")]
 
 
@@ -475,7 +477,7 @@ def pill_header(active, variant="bar"):
                      for k, (src, alt, title) in enumerate(shots))
     cur = lambda k: ' aria-current="page"' if k == active else ""
     m_life = "\n".join('        <li><a class="m-nav-row m-nav-rich" href="%s"><span class="m-nav-title">%s<svg class="m-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><span class="m-nav-desc">%s</span></a></li>'
-                       % (href, name, desc) for name, href, desc, _, _ in LIFE)
+                       % (href, name, LIFE_PHONE.get(name, desc)) for name, href, desc, _, _ in LIFE)
     tab = ""  # the Founders Club tab is retired
     # One header everywhere: logo plus the floating pill, no white bar behind it.
     cls = {"home": "site-header overlay is-home", "overlay": "site-header overlay", "bar": "site-header overlay on-light"}[variant]
