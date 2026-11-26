@@ -54,8 +54,8 @@ def build_home(plans):
     <div class="h4-story-text">
       <h2>Most people think retirement means slowing down.</h2>
       <hr>
-      <p>You've watched how that goes. A beautiful home with nobody in it to share. Days without enough in them worth leaving for. A calendar that empties out and then stays empty.</p>
-      <p>Nobody sees it coming. It just happens, quietly, a little at a time.</p>
+      <p>You have seen how that goes. The house gets quiet. The calendar opens up and never fills back in. The days start to look alike.</p>
+      <p>Nobody plans it that way. It just happens, a little at a time.</p>
     </div>
   </div>
 </section>
