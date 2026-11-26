@@ -650,7 +650,7 @@ def build_main(plans, listings):
       <div class="office"><h3>SunRiver Villas HOA</h3><p>1404 W Sun River Pkwy, Suite #250<br>St. George, UT 84790<br>(435) 773-6456<br><a href="http://www.swmlife.com">swmlife.com</a></p></div>
     </div>
   </div>
-</section>''' % full_hero("Previous Community Information"))
+</section>''' % full_hero("Previous Community Information", src="/assets/img/previous-communities-hero.webp", alt="", pos="50% 38%"))
 
     # ============================================================== FOUNDERS CLUB
     add("/founders-club", "Founders Club", "Join the SunRiver Firelight Founders Club: two years of HOA dues paid by SunRiver and first pick of premium homesites for the first 74 homeowners.", "visit", '''
