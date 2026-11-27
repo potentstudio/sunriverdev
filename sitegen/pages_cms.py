@@ -1,6 +1,9 @@
 """Pages driven by the Sanity CMS: floor plans, homes for sale, Bucketlist Living blog."""
 from . import lotmap
 import json
+import os
+import urllib.error
+import urllib.request
 from pathlib import Path
 from . import nearmap
 ROOT = Path(__file__).resolve().parent.parent
@@ -378,7 +381,7 @@ def build_homes(listings, plans=()):
 </section>
 <section class="hfs-map" id="map">
   <div class="wrap">
-    <p class="li-eyebrow">SunRiver Firelight lot map</p>
+    <p class="li-eyebrow" id="lot-map">SunRiver Firelight lot map</p>
     <h2 class="li-title">See every homesite.</h2>
     <p class="li-copy">Homes for sale link straight to their listing. Open homesites are ready for the floor plan you choose.</p>
     %s
@@ -389,7 +392,7 @@ def build_homes(listings, plans=()):
                   plus_group("hobby", "Hobby", [1, 2]), len(ls), cards, btn("Contact Sales", "/contact-us"), lotmap.svg(plans, listings)), body_class="sand-page")
 
     for l in ls:
-        build_listing(l)
+        build_listing(l, plans=plans, listings=listings)
 
 
 def listing_story(l):
@@ -427,94 +430,169 @@ def listing_story(l):
         plan, comm, "{:,} sq ft".format(l.get("squareFootage") or 0), (" with " + spec) if spec else "", status, extra)
 
 
-GAL_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="%s"/></svg>'
+STATUS_DOT = {"Move in Ready": "ready", "For Sale": "ready", "Coming Soon": "soon", "Under Contract": "contract", "Sold": "sold"}
+ICON_CAMERA = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>'
 
 
-def gallery(pics, alt, variant):
-    """Listing gallery with arrows: large photo with prev/next and a count, then a strip of 4 thumbnails with its own arrows."""
-    L, R = GAL_CHEV % "M15 5l-7 7 7 7", GAL_CHEV % "M9 5l7 7-7 7"
-    main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px", priority=True)
-    thumbs = "".join('<button type="button" class="thumb%s" data-src="%s" aria-label="Show photo %d of %d">%s</button>' % (
-        " is-active" if k == 0 else "", S(r, 1600), k + 1, len(pics), img(S(r, 320), "%s photo %d" % (alt, k + 1))) for k, r in enumerate(pics))
-    return '''<div class="hd-media viewer gal gal-%s%s" data-gal>
-        <div class="viewer-main">%s
-          <button type="button" class="gal-arrow gal-prev" aria-label="Previous photo">%s</button>
-          <button type="button" class="gal-arrow gal-next" aria-label="Next photo">%s</button>
-          <span class="gal-count" aria-live="polite"><b>1</b> / %d</span>
-        </div>
-        <div class="gal-strip">
-          <button type="button" class="gal-sarrow gal-sprev" aria-label="Earlier photos">%s</button>
-          <div class="gal-track">%s</div>
-          <button type="button" class="gal-sarrow gal-snext" aria-label="More photos">%s</button>
-        </div>
-      </div>''' % (variant, " gal-single" if len(pics) == 1 else "", main, L, R, len(pics), L, thumbs, R)
+ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8.2 5.4v13.2a.8.8 0 0 0 1.2.7l11-6.6a.8.8 0 0 0 0-1.4l-11-6.6a.8.8 0 0 0-1.2.7z"/></svg>'
+_YT_THUMB = {}
 
 
-def build_listing(l, path=None, gal="a"):
-    """Listing page, OFFICIAL Figma "Homes for Sale Home Detail" (6:503)."""
+def yt_thumb(vid):
+    """Still image for a YouTube video. The large one when YouTube has it, else the standard one every video has.
+    Both show an upright (Shorts) video in the middle third of a wide frame; the page crops to that middle (styles.css)."""
+    if vid not in _YT_THUMB:
+        big, small = "https://i.ytimg.com/vi/%s/maxresdefault.jpg" % vid, "https://i.ytimg.com/vi/%s/hqdefault.jpg" % vid
+        url = big
+        if os.environ.get("OFFLINE") != "1":
+            try:
+                req = urllib.request.Request(big, method="HEAD", headers={"User-Agent": "sunriver-build"})
+                with urllib.request.urlopen(req, timeout=8):
+                    pass
+            except urllib.error.HTTPError as e:
+                if e.code == 404:
+                    url = small
+            except Exception:
+                pass  # could not check: keep the large one, which every current video has
+        _YT_THUMB[vid] = url
+    return _YT_THUMB[vid]
+
+
+def listing_media(l, pics, vids, alt, plan_url, map_anchor):
+    """The photos at the top of a listing (Clark, Nov 2026). Video tours sit in with the photos, right after the first
+    one, as a tile with a play button. Five or more photos and videos make a mosaic, one large and four small; a home
+    with fewer shows one wide photo, with its videos in a column beside it. Any tile, "Photo Gallery", "Video Tour" or
+    the count opens the full-screen viewer (site.js "Photo viewer"), which reads everything from the JSON list here
+    and plays the videos in place."""
+    name = clean(l.get("title")) or "this home"
+    items = [("p", r) for r in pics[:1]] + [("v", v) for v in vids] + [("p", r) for r in pics[1:]]
+    n, n_pics = len(items), len(pics)
+    side = min(2, sum(1 for kind, _ in items[1:] if kind == "v"))
+    mosaic = n >= 5
+    shown = items[:5] if mosaic else items[:1 + side]
+    layout = "hm-mosaic" if mosaic else ("hm-duo hm-duo-%d" % side if side else "hm-solo")
+    tiles, shot = [], 0
+    for k, (kind, r) in enumerate(shown):
+        big = k == 0
+        if kind == "v":
+            tiles.append('<button type="button" class="hm-tile is-vid" data-pv-open="%d" aria-label="Play the video tour of %s"><img src="%s" alt="" loading="%s" decoding="async"><span class="hm-play">%s</span></button>' % (
+                k, esc(name), yt_thumb(r), "eager" if big else "lazy", ICON_PLAY))
+            continue
+        shot += 1
+        sizes = "(max-width: 860px) 1px, 25vw"
+        if big:
+            sizes = "(max-width: 860px) 100vw, 50vw" if mosaic else "(max-width: 860px) 100vw, 1200px"
+        pic = simg(r, alt if big else "%s photo %d" % (alt, shot), 1400 if big else 800, loading="eager" if big else "lazy", sizes=sizes, priority=big)
+        tiles.append('<button type="button" class="hm-tile" data-pv-open="%d" aria-label="Open photo %d of %d">%s</button>' % (k, shot, n_pics, pic))
+    status = l.get("status") or ""
+    badge = '<span class="hm-pill hm-status is-%s">%s</span>' % (STATUS_DOT.get(status, "other"), esc(BADGE_LABEL.get(status, status))) if status else ""
+    count = '<button type="button" class="hm-pill hm-count" data-pv-open="0">%s%d Photos</button>' % (ICON_CAMERA, n_pics) if n_pics > 1 else ""
+    btns = []
+    if n_pics > 1:
+        btns.append('<button type="button" class="hm-pill" data-pv-open="0">Photo Gallery</button>')
+    if vids:
+        btns.append('<button type="button" class="hm-pill" data-pv-open="%d">%sVideo Tour</button>' % (1 if pics else 0, ICON_PLAY))
+    if plan_url:
+        btns.append('<a class="hm-pill" href="%s">%s Floor Plan</a>' % (plan_url, esc(clean(l.get("title")))))
+    btns.append('<a class="hm-pill" href="#%s">Map</a>' % map_anchor)
+    data, shot = [], 0
+    for kind, r in items:
+        if kind == "v":
+            data.append({"v": r, "t": yt_thumb(r), "a": "Video tour of %s" % name})
+        else:
+            shot += 1
+            data.append({"s": S(r, 1600), "t": S(r, 320), "a": "%s photo %d" % (alt, shot)})
+    photos = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
+    return """<div class="hm %s" data-pv>
+      <div class="hm-grid">%s%s%s</div>
+      <div class="hm-btns">%s</div>
+      <script type="application/json" class="hm-photos">%s</script>
+    </div>""" % (layout, "".join(tiles), badge, count, "".join(btns), photos)
+
+
+def build_listing(l, path=None, plans=(), listings=()):
+    """Listing page (Clark, Nov 2026): photo mosaic, then the address with the home's numbers beside it, the buttons
+    and price breakdown in a side column, the community map with this homesite outlined, the street map, the sales
+    team. Video tours are in with the photos at the top."""
     pics = ([l["photo"]] if l.get("photo") else []) + [g for g in (l.get("gallery") or []) if g != l.get("photo")]
     alt = l.get("photoAlt") or l.get("title")
-    main = simg(pics[0], alt, 1400, loading="eager", sizes="(max-width: 860px) 100vw, 667px", priority=True) if pics else ""
-    thumbs = ""
-    if len(pics) > 1:
-        thumbs = '<div class="hd-thumbs%s">%s%s</div>' % (
-            " has-more" if len(pics) > 4 else "",
-            "".join('<button type="button" class="thumb%s" data-src="%s" aria-label="Show photo %d">%s</button>' % (
-                " is-active" if k == 0 else "", S(r, 1600), k + 1, img(S(r, 320), "%s photo %d" % (alt, k + 1))) for k, r in enumerate(pics)),
-            '<button type="button" class="see-more" aria-expanded="false">See more</button>' if len(pics) > 4 else "")
     home_no = homesite_no(l)
-    site = '<p class="hd-site">%s<span>Homesite %s</span></p>' % (home_icon("hd-site-ico"), home_no) if home_no else ""
+    title = clean(l.get("title"))
+    firelight = l.get("community") == "SunRiver Firelight"
+    comm = COMMUNITY_LABEL.get(l.get("community"), l.get("community", ""))
+    plan = next((q for q in plans if q.get("name", "").lower() == (title or "").lower()), None) if firelight else None
+    plan_url = "/floor-plans/%s" % plan["slug"] if plan else ""
+    locator = lotmap.locator(plans, listings, int(home_no), "Homesite %s" % home_no) if firelight and home_no else ""
+    vids = [v for v in (l.get("youtubeShortIds") or []) if v]
+    media = listing_media(l, pics, vids, alt, plan_url, "homesite-map" if locator else "location") if pics or vids else ""
+    addr = short_address(l) or l.get("address") or ""
+    street, _, city = addr.partition(",")
+    stats = [(num(l["beds"]), "Beds") if l.get("beds") else None, (num(l["baths"]), "Baths") if l.get("baths") else None,
+             (num(l["garageSpaces"]), "Car garage") if l.get("garageSpaces") else None,
+             ("{:,}".format(l["squareFootage"]), "Sq. ft.") if l.get("squareFootage") else None]
+    stats_html = "".join("<div><b>%s</b><span>%s</span></div>" % x for x in stats if x)
+    crumbs = []
+    if home_no:
+        crumbs.append("Homesite %s" % home_no)
+    if title and title.lower() != "single family":
+        crumbs.append('Based on the <a href="%s">%s</a> floor plan' % (plan_url, esc(title)) if plan_url else "%s floor plan" % esc(title))
+    if comm:
+        crumbs.append(esc(comm))
+    _, story = listing_story(l)
     feat = '<p class="hd-feat"><strong>Featured Home</strong>Ask for pricing!</p>' if l.get("featured") else ""
     breakdown = ""
     if l.get("basePrice"):
-        rows = [("%s base price" % clean(l.get("title")), money(l["basePrice"]))]
+        rows = [("%s base price" % title, money(l["basePrice"]))]
         rows += [(clean(lbl), money(a) if a else "Included") for lbl, a in l.get("options") or []]
         if l.get("upgrades"):
             rows.append(("Design upgrades", money(l["upgrades"])))
-        breakdown = '<dl class="hd-break">%s<div class="hd-break-total"><dt>Price</dt><dd>%s</dd></div></dl>' % (
+        breakdown = '<dl class="hm-break">%s<div class="hm-break-total"><dt>Price</dt><dd>%s</dd></div></dl>' % (
             "".join("<div><dt>%s</dt><dd>%s</dd></div>" % (esc(a), b) for a, b in rows), listing_price(l))
-    videos = ""
-    if l.get("youtubeShortIds"):
-        vids = "".join('<div class="short"><iframe src="https://www.youtube.com/embed/%s" title="Video tour of %s" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>' % (v, esc(l.get("title"))) for v in l["youtubeShortIds"])
-        videos = '<section class="hd-videos"><div class="wrap stack-lg"><div class="center stack"><h2 class="h2">Take a look inside%s</h2><hr class="rule center"></div><div class="shorts">%s</div></div></section>' % (
-            " Homesite %s" % home_no if home_no else "", vids)
-    addr = short_address(l) or l.get("address") or ""
-    title = clean(l.get("title"))
-    head, story = listing_story(l)
-    comm = COMMUNITY_LABEL.get(l.get("community"), l.get("community", ""))
-    mls = ""
-    media = gallery(pics, alt, gal) if gal and pics else '<div class="hd-media viewer"><div class="viewer-main">%s</div>%s</div>' % (main, thumbs)
+    more = []
+    if plan_url:
+        more.append('<a href="%s">%s floor plan</a>' % (plan_url, esc(title)))
+    if firelight:
+        more.append('<a href="/founders-club">Founders Club</a>')
+    more_html = '<div class="hm-more"><p>Learn more</p>%s</div>' % "".join(more) if more else ""
+    site_map = ""
+    if locator:
+        site_map = """<div class="hm-map" id="homesite-map">
+      <div class="hm-map-head"><div><p class="hm-eyebrow">Community map</p><h2>Where Homesite %s sits</h2></div><a class="hd-btn" href="/homes-for-sale#lot-map">See every homesite</a></div>
+      %s
+    </div>""" % (home_no, locator)
     add(path or "/homes-for-sale/%s" % l["slug"], "%s, %s" % (title, addr),
-        "%s at %s: %s sq ft, %s bed, %s bath. %s." % (title, l.get("address") or "", "{:,}".format(l.get("squareFootage") or 0), num(l.get("beds")), num(l.get("baths")), l.get("status", "")), "homes", '''
-<section class="hd">
+        "%s at %s: %s sq ft, %s bed, %s bath. %s." % (title, l.get("address") or "", "{:,}".format(l.get("squareFootage") or 0), num(l.get("beds")), num(l.get("baths")), l.get("status", "")), "homes", """
+<section class="hd hm-page">
   <div class="wrap">
     <a class="hd-back" href="/homes-for-sale">See all homes for sale</a>
-    <div class="hd-top">
-      %s
-      <div class="hd-card">
-        <p class="hd-price">%s</p>
-        <p class="hd-name"><strong>%s</strong><span aria-hidden="true">|</span>%s sqft</p>
-        %s
-        <h1 class="hd-address">%s</h1>
-        <p class="hd-comm">%s</p>
-        %s
-        <p class="hd-status">%s</p>
-        %s%s
-        <div class="hd-actions"><a class="hd-btn solid" href="/contact-us">Schedule a Tour</a><a class="hd-btn hd-info" href="/contact-us#team">Request Info</a><a class="hd-btn hd-call" href="tel:+14356881000">Call Us</a></div>
-        %s
+    %s
+    <div class="hm-info">
+      <div class="hm-main">
+        <div class="hm-head">
+          <div class="hm-addr"><h1>%s</h1><p class="hm-city">%s</p><p class="hm-price">%s</p></div>
+          <div class="hm-stats">%s</div>
+        </div>
+        <p class="hm-eyebrow">%s</p>
+        <p class="hm-desc">%s</p>
       </div>
+      <aside class="hm-side" aria-label="Contact and price">
+        %s
+        <a class="hd-btn solid" href="/contact-us">Schedule a Tour</a>
+        <div class="hm-two"><a class="hd-btn" href="/contact-us#team">Request Info</a><a class="hd-btn" href="tel:+14356881000">Call Us</a></div>
+        %s
+        %s
+      </aside>
     </div>
-    <div class="hd-desc">
-      <div class="hd-desc-text"><h2>%s</h2><p>%s</p></div>
-      <div class="hd-map"><iframe src="https://www.google.com/maps?q=%s&amp;output=embed" title="Map of %s" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    %s
+    <div class="hm-loc" id="location">
+      <p class="hm-eyebrow">Location</p>
+      <div class="hd-map hm-gmap"><iframe src="https://www.google.com/maps?q=%s&amp;output=embed" title="Map of %s" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
     </div>
     %s
   </div>
-</section>
-%s''' % (media, listing_price(l), esc(title), "{:,}".format(l.get("squareFootage") or 0), site, esc(addr),
-         esc(comm), spec_chips(l, "chips hd-chips"), esc(BADGE_LABEL.get(l.get("status"), l.get("status") or "")), feat, breakdown, mls,
-         esc(head), esc(story), esc(addr).replace(" ", "+"), esc(addr),
-         contact_row(l.get("community") == "SunRiver Firelight"), videos), body_class="sand-page")
+</section>""" % (media, esc(street.strip()), esc(city.strip()), listing_price(l), stats_html, " &bull; ".join(crumbs), esc(story),
+         feat, breakdown, more_html, site_map, esc(addr).replace(" ", "+"), esc(addr),
+         contact_row(firelight)), body_class="sand-page")
 
 
 # ================================================================== BLOG

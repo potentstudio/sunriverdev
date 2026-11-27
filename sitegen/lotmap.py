@@ -91,7 +91,15 @@ def key_icon(kind):
     return '<svg viewBox="0 0 %s %s" aria-hidden="true">%s</svg>' % (w, h, inner)
 
 
-def svg(plans=(), listings=()):
+_ART = {}
+
+
+def _art(plans=(), listings=()):
+    """The lot map drawing with every lot coloured, tagged and numbered from data/lots.json: (svg text, card data as
+    JSON, homesites available, homesites taken). Built once per run and shared by the full map and the listing pages."""
+    key = (id(plans), id(listings))
+    if key in _ART:
+        return _ART[key]
     data = load()
     homes = lot_listings(listings)
     by_name = {q["name"].lower(): q for q in plans}
@@ -185,8 +193,40 @@ def svg(plans=(), listings=()):
     plan_json = json.dumps(cards, separators=(",", ":")).replace("</", "<\\/")
     avail = sum(1 for e in lots.values() if e.get("status") == "available")
     taken = sum(1 for e in lots.values() if e.get("status") in ("sold", "build", "occupied"))
-    out = re.sub(r"<svg\b", '<svg class="lotmap-svg" role="group" aria-label="SunRiver Firelight lot map: %d homesites available, %d built or under construction"' % (avail, taken), out, count=1)
     out = re.sub(r"<\?xml[^>]*>", "", out)
+    _ART[key] = (out, plan_json, avail, taken)
+    return _ART[key]
+
+
+def locator(plans=(), listings=(), lot=None, label=""):
+    """The community map for one home's listing page: the same drawing as the full lot map, not interactive, with that
+    homesite outlined. site.js ("Homesite locator") zooms it in on the lot, adds the ring and places the label and the
+    small whole-community inset. Returns "" when the lot is not on the map."""
+    if not lot or str(lot) not in GEO:
+        return ""
+    art = _art(plans, listings)[0]
+    m = re.search(r'<(path|polygon|rect|polyline)\b([^>]*?)\sdata-lot="%d"[^>]*?/?>' % int(lot), art)
+    if not m:
+        return ""
+    geo = " ".join('%s="%s"' % kv for kv in re.findall(r'\b(d|points|x|y|width|height|transform)="([^"]*)"', m.group(0)))
+    head = re.match(r"\s*<svg\b[^>]*>", art)
+    view = re.search(r'viewBox="([^"]+)"', head.group(0)).group(1)
+    inner = art[head.end():art.rindex("</svg>")]
+    # a picture, not a control: nothing in it takes focus, shows a tooltip or reacts to the pointer
+    inner = re.sub(r'\s(?:tabindex|role|data-tip|aria-label|data-home)="[^"]*"', "", inner)
+    return '''<div class="hm-map-card" data-locator>
+      <svg class="lotmap-svg hm-map-svg" viewBox="%s" role="img" aria-label="SunRiver Firelight community map with %s highlighted" xmlns="http://www.w3.org/2000/svg">
+        <g id="hm-map-art">%s</g>
+        <%s class="hm-here-shape" %s/>
+      </svg>
+      <span class="hm-here"><i></i>%s</span>
+      <div class="hm-inset" aria-hidden="true"><svg viewBox="%s" xmlns="http://www.w3.org/2000/svg"><use href="#hm-map-art"/></svg><p>SunRiver Firelight</p></div>
+    </div>''' % (view, label, inner, m.group(1), geo, label, view)
+
+
+def svg(plans=(), listings=()):
+    out, plan_json, avail, taken = _art(plans, listings)
+    out = re.sub(r"<svg\b", '<svg class="lotmap-svg" role="group" aria-label="SunRiver Firelight lot map: %d homesites available, %d built or under construction"' % (avail, taken), out, count=1)
     # lot card: Option 1 "Light" (chosen 2026-10-29); the "More info" style stays in site.js under .card-detail
     return '''<div class="lotmap card-light">
   <div class="lotmap-scroll lotmap-window">

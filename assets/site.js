@@ -1454,48 +1454,6 @@ document.querySelectorAll("[data-htl]").forEach(function (tl) {
   run();
 })();
 
-// Listing gallery with arrows (.gal): prev/next on the big photo, a 4-up thumbnail strip with its own arrows
-(function () {
-  document.querySelectorAll('[data-gal]').forEach(function (g) {
-    var thumbs = [].slice.call(g.querySelectorAll('.gal-track .thumb')), track = g.querySelector('.gal-track');
-    var count = g.querySelector('.gal-count b'), sp = g.querySelector('.gal-sprev'), sn = g.querySelector('.gal-snext');
-    if (!thumbs.length) return;
-    var cur = 0;
-    function syncStrip() {
-      var max = track.scrollWidth - track.clientWidth - 2;
-      sp.disabled = track.scrollLeft <= 2; sn.disabled = track.scrollLeft >= max;
-    }
-    function go(i) {
-      cur = (i + thumbs.length) % thumbs.length;
-      thumbs[cur].click();
-      count.textContent = cur + 1;
-      var t = thumbs[cur], l = t.offsetLeft - track.offsetLeft, r = l + t.offsetWidth;
-      if (l < track.scrollLeft) track.scrollLeft = l;
-      else if (r > track.scrollLeft + track.clientWidth) track.scrollLeft = r - track.clientWidth;
-    }
-    thumbs.forEach(function (t, i) { t.addEventListener('click', function () { cur = i; count.textContent = i + 1; }); });
-    g.querySelector('.gal-prev').addEventListener('click', function () { go(cur - 1); });
-    g.querySelector('.gal-next').addEventListener('click', function () { go(cur + 1); });
-    function page(dir) { track.scrollLeft += dir * (track.clientWidth + 10); }
-    sp.addEventListener('click', function () { page(-1); });
-    sn.addEventListener('click', function () { page(1); });
-    track.addEventListener('scroll', syncStrip, { passive: true });
-    window.addEventListener('resize', syncStrip);
-    syncStrip();
-    g.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); }
-      if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); }
-    });
-    // swipe the big photo on touch screens
-    var main = g.querySelector('.viewer-main'), x0 = null;
-    main.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-    main.addEventListener('touchend', function (e) {
-      if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
-    });
-  });
-})();
-
 // Banner preview (Nov 13): add ?bnr=1, 2 or 3 to any page with a photo banner to try a white wash plus the SunRiver waves.
 // Nothing changes without the parameter.
 (function () {
@@ -1553,4 +1511,191 @@ document.querySelectorAll("[data-htl]").forEach(function (tl) {
     new MutationObserver(function () { if (form.classList.contains('is-sent')) { remember(); setTimeout(hide, 9000); } }).observe(form, { attributes: true, attributeFilter: ['class'] });
   }
   if (!recently()) setTimeout(show, DELAY);
+})();
+
+// Photo viewer (listing pages): any photo in the mosaic, "Photo Gallery", "Video Tour" or the "N Photos" badge opens it.
+// Full screen: the photo above a strip of every photo. Arrows, the left and right keys or a swipe move through them;
+// + and - (or the wheel, a double-click or a pinch) zoom; the small arrow hides the strip; the X or Escape closes it.
+// A video tour is one of the items: it plays in place (YouTube), and starts by itself only when it was asked for.
+(function () {
+  function icon(d, vb) { return '<svg viewBox="' + (vb || '0 0 24 24') + '" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>'; }
+  var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8.2 5.4v13.2a.8.8 0 0 0 1.2.7l11-6.6a.8.8 0 0 0 0-1.4l-11-6.6a.8.8 0 0 0-1.2.7z"/></svg>';
+  function open(items, start, opener) {
+    var n = items.length, cur = Math.max(0, Math.min(n - 1, start || 0)), want = 0;
+    var pv = document.createElement('div');
+    pv.className = 'pv' + (n < 2 ? ' is-single' : '');
+    pv.setAttribute('role', 'dialog'); pv.setAttribute('aria-modal', 'true'); pv.setAttribute('aria-label', 'Photos');
+    pv.innerHTML = '<div class="pv-stage"><img class="pv-photo" alt="" draggable="false">' +
+      '<p class="pv-count" aria-live="polite"></p>' +
+      '<button type="button" class="pv-b pv-close" aria-label="Close photos">' + icon('M5.5 5.5l13 13M18.5 5.5l-13 13') + '</button>' +
+      '<div class="pv-zoom" role="group" aria-label="Zoom"><button type="button" data-z="in" aria-label="Zoom in">' + icon('M12 5v14M5 12h14') + '</button>' +
+      '<button type="button" data-z="fit" aria-label="Fit the photo to the screen">' + icon('M4 5v5h5M5.5 14a7 7 0 1 0 1.6-7.3L4 10') + '</button>' +
+      '<button type="button" data-z="out" aria-label="Zoom out">' + icon('M5 12h14') + '</button></div>' +
+      '<button type="button" class="pv-b pv-prev" aria-label="Previous photo">' + icon('M19 12H5M11 6l-6 6 6 6') + '</button>' +
+      '<button type="button" class="pv-b pv-next" aria-label="Next photo">' + icon('M5 12h14M13 6l6 6-6 6') + '</button></div>' +
+      '<button type="button" class="pv-fold" aria-label="Hide the small photos" aria-expanded="true">' + icon('M2 2l13 7 13-7', '0 0 30 12') + '</button>' +
+      '<div class="pv-strip"></div>';
+    var stage = pv.querySelector('.pv-stage'), im = pv.querySelector('.pv-photo'), count = pv.querySelector('.pv-count'), strip = pv.querySelector('.pv-strip');
+    var zin = pv.querySelector('[data-z="in"]'), zout = pv.querySelector('[data-z="out"]'), zfit = pv.querySelector('[data-z="fit"]'), fold = pv.querySelector('.pv-fold');
+    var thumbs = items.map(function (it, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'pv-thumb' + (it.v ? ' is-vid' : ''); b.setAttribute('aria-label', it.v ? 'Play the video tour' : 'Photo ' + (i + 1) + ' of ' + n);
+      b.innerHTML = '<img src="' + it.t + '" alt="" loading="lazy" decoding="async">' + (it.v ? '<span class="pv-play">' + PLAY + '</span>' : '');
+      b.addEventListener('click', function () { show(i, true); });
+      strip.appendChild(b);
+      return b;
+    });
+    // zoom and pan
+    var scale = 1, tx = 0, ty = 0;
+    function apply() {
+      im.style.transform = scale === 1 ? '' : 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      pv.classList.toggle('is-zoomed', scale > 1);
+      zout.disabled = scale <= 1; zfit.disabled = scale <= 1; zin.disabled = scale >= 4;
+    }
+    function zoomAt(f, cx, cy) {
+      if (items[cur].v) return;
+      var r = stage.getBoundingClientRect(), ox = (cx === undefined ? r.width / 2 : cx - r.left) - r.width / 2, oy = (cy === undefined ? r.height / 2 : cy - r.top) - r.height / 2;
+      var ns = Math.max(1, Math.min(4, scale * f)); f = ns / scale;
+      tx = ox - (ox - tx) * f; ty = oy - (oy - ty) * f; scale = ns;
+      if (scale === 1) { tx = 0; ty = 0; }
+      apply();
+    }
+    function fit() { scale = 1; tx = 0; ty = 0; apply(); }
+    function show(i, play) {
+      cur = (i + n) % n;
+      var it = items[cur], token = ++want;
+      var old = stage.querySelector('.pv-video');
+      if (old) old.remove(); // leaving a video stops it
+      pv.classList.toggle('is-video', !!it.v);
+      fit();
+      count.textContent = (cur + 1) + ' of ' + n;
+      thumbs.forEach(function (b, k) { b.classList.toggle('is-on', k === cur); if (k === cur) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+      var t = thumbs[cur];
+      if (t && strip.clientWidth) strip.scrollLeft = t.offsetLeft - strip.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2; // keep the current one in the middle
+      if (n > 1) [cur + 1, cur - 1].forEach(function (k) { var o = items[(k + n) % n]; if (o.s) new Image().src = o.s; }); // neighbours ready in advance
+      if (it.v) {
+        pv.classList.remove('is-loading');
+        var f = document.createElement('iframe');
+        f.className = 'pv-video'; f.title = it.a || 'Video tour';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
+        f.src = 'https://www.youtube.com/embed/' + encodeURIComponent(it.v) + '?rel=0&playsinline=1' + (play ? '&autoplay=1' : '');
+        stage.insertBefore(f, im.nextSibling);
+        return;
+      }
+      var pre = new Image();
+      pre.onload = pre.onerror = function () { if (token !== want) return; im.src = it.s; im.alt = it.a || ''; pv.classList.remove('is-loading'); };
+      pv.classList.add('is-loading');
+      pre.src = it.s;
+    }
+    pv.querySelector('.pv-prev').addEventListener('click', function () { show(cur - 1); });
+    pv.querySelector('.pv-next').addEventListener('click', function () { show(cur + 1); });
+    pv.querySelector('.pv-close').addEventListener('click', done);
+    zin.addEventListener('click', function () { zoomAt(1.5); });
+    zout.addEventListener('click', function () { zoomAt(1 / 1.5); });
+    zfit.addEventListener('click', fit);
+    fold.addEventListener('click', function () {
+      var folded = pv.classList.toggle('is-folded');
+      fold.setAttribute('aria-expanded', String(!folded)); fold.setAttribute('aria-label', folded ? 'Show the small photos' : 'Hide the small photos');
+    });
+    stage.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX, e.clientY); }, { passive: false });
+    stage.addEventListener('dblclick', function (e) { if (e.target.closest('button')) return; zoomAt(scale > 1.8 ? 1 / scale : 2, e.clientX, e.clientY); });
+    // one finger: swipe to the next photo, or drag the photo when zoomed in. Two fingers: pinch to zoom.
+    var pts = {}, last = null, pinch = null, sx = null, sy = null;
+    stage.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      pts[e.pointerId] = e; last = { x: e.clientX, y: e.clientY }; sx = e.clientX; sy = e.clientY;
+      try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!pts[e.pointerId]) return;
+      pts[e.pointerId] = e;
+      var ids = Object.keys(pts);
+      if (ids.length === 2) {
+        var a = pts[ids[0]], b = pts[ids[1]], d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+        if (pinch) zoomAt(d / pinch, (a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2);
+        pinch = d; sx = null; return;
+      }
+      if (last && scale > 1) { tx += e.clientX - last.x; ty += e.clientY - last.y; apply(); }
+      last = { x: e.clientX, y: e.clientY };
+    });
+    function up(e) {
+      if (!pts[e.pointerId]) return;
+      var one = Object.keys(pts).length === 1;
+      delete pts[e.pointerId];
+      if (Object.keys(pts).length < 2) pinch = null;
+      if (!Object.keys(pts).length) last = null;
+      if (one && sx !== null && scale === 1 && n > 1 && e.type === 'pointerup') {
+        var dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) show(cur + (dx < 0 ? 1 : -1));
+      }
+      sx = null;
+    }
+    stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+    function onKey(e) {
+      if (e.key === 'Escape') { done(); return; }
+      if (e.key === 'ArrowLeft' && n > 1) { e.preventDefault(); show(cur - 1); }
+      if (e.key === 'ArrowRight' && n > 1) { e.preventDefault(); show(cur + 1); }
+      if (e.key === '+' || e.key === '=') zoomAt(1.5);
+      if (e.key === '-') zoomAt(1 / 1.5);
+      if (e.key === 'Tab') { // keep the Tab key inside the viewer
+        var f = Array.prototype.filter.call(pv.querySelectorAll('button:not(:disabled)'), function (b) { return b.offsetParent !== null; });
+        if (!f.length) return;
+        if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+      }
+    }
+    var prevOverflow = document.documentElement.style.overflow;
+    function done() {
+      pv.remove(); document.removeEventListener('keydown', onKey); document.documentElement.style.overflow = prevOverflow;
+      if (opener && opener.focus) opener.focus();
+    }
+    document.addEventListener('keydown', onKey);
+    document.documentElement.style.overflow = 'hidden';
+    document.body.appendChild(pv);
+    show(cur, true);
+    pv.querySelector('.pv-close').focus();
+  }
+  document.querySelectorAll('[data-pv]').forEach(function (root) {
+    var data = root.querySelector('.hm-photos'), items = [];
+    try { items = JSON.parse(data.textContent); } catch (e) { items = []; }
+    if (!items.length) return;
+    root.querySelectorAll('[data-pv-open]').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); open(items, +b.getAttribute('data-pv-open') || 0, b); });
+    });
+  });
+})();
+
+// Homesite locator (listing pages): the community map zoomed in on this home's lot, with a ring around it, a label
+// above it and a small map of the whole community in the corner showing which part is on screen.
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll('[data-locator]').forEach(function (card) {
+    var svg = card.querySelector('svg.hm-map-svg'), shape = svg && svg.querySelector('.hm-here-shape');
+    if (!shape || !svg.viewBox || !shape.getBBox) return;
+    var full = svg.viewBox.baseVal, FW = full.width, FH = full.height, b;
+    try { b = shape.getBBox(); } catch (e) { return; }
+    if (!b.width || !b.height) return;
+    var cx = b.x + b.width / 2, cy = b.y + b.height / 2;
+    var ring = document.createElementNS(NS, 'circle');
+    ring.setAttribute('class', 'hm-ring'); ring.setAttribute('cx', cx); ring.setAttribute('cy', cy); ring.setAttribute('r', Math.max(b.width, b.height) * 0.95);
+    svg.appendChild(ring);
+    var here = card.querySelector('.hm-here'), mini = card.querySelector('.hm-inset svg'), box = null;
+    if (mini) {
+      box = document.createElementNS(NS, 'rect');
+      box.setAttribute('fill', 'rgba(245,175,28,.25)'); box.setAttribute('stroke', '#F5AF1C'); box.setAttribute('stroke-width', '8');
+      var dot = document.createElementNS(NS, 'circle');
+      dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('r', 16); dot.setAttribute('fill', '#143250');
+      mini.appendChild(box); mini.appendChild(dot);
+    }
+    function lay() {
+      var phone = window.innerWidth <= 860, W = phone ? 190 : 330, H = phone ? 200 : 178;
+      var x = Math.max(0, Math.min(FW - W, cx - W / 2)), y = Math.max(0, Math.min(FH - H, cy - H / 2));
+      svg.setAttribute('viewBox', x + ' ' + y + ' ' + W + ' ' + H);
+      if (here) { here.style.left = ((cx - x) / W * 100) + '%'; here.style.top = ((b.y - y) / H * 100) + '%'; }
+      if (box) { box.setAttribute('x', x); box.setAttribute('y', y); box.setAttribute('width', W); box.setAttribute('height', H); }
+      card.classList.add('is-ready');
+    }
+    lay();
+    window.addEventListener('resize', lay);
+  });
 })();
