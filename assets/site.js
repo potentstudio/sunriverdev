@@ -337,7 +337,10 @@
 
   // ---------- Lightbox. Images opened with data-zoom (floor plan drawings) can be zoomed and moved around like a map:
   // scroll or pinch to zoom, drag to move, double-click to zoom in, + and - buttons, Escape or the X to close.
-  function openLightbox(src, alt, zoomable) {
+  // A photo that belongs to a set (items: [{src, alt}], index) opens with arrows at the screen edges and an "n of N"
+  // count: arrows, the left and right keys or a swipe move through the set. onClose(i) hears where the visitor ended.
+  function openLightbox(src, alt, zoomable, items, index, onClose) {
+    var set = !zoomable && items && items.length > 1 ? items : null, cur = set ? Math.max(0, index || 0) : 0;
     var box = document.createElement('div');
     box.className = 'lightbox' + (zoomable ? ' is-zoom' : '') + (document.querySelector('.hd') ? ' lb-light' : '');
     box.setAttribute('role', 'dialog');
@@ -395,13 +398,56 @@
       stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
       stage.addEventListener('click', function (e) { e.stopPropagation(); });
     }
+    var show = null;
+    if (set) {
+      box.className += ' lb-gallery';
+      var chev = function (d) { return '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>'; };
+      var count = document.createElement('p'); count.className = 'lb-count'; count.setAttribute('aria-live', 'polite');
+      frame.appendChild(count);
+      var want = 0;
+      show = function (i) {
+        cur = (i + set.length) % set.length;
+        var it = set[cur], token = ++want;
+        count.textContent = (cur + 1) + ' of ' + set.length;
+        box.setAttribute('aria-label', it.alt || 'Photo ' + (cur + 1) + ' of ' + set.length);
+        // swap only once the next photo has loaded, so the frame never collapses or flashes empty
+        var pre = new Image();
+        pre.onload = pre.onerror = function () { if (token !== want) return; im.src = it.src; im.alt = it.alt || ''; box.classList.remove('is-loading'); };
+        box.classList.add('is-loading');
+        pre.src = it.src;
+        [cur + 1, cur - 1].forEach(function (k) { new Image().src = set[(k + set.length) % set.length].src; }); // neighbours ready in advance
+      };
+      [['lb-prev', 'Previous photo', 'M15 5l-7 7 7 7', -1], ['lb-next', 'Next photo', 'M9 5l7 7-7 7', 1]].forEach(function (a) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'lb-arrow ' + a[0]; b.setAttribute('aria-label', a[1]); b.innerHTML = chev(a[2]);
+        b.addEventListener('click', function (e) { e.stopPropagation(); show(cur + a[3]); });
+        box.appendChild(b);
+      });
+      count.textContent = (cur + 1) + ' of ' + set.length;
+      [cur + 1, cur - 1].forEach(function (k) { new Image().src = set[(k + set.length) % set.length].src; });
+      // swipe left or right on a touch screen
+      var sx = null, sy = null;
+      stage.addEventListener('pointerdown', function (e) { sx = e.clientX; sy = e.clientY; });
+      stage.addEventListener('pointerup', function (e) {
+        if (sx === null) return;
+        var dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) show(cur + (dx < 0 ? 1 : -1));
+      });
+      stage.addEventListener('pointercancel', function () { sx = null; });
+    }
     var prev = document.activeElement;
     function onKey(e) {
       if (e.key === 'Escape') done();
       if (zoomable && (e.key === '+' || e.key === '=')) zoomAt(1.5);
       if (zoomable && e.key === '-') zoomAt(1 / 1.5);
+      if (show && e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1); }
+      if (show && e.key === 'ArrowRight') { e.preventDefault(); show(cur + 1); }
     }
-    function done() { box.remove(); document.removeEventListener('keydown', onKey); document.documentElement.style.overflow = ''; if (prev && prev.focus) prev.focus(); }
+    function done() {
+      box.remove(); document.removeEventListener('keydown', onKey); document.documentElement.style.overflow = '';
+      if (set && onClose) onClose(cur);
+      if (prev && prev.focus) prev.focus();
+    }
     box.addEventListener('click', function (e) { if (e.target === box || (!zoomable && !frame.contains(e.target))) done(); });
     close.addEventListener('click', function (e) { e.stopPropagation(); done(); });
     document.addEventListener('keydown', onKey);
@@ -413,7 +459,10 @@
     a.addEventListener('click', function (e) {
       e.preventDefault();
       var im = a.querySelector('img');
-      openLightbox(a.getAttribute('href'), im ? im.alt : '', a.hasAttribute('data-zoom'));
+      // photos that sit side by side (same parent) open as one set with arrows; a zoomable drawing opens alone
+      var group = a.hasAttribute('data-zoom') ? [] : Array.prototype.filter.call(a.parentNode.children, function (el) { return el.matches && el.matches('a[data-lightbox]:not([data-zoom])'); });
+      var items = group.map(function (el) { var i = el.querySelector('img'); return { src: el.getAttribute('href'), alt: i ? i.alt : '' }; });
+      openLightbox(a.getAttribute('href'), im ? im.alt : '', a.hasAttribute('data-zoom'), items, group.indexOf(a));
     });
   });
 
@@ -443,7 +492,16 @@
     });
     if (main) {
       main.style.cursor = 'zoom-in';
-      main.addEventListener('click', function () { openLightbox(main.currentSrc || main.src, main.alt); });
+      main.addEventListener('click', function () {
+        // every photo in this gallery (its thumbnails, without the 3D tour) opens as one set with arrows
+        var list = Array.prototype.filter.call(viewer.querySelectorAll('.thumb[data-src]'), function (th) { return !th.getAttribute('data-tour'); });
+        var at = -1; list.forEach(function (th, i) { if (th.classList.contains('is-active')) at = i; });
+        if (list.length > 1 && at >= 0) {
+          var items = list.map(function (th) { var ti = th.querySelector('img'); return { src: th.getAttribute('data-src'), alt: ti ? ti.alt : main.alt }; });
+          // on close, the page gallery moves to the photo the visitor stopped on
+          openLightbox(items[at].src, items[at].alt, false, items, at, function (i) { if (i !== at) list[i].click(); });
+        } else openLightbox(main.currentSrc || main.src, main.alt);
+      });
     }
   });
 

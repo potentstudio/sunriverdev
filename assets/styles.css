@@ -2541,6 +2541,29 @@ img.dv-logo { display: block; width: 300px; max-width: 100%; height: auto; margi
 .lightbox .lb-ctl button[data-z="fit"] { width: 60px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
 .lightbox .lb-ctl button:hover { background: var(--sun-yellow); }
 .lb-hint { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); margin: 0; color: rgba(255, 255, 255, .75); font-size: 13px; white-space: nowrap; }
+/* A photo that is part of a set: arrows at the screen edges, a count under the photo, the close button in the corner */
+.lightbox.lb-gallery .lb-frame { max-width: min(1200px, 100vw - 220px); }
+.lightbox.lb-gallery .lb-stage img { max-width: calc(min(1200px, 100vw - 220px) - 24px); max-height: calc(100vh - 150px); transition: opacity .15s; }
+.lightbox.lb-gallery.is-loading .lb-stage img { opacity: .55; }
+.lightbox .lb-arrow { position: absolute; top: 50%; z-index: 3; display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; color: #143250; transform: translateY(-50%); cursor: pointer; transition: background-color .2s; }
+.lightbox .lb-arrow svg { width: 22px; height: 22px; }
+.lightbox .lb-prev { left: 28px; }
+.lightbox .lb-next { right: 28px; }
+.lightbox .lb-arrow:hover, .lightbox .lb-arrow:focus-visible { background: var(--sun-yellow); outline: none; }
+.lightbox.lb-gallery .lb-close { position: fixed; top: 24px; right: 28px; width: 52px; height: 52px; box-shadow: none; }
+.lightbox.lb-gallery .lb-close svg { width: 20px; height: 20px; }
+.lb-count { width: 100%; max-width: none; margin: 14px 0 0; color: #FFFFFF; font: 600 15px/1.2 var(--font-sans); text-align: center; cursor: default; }
+@media (max-width: 800px) {
+  .lightbox.lb-gallery { padding: 12px; }
+  .lightbox.lb-gallery .lb-frame { max-width: calc(100vw - 24px); }
+  .lightbox.lb-gallery .lb-card { padding: 6px; border-radius: 14px; }
+  .lightbox.lb-gallery .lb-stage img { max-width: calc(100vw - 36px); max-height: calc(100vh - 170px); }
+  .lightbox .lb-arrow { width: 42px; height: 42px; background: rgba(255, 255, 255, .92); box-shadow: 0 4px 14px rgba(20, 50, 80, .25); }
+  .lightbox .lb-arrow svg { width: 18px; height: 18px; }
+  .lightbox .lb-prev { left: 10px; }
+  .lightbox .lb-next { right: 10px; }
+  .lightbox.lb-gallery .lb-close { top: 12px; right: 12px; width: 44px; height: 44px; }
+}
 @media (max-width: 600px) { .lightbox.is-zoom .lb-stage img { max-height: calc(100vh - 180px); } .lb-hint { display: none; } }
 
 /* Homepage parallax (site.js): images drift slightly within their frames */
@@ -2654,6 +2677,10 @@ button.filters-title { display: flex; align-items: center; justify-content: spac
 .lightbox.lb-light .lb-close { box-shadow: 0 6px 18px rgba(20, 50, 80, .25); }
 .lightbox.lb-light .lb-hint { color: #335A97; }
 .lightbox.lb-light .lb-ctl { box-shadow: 0 6px 20px rgba(20, 50, 80, .2); }
+.lightbox.lb-light .lb-arrow, .lightbox.lb-light.lb-gallery .lb-close { background: rgba(20, 50, 80, .1); box-shadow: none; }
+.lightbox.lb-light .lb-arrow:hover, .lightbox.lb-light .lb-arrow:focus-visible, .lightbox.lb-light.lb-gallery .lb-close:hover, .lightbox.lb-light.lb-gallery .lb-close:focus-visible { background: var(--sun-yellow); }
+.lightbox.lb-light .lb-count { color: #143250; }
+@media (max-width: 800px) { .lightbox.lb-light .lb-arrow { background: rgba(255, 255, 255, .92); } }
 
 /* ================================================================== Ad landing pages (/firelight-bing, /discovery-villas-meta)
    Laid out like the same pages on the old sunriver.com, under the regular white header bar. */
