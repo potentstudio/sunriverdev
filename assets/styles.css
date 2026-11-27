@@ -1630,6 +1630,13 @@ details.faq .answer { padding-bottom: 24px; display: grid; gap: 12px; font-famil
 .fh-blog h1::after { margin-top: 10px; }
 .fh-blog::before { background: linear-gradient(180deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, 0) 30%); }
 .fh-blog h1, .fh-blog .fh-sub, .fh-blog .fh-eyebrow { color: #335A97; text-shadow: none; }
+/* Bucketlist Living banner without a line under the wordmark: same height as before, wordmark centred top to bottom */
+.fah-hero.fh-blog.fh-solo { height: 481px; min-height: 0; }
+/* centred in the open sky below the logo and menu, which end 133px down on desktop and 80px down on tablets and phones */
+.fah-hero:not(.keep-tall).fh-blog.fh-solo .fah-hero-inner { justify-content: center; height: 100%; padding-top: 133px; padding-bottom: 0; }
+@media (max-width: 1023px) { .fah-hero:not(.keep-tall).fh-blog.fh-solo .fah-hero-inner { padding-top: 80px; } }
+@media (max-width: 860px) { .fah-hero.fh-blog.fh-solo { height: 431px; } }
+@media (max-width: 600px) { .fah-hero.fh-blog.fh-solo { height: 400px; } }
 .fh-hero + .tabbar { margin-top: 0; }
 @media (max-width: 860px) {
   .fh-hero { height: 500px; }

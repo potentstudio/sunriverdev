@@ -653,8 +653,9 @@ def blog_listing(posts, base, title_html, intro_html, page_title, description, c
 def build_blog(posts):
     posts = sorted(posts, key=lambda p: p.get("publishDate") or "", reverse=True)
     cats = sorted(set(c for p in posts for c in (p.get("categories") or []) if c))
+    # Clark, Nov 2026: no line under the wordmark; the banner keeps its height and the wordmark sits in the middle (fh-solo)
     banner = full_hero(img(V("bucketlist-wordmark.3qnr5_89a42b3.png"), "Bucketlist Living", "wordmark", "eager"),
-                       "Stories, events and guides from SunRiver Firelight and Southern Utah.", src=V("bucketlist-banner.02if0nz4sgehw.webp"), cls="fh-blog")
+                       src=V("bucketlist-banner.02if0nz4sgehw.webp"), cls="fh-blog fh-solo")
     blog_listing(posts, "/bucketlistliving", banner, "", "#bucketlistliving", "Bucketlist Living: stories, events and guides from SunRiver Firelight and Southern Utah.", cats)
     for c in cats:
         cp = [p for p in posts if c in (p.get("categories") or [])]
