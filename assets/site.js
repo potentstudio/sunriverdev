@@ -1525,3 +1525,32 @@ document.querySelectorAll("[data-htl]").forEach(function (tl) {
     t.setAttribute('aria-expanded', String(open));
   });
 })();
+
+// Email signup card (#sr-pop): the small "Stay Connected" card in the bottom right corner. It slides in 15 seconds
+// after a page loads, on screens 700px and wider. Closing it or signing up keeps it away for 30 days (this browser).
+// Its form is an ordinary data-hs-form, so the Forms block above sends it to HubSpot.
+(function () {
+  var pop = document.getElementById('sr-pop');
+  if (!pop) return;
+  var KEY = 'sr_pop_closed', DAYS = 30, DELAY = 15000;
+  function recently() { try { var t = +localStorage.getItem(KEY); return !!t && Date.now() - t < DAYS * 864e5; } catch (e) { return false; } }
+  function remember() { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} }
+  function hide() { pop.classList.remove('is-in'); setTimeout(function () { pop.hidden = true; }, 320); }
+  function show() {
+    if (recently() || window.innerWidth < 700) return;
+    // HubSpot's own popup is still switched on for this visitor: never show both
+    if (document.querySelector('[id^="hs-overlay-cta"]')) return;
+    // not while someone is typing in a form, looking at a photo or video, or has the menu open: try again shortly
+    var a = document.activeElement;
+    if ((a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) || document.querySelector('.lightbox, .vid-modal, .m-nav:not([hidden])')) { setTimeout(show, 5000); return; }
+    pop.hidden = false;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { pop.classList.add('is-in'); }); });
+  }
+  pop.querySelector('.sr-pop-x').addEventListener('click', function () { remember(); hide(); });
+  pop.addEventListener('keydown', function (e) { if (e.key === 'Escape') { remember(); hide(); } });
+  var form = pop.querySelector('form');
+  if (form && window.MutationObserver) {
+    new MutationObserver(function () { if (form.classList.contains('is-sent')) { remember(); setTimeout(hide, 9000); } }).observe(form, { attributes: true, attributeFilter: ['class'] });
+  }
+  if (!recently()) setTimeout(show, DELAY);
+})();

@@ -31,6 +31,7 @@ HS_FORMS = {
     "villas": "e131ea33-9c06-4fc3-982a-3691be90369f",         # Discovery Villas stay request
     "villas-meta": "c7814775-6e25-4a6b-bc6d-6c66654fbcb1",    # Discovery Villas landing page for Meta ads
     "firelight-bing": "1392ee00-fac4-421e-bde8-f6e44b4497b7", # SunRiver Firelight landing page for Microsoft ads
+    "popup": "f5888022-a15e-429d-a670-aa6f54329cd6",          # email-only form behind the "Stay Connected" popup
 }
 # Thank-you lines, copied from each HubSpot form's own confirmation message
 HS_THANKS = {
@@ -40,6 +41,7 @@ HS_THANKS = {
     "villas": "A member of the SunRiver team will be in touch shortly to finalize details and confirm availability of your requested date!",
     "villas-meta": "A member of the SunRiver team will be in touch shortly to finalize details and confirm availability of your requested date!",
     "firelight-bing": "Thank you! A SunRiver agent will send current availability and pricing within one business day.",
+    "popup": "Thank you for your interest! Check your inbox for a message from the SunRiver team.",
 }
 # Conversions HubSpot's ads integration fires for these forms on sunriver.com (read from the portal's public
 # pixel config). site.js fires the same ones after a successful submission.
@@ -594,6 +596,25 @@ FONTS = '''<style>
 </style>''' % (V("ABCGintoMedium-s.p.1gnfcs1mxia21.otf"), V("ABCGintoBlack-s.p.06eqbvszkm88h.otf"), V("TiemposTextMedium-s.p.1nnfz5h4rihgs.otf"))
 
 
+def signup_card():
+    """The small "Stay Connected" email card that slides into the bottom right corner (Clark, Nov 2026). It replaces the
+    large centred popup that HubSpot used to show, and posts to the same HubSpot form. It is on every page, hidden;
+    the "Email signup card" block in site.js decides when to show it."""
+    return '''<aside class="sr-pop" id="sr-pop" aria-label="Stay connected with SunRiver Communities" hidden>
+  <button type="button" class="sr-pop-x" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  <p class="sr-pop-h">Stay Connected with SunRiver Communities</p>
+  <form class="sr-pop-form" %s novalidate aria-label="Email signup">
+    <div class="sr-pop-row">
+      <label class="sr-only" for="sr-pop-email">Email</label>
+      <input id="sr-pop-email" name="email" type="email" autocomplete="email" placeholder="Email*" required>
+      <button type="submit">Submit</button>
+    </div>
+    %s
+    <p class="form-note" role="status" hidden></p>
+  </form>
+</aside>''' % (hs_attrs("popup"), HONEYPOT)
+
+
 def add(path, title, description, active, body, body_class=""):
     full_title = title if SITE_NAME in title else "%s | %s" % (title, SITE_NAME)
     if body.lstrip().startswith('<section class="fah-hero') and not active.endswith("-overlay"):
@@ -629,11 +650,12 @@ def add(path, title, description, active, body, body_class=""):
 %s
 </main>
 %s
+%s
 <script src="/assets/site.js?v=%s" defer></script>
 </body>
 </html>
 ''' % (esc(full_title), esc(description), esc(full_title), esc(description), FONTS, preload_link(body), asset_v("styles.css"), TRACKING,
-       ' class="%s"' % body_class if body_class else "", header(active), body, footer(), asset_v("site.js"))
+       ' class="%s"' % body_class if body_class else "", header(active), body, footer(), signup_card(), asset_v("site.js"))
     assert "—" not in doc, "em dash found on %s" % path
     PAGES[path] = doc
 

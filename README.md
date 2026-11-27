@@ -33,6 +33,11 @@ Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by 
   a submission from a domain listed under Settings > Tracking & Analytics > Tracking Code > Advanced Tracking > Additional site
   domains. From any other host (a preview, sunriverdev.vercel.app unless it is added there) the form still shows its thank-you,
   but HubSpot files the submission under the form's Blocked Submissions as "Unregistered Site Domain" and creates no contact.
+- **Email signup card**: the small "Stay Connected" card that slides into the bottom right corner 15 seconds after a page
+  loads (700px and wider; closing it or signing up keeps it away for 30 days). The markup is `signup_card()` in
+  `sitegen/lib.py`, the timing is the "Email signup card" block at the end of `assets/site.js`, the styles are at the end
+  of `assets/styles.css`. It posts to the HubSpot form `HS_FORMS["popup"]`. It replaces the large centred popup that
+  was a HubSpot CTA; while that CTA is still published in HubSpot the card stays hidden so visitors never get both.
 - **Tracking** (`TRACKING` in `sitegen/lib.py`): Google Tag Manager, Google Ads, Google Analytics, HubSpot, Microsoft Ads and
   the Meta pixel, the same ids as the old site. They load only on sunriver.com. To test elsewhere, run
   `localStorage.setItem("sr_track", "1")` in the browser console and reload.
