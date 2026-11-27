@@ -205,6 +205,46 @@
   var vid = document.querySelector('.home-hero-media');
   if (vid && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { vid.removeAttribute('autoplay'); vid.pause(); }
 
+  // ---------- Phone fields: every input[type=tel] formats itself as (xxx) xxx-xxxx while it is typed, pasted or
+  // filled in by the browser. A number that starts with "+" and is not +1 is left exactly as typed (international).
+  function phoneFormat(raw) {
+    var d = String(raw).replace(/\D/g, '');
+    if (d.length > 10 && d.charAt(0) === '1') d = d.slice(1); // a leading US country code from autofill or paste
+    d = d.slice(0, 10);
+    if (!d) return '';
+    if (d.length < 4) return '(' + d;
+    if (d.length < 7) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
+    return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+  }
+  function phoneInternational(v) { v = v.replace(/^\s+/, ''); return v.charAt(0) === '+' && !/^\+\s*1(\D|$)/.test(v) && !/^\+\s*1\d/.test(v); }
+  function phoneApply(el, e) {
+    var v = el.value;
+    if (phoneInternational(v)) { el.removeAttribute('maxlength'); return; }
+    var caret = el.selectionStart == null ? v.length : el.selectionStart;
+    var before = v.slice(0, caret).replace(/\D/g, '').length; // digits to the left of the cursor
+    var digits = v.replace(/\D/g, '');
+    // Backspace over a bracket, space or dash would otherwise do nothing: take the digit in front of it instead
+    if (e && e.inputType === 'deleteContentBackward' && el._phoneDigits === digits && before > 0) {
+      digits = digits.slice(0, before - 1) + digits.slice(before); before -= 1;
+    }
+    if (digits.length > 10 && digits.charAt(0) === '1') { digits = digits.slice(1); before = Math.max(0, before - 1); }
+    var out = phoneFormat(digits);
+    el._phoneDigits = out.replace(/\D/g, '');
+    if (out !== v) el.value = out;
+    if (document.activeElement === el && el.setSelectionRange) {
+      var pos = 0, seen = 0;
+      while (pos < out.length && seen < before) { if (/\d/.test(out.charAt(pos))) seen++; pos++; }
+      if (before >= el._phoneDigits.length) pos = out.length; // typing at the end: stay after the bracket or dash
+      try { el.setSelectionRange(pos, pos); } catch (err) { /* some browsers do not allow it on type=tel */ }
+    }
+  }
+  document.addEventListener('input', function (e) { var el = e.target; if (el && el.tagName === 'INPUT' && el.type === 'tel') phoneApply(el, e); });
+  document.addEventListener('change', function (e) { var el = e.target; if (el && el.tagName === 'INPUT' && el.type === 'tel') phoneApply(el); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[type="tel"]'), function (el) {
+    el.setAttribute('inputmode', 'tel');
+    if (el.value) phoneApply(el); // a value the browser restored or filled in before this script ran
+  });
+
   // ---------- Forms: every form with data-hs-form posts to the HubSpot form of that id (the same forms the old
   // sunriver.com embedded), through HubSpot's public submission API. Field names are HubSpot contact property names.
   //   data-hs-bool   a single yes/no checkbox, sent as "true" or "false"
