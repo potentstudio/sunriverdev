@@ -1611,6 +1611,9 @@ details.faq .answer { padding-bottom: 24px; display: grid; gap: 12px; font-famil
 .bl-pager { max-width: 1034px; margin-top: 64px; justify-content: center; }
 .bl-page-of { max-width: 1034px; margin-top: 16px; color: #335A97; font-size: 13px; text-align: center; }
 @media (max-width: 860px) { .fl-promo-wrap.bl-feature { padding-bottom: 72px; } }
+/* the latest story now sits straight under the banner (the intro above it was removed), so it brings its own space */
+.fl-promo-wrap.bl-feature.bl-feature-top { padding-top: 96px; }
+@media (max-width: 860px) { .fl-promo-wrap.bl-feature.bl-feature-top { padding-top: 60px; } }
 
 /* Sitewide page hero (same treatment as Homes for Sale): full-bleed photo up under the floating header */
 .fh-hero { height: 600px; background: #6E8FB8; }

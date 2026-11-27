@@ -611,13 +611,7 @@ def blog_listing(posts, base, title_html, intro_html, page_title, description, c
             if len(excerpt) > 190:
                 excerpt = excerpt[:190].rsplit(" ", 1)[0].rstrip(",.;:") + "..."
             lead = '''
-<section class="li-intro li-lead">
-  <div class="wrap li-in">
-    <h2>Stories from the people who live here.</h2>
-    <p class="li-serif"><strong><mark>Bucketlist Living</mark> is where SunRiver Members tell their stories.</strong></p>
-  </div>
-</section>
-<section class="fl-promo-wrap bl-feature">
+<section class="fl-promo-wrap bl-feature bl-feature-top">
   <div class="wrap li-in">
     <p class="li-eyebrow">Latest story</p>
     <a class="fl-promo" href="/bucketlistliving/%s" aria-label="Read %s">
