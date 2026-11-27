@@ -38,6 +38,13 @@ Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by 
   `sitegen/lib.py`, the timing is the "Email signup card" block at the end of `assets/site.js`, the styles are at the end
   of `assets/styles.css`. It posts to the HubSpot form `HS_FORMS["popup"]`. It replaces the large centred popup that
   was a HubSpot CTA; while that CTA is still published in HubSpot the card stays hidden so visitors never get both.
+- **Home listing pages** (`build_listing()` and `listing_media()` in `sitegen/pages_cms.py`): the photos sit at the top.
+  Five or more photos and videos make a mosaic; fewer show one wide photo, with any video tours in a column beside it.
+  A listing's YouTube video tours come right after its first photo as tiles with a play button (there is no separate
+  video section). Any tile opens the full-screen "Photo viewer" (end of `assets/site.js`), where videos play in place.
+  SunRiver Firelight homes also show the community map zoomed in on their homesite (`locator()` in `sitegen/lotmap.py`
+  and the "Homesite locator" block in `assets/site.js`). Styles: the "Listing page" and "Photo viewer" blocks in
+  `assets/styles.css`.
 - **Tracking** (`TRACKING` in `sitegen/lib.py`): Google Tag Manager, Google Ads, Google Analytics, HubSpot, Microsoft Ads and
   the Meta pixel, the same ids as the old site. They load only on sunriver.com. To test elsewhere, run
   `localStorage.setItem("sr_track", "1")` in the browser console and reload.
