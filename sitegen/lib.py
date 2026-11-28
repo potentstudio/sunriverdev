@@ -596,23 +596,33 @@ FONTS = '''<style>
 </style>''' % (V("ABCGintoMedium-s.p.1gnfcs1mxia21.otf"), V("ABCGintoBlack-s.p.06eqbvszkm88h.otf"), V("TiemposTextMedium-s.p.1nnfz5h4rihgs.otf"))
 
 
+POP_TILES = ["pickleball", "clubhouse", "cycling", "homes", "at-home", "pool", "hiking", "yoga"]
+
+
 def signup_card():
-    """The small "Stay Connected" email card that slides into the bottom right corner (Clark, Nov 2026). It replaces the
-    large centred popup that HubSpot used to show, and posts to the same HubSpot form. It is on every page, hidden;
-    the "Email signup card" block in site.js decides when to show it."""
-    return '''<aside class="sr-pop" id="sr-pop" aria-label="Stay connected with SunRiver Communities" hidden>
+    """The small email card that slides into the bottom right corner (Clark, Nov 2026): a row of small photos drifting
+    past, a headline, one line about what you get and the email field. It replaces the large centred popup that HubSpot
+    used to show, and posts to the same HubSpot form. It is on every page, hidden; the "Email signup card" block in
+    site.js decides when to show it. The photos are 208px squares in assets/img/pop (cropped from photos already on
+    the site); they are decoration, so they have no alt text, and the row is written twice so it can loop."""
+    tiles = "".join('<img src="/assets/img/pop/%s.webp" alt="" width="92" height="92" loading="lazy" decoding="async">' % t for t in POP_TILES)
+    return '''<aside class="sr-pop" id="sr-pop" aria-label="Email signup" hidden>
+  <div class="sr-pop-reel" aria-hidden="true"><div class="sr-pop-track">%s%s</div></div>
   <button type="button" class="sr-pop-x" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-  <p class="sr-pop-h">Stay Connected with SunRiver Communities</p>
-  <form class="sr-pop-form" %s novalidate aria-label="Email signup">
-    <div class="sr-pop-row">
-      <label class="sr-only" for="sr-pop-email">Email</label>
-      <input id="sr-pop-email" name="email" type="email" autocomplete="email" placeholder="Email*" required>
-      <button type="submit">Submit</button>
-    </div>
-    %s
-    <p class="form-note" role="status" hidden></p>
-  </form>
-</aside>''' % (hs_attrs("popup"), HONEYPOT)
+  <div class="sr-pop-body">
+    <p class="sr-pop-h">Slowing down is overrated.</p>
+    <p class="sr-pop-p">Get new homes, stories and news from SunRiver Communities in your inbox.</p>
+    <form class="sr-pop-form" %s novalidate aria-label="Email signup">
+      <div class="sr-pop-row">
+        <label class="sr-only" for="sr-pop-email">Email</label>
+        <input id="sr-pop-email" name="email" type="email" autocomplete="email" placeholder="name@email.com" required>
+        <button type="submit">Sign me up</button>
+      </div>
+      %s
+      <p class="form-note" role="status" hidden></p>
+    </form>
+  </div>
+</aside>''' % (tiles, tiles, hs_attrs("popup"), HONEYPOT)
 
 
 def add(path, title, description, active, body, body_class=""):

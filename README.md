@@ -33,7 +33,8 @@ Note: the Netlify-only files (`netlify.toml`, `dist/_redirects`) are ignored by 
   a submission from a domain listed under Settings > Tracking & Analytics > Tracking Code > Advanced Tracking > Additional site
   domains. From any other host (a preview, sunriverdev.vercel.app unless it is added there) the form still shows its thank-you,
   but HubSpot files the submission under the form's Blocked Submissions as "Unregistered Site Domain" and creates no contact.
-- **Email signup card**: the small "Stay Connected" card that slides into the bottom right corner 15 seconds after a page
+- **Email signup card**: the small card ("Slowing down is overrated.", with a row of drifting photos from
+  `assets/img/pop`) that slides into the bottom right corner 15 seconds after a page
   loads (700px and wider; closing it or signing up keeps it away for 30 days). The markup is `signup_card()` in
   `sitegen/lib.py`, the timing is the "Email signup card" block at the end of `assets/site.js`, the styles are at the end
   of `assets/styles.css`. It posts to the HubSpot form `HS_FORMS["popup"]`. It replaces the large centred popup that

@@ -2760,27 +2760,38 @@ body.landing main > section:first-child { padding-top: clamp(36px, 5vw, 76px); }
 }
 
 /* ===== Email signup card: small, bottom right, slides in (Clark, Nov 2026). Shown by the "Email signup card" block in site.js ===== */
-.sr-pop { position: fixed; right: 24px; bottom: 24px; z-index: 90; box-sizing: border-box; width: 360px; max-width: calc(100vw - 48px); padding: 24px 22px 22px; border-top: 6px solid var(--sun-yellow); border-radius: 20px; background: #FFFFFF; box-shadow: 0 18px 50px rgba(20, 50, 80, .28); opacity: 0; transform: translateY(18px); transition: opacity .3s ease, transform .3s ease; }
+.sr-pop { position: fixed; right: 24px; bottom: 24px; z-index: 90; box-sizing: border-box; width: 400px; max-width: calc(100vw - 48px); border-radius: 22px; background: #FFFFFF; box-shadow: 0 18px 50px rgba(20, 50, 80, .28); overflow: hidden; opacity: 0; transform: translateY(18px); transition: opacity .3s ease, transform .3s ease; }
 .sr-pop[hidden] { display: none; }
 .sr-pop.is-in { opacity: 1; transform: none; }
-.sr-pop-x { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; background: rgba(20, 50, 80, .08); color: #143250; cursor: pointer; }
+/* the row of small photos drifting past: the same eight twice, moved left by half its width, so it loops without a jump */
+.sr-pop-reel { padding: 18px 0 0; overflow: hidden; }
+.sr-pop-track { display: flex; gap: 10px; width: max-content; padding-left: 18px; animation: sr-pop-reel 48s linear infinite; }
+.sr-pop-track img { flex: none; display: block; width: 92px; height: 92px; border-radius: 16px; object-fit: cover; background: #F0EBE4; }
+.sr-pop:hover .sr-pop-track { animation-play-state: paused; }
+@keyframes sr-pop-reel { to { transform: translateX(-816px); } } /* one set: 8 photos of 92px plus 10px gaps */
+.sr-pop-x { position: absolute; top: 10px; right: 10px; z-index: 2; display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; color: #143250; box-shadow: 0 2px 8px rgba(20, 50, 80, .22); cursor: pointer; transition: background-color .2s; }
 .sr-pop-x svg { width: 12px; height: 12px; }
 .sr-pop-x:hover, .sr-pop-x:focus-visible { background: var(--sun-yellow); outline: none; }
-.sr-pop-h { max-width: none; margin: 0; padding-right: 28px; color: #143250; font: 900 22px/25px var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
-.sr-pop-row { display: flex; gap: 8px; margin-top: 18px; }
-.sr-pop-row input { flex: 1 1 auto; min-width: 0; height: 44px; padding: 0 16px; border: 1.5px solid rgba(50, 90, 150, .28); border-radius: 999px; background: #FFFFFF; color: #143250; font: 500 15px/1 var(--font-display); }
+.sr-pop-body { padding: 20px 20px 20px; }
+.sr-pop-h { max-width: none; margin: 0; color: #143250; font: 900 24px/1.1 var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+.sr-pop-p { max-width: none; margin: 8px 0 0; color: var(--sunriver-blue); font: 500 15px/1.45 var(--font-display); letter-spacing: -0.01em; }
+/* the email field and its button share one pill */
+.sr-pop-row { display: flex; align-items: center; gap: 6px; height: 50px; margin-top: 16px; padding: 0 6px 0 18px; border: 1.5px solid transparent; border-radius: 999px; background: #F4EFE9; transition: border-color .2s, background-color .2s; }
+.sr-pop-row:focus-within { border-color: var(--sunriver-blue); background: #FFFFFF; }
+.sr-pop-row:has(input.is-invalid) { border-color: #C0392B; }
+.sr-pop-row input { flex: 1 1 auto; min-width: 0; height: 100%; padding: 0; border: 0; background: transparent; color: #143250; font: 500 15px/1 var(--font-display); }
 .sr-pop-row input::placeholder { color: rgba(50, 90, 150, .6); }
-.sr-pop-row input:focus { border-color: var(--sunriver-blue); outline: none; }
-.sr-pop-row input.is-invalid { border-color: #C0392B; box-shadow: 0 0 0 1px #C0392B inset; }
-.sr-pop-row button { flex: none; height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--sun-yellow); color: #143250; font: 900 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background-color .2s; }
+.sr-pop-row input:focus { outline: none; }
+.sr-pop-row button { flex: none; height: 38px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--sun-yellow); color: #143250; font: 900 14px/1 var(--font-display); letter-spacing: -0.01em; cursor: pointer; transition: background-color .2s; }
 .sr-pop-row button:hover, .sr-pop-row button:focus-visible { background: var(--sun-yellow-deep); outline: none; }
 .sr-pop-row button:disabled { opacity: .7; cursor: default; }
 .sr-pop .form-note { max-width: none; margin: 12px 0 0; color: var(--sunriver-blue); font-size: 14px; line-height: 1.4; }
 .sr-pop-form.is-sent .sr-pop-row { display: none; }
+.sr-pop-body:has(.sr-pop-form.is-sent) .sr-pop-p { display: none; } /* after signing up: the headline and the thank-you only */
 .sr-pop-form.is-sent .form-note { margin-top: 14px; font-size: 15px; }
-/* phones: not shown, the same as the HubSpot popup it replaces */
+
 @media (max-width: 699px) { .sr-pop { display: none !important; } }
-@media (prefers-reduced-motion: reduce) { .sr-pop { transition: none; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sr-pop { transition: none; transform: none; } .sr-pop-track { animation: none; } }
 @media print { .sr-pop { display: none !important; } }
 
 /* ===== Listing page, Nov 2026 layout: photo mosaic, address with the numbers beside it, side column, community map ===== */

@@ -1484,7 +1484,7 @@ document.querySelectorAll("[data-htl]").forEach(function (tl) {
   });
 })();
 
-// Email signup card (#sr-pop): the small "Stay Connected" card in the bottom right corner. It slides in 15 seconds
+// Email signup card (#sr-pop): the small card with the drifting photos in the bottom right corner. It slides in 15 seconds
 // after a page loads, on screens 700px and wider. Closing it or signing up keeps it away for 30 days (this browser).
 // Its form is an ordinary data-hs-form, so the Forms block above sends it to HubSpot.
 (function () {
